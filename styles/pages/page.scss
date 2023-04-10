@@ -1,0 +1,76 @@
+@use "../global" as *;
+
+html {
+  scrollbar-width: none !important;
+}
+
+html body::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.page-wrapper {
+  width: 100%;
+  position: relative;
+}
+
+.page-image {
+  display: flex;
+  width: 40vw;
+  height: 40vw;
+  min-width: 400px;
+  min-height: 400px;
+
+  &-wrap {
+    display: flex;
+    width: 100%;
+    height: 100dvh;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.page-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 300dvh;
+  z-index: 6;
+}
+
+.back {
+  position: absolute;
+  top: 10%;
+  left: 5%;
+
+  &-wrap {
+    position: relative;
+    width: 100%;
+  }
+}
+
+.page-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  &-main {
+    font-size: 5rem;
+    margin-right: 5rem;
+    opacity: 0;
+
+    @include sp {
+      font-size: 3rem;
+    }
+  }
+  &-sub {
+    font-size: 3rem;
+    margin-left: 5rem;
+    opacity: 0;
+    @include sp {
+      font-size: 2rem;
+    }
+  }
+}
