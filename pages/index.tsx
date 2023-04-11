@@ -19,32 +19,32 @@ interface Data {
 
 export const imageDatas: Data[] = [
   {
-    main: "Title 1",
-    subtitle: "Subtitle",
+    main: "京都",
+    subtitle: "駅の花屋",
     imagePath: "/img/1.jpg",
     maskPath: "/img/mask1.jpeg",
   },
   {
-    main: "Title 2",
-    subtitle: "Subtitle",
+    main: "祇園",
+    subtitle: "四条",
     imagePath: "/img/2.jpg",
     maskPath: "/img/mask2.jpeg",
   },
   {
-    main: "Title 3",
-    subtitle: "Subtitle",
+    main: "嵐山",
+    subtitle: "竹の道",
     imagePath: "/img/3.jpg",
     maskPath: "/img/mask3.jpeg",
   },
   {
-    main: "Title 4",
-    subtitle: "Subtitle",
+    main: "京都",
+    subtitle: "とあるまち",
     imagePath: "/img/4.jpg",
     maskPath: "/img/mask4.jpeg",
   },
   {
-    main: "Title 5",
-    subtitle: "Subtitle",
+    main: "京都",
+    subtitle: "伏見稲荷大社",
     imagePath: "/img/5.jpg",
     maskPath: "/img/mask5.jpeg",
   },
@@ -191,10 +191,10 @@ export default function Home() {
             <div className="spacer"></div>
             <div className="titles">
               <div className="mainTitle-wrap">
-                <div className="mainTitle">Title {index + 1}</div>
+                <div className="mainTitle">{data.main}</div>
               </div>
               <div className="subtitle-wrap">
-                <div className="subtitle">Subtitle</div>
+                <div className="subtitle">{data.subtitle}</div>
               </div>
             </div>
             <Image

@@ -9,24 +9,24 @@ const max = 5;
 const distance = 1300;
 export const theme = [
   {
-    background: "#a0a0a0",
-    color: "#f8cfcf",
+    background: "#e7e0d8",
+    color: "#ab4f43",
   },
   {
-    background: "#f8cfcf",
-    color: "#E30A08",
+    background: "#bfca8c",
+    color: "#050402",
   },
   {
-    background: "#e0e7ff",
-    color: "#d56cfe",
+    background: "#cac6c3",
+    color: "#243702",
   },
   {
-    background: "#ecf69a",
-    color: "#3BE366",
+    background: "#f7f7ef",
+    color: "#ad9370",
   },
   {
-    background: "#abb1fd",
-    color: "#d56cfe",
+    background: "#a8a7b4",
+    color: "#ba3d02",
   },
 ];
 
