@@ -121,7 +121,7 @@ export class Item extends MyObject3D {
     this._needUpdate = false;
   }
   public scroll(scroll: number) {
-    this.position.y = scroll;
+    this.position.y = scroll - 150;
   }
 }
 

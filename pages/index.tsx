@@ -96,7 +96,7 @@ export default function Home() {
         timeline!.add(
           gsap.to(image, {
             x: -Func.instance.sw() * 0.2 - 16,
-            y: 100,
+            y: 150,
             ease: "elastic",
             duration: 1.5,
           }),

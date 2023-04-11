@@ -67,7 +67,7 @@ const Page = () => {
       timeline!.add(
         gsap.to(".page-image", {
           x: Func.instance.sw() * 0.2 + 16,
-          y: -100,
+          y: -150,
           ease: "elastic",
           delay: 1,
           duration: 1.5,
