@@ -116,7 +116,8 @@ export default function Home() {
     timeline!.add(
       gsap.to(Param.instance.main.progress, {
         value: 2.2,
-        duration: 1.8,
+        duration: 1.3,
+        ease: "linear",
         onComplete: () => {
           global.lenis!.start();
           document.documentElement.style.pointerEvents = "auto";

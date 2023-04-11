@@ -1,4 +1,4 @@
-import { useState, createContext, Dispatch, SetStateAction } from "react";
+import { useState, createContext } from "react";
 import gsap from "gsap";
 
 interface TransitionContextProps {

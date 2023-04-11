@@ -20,7 +20,6 @@ export class Images {
       );
       global.images.push(item);
       container.add(item);
-      // this.items.push(item);
     });
   }
 }
@@ -73,7 +72,7 @@ export class Item extends MyObject3D {
     this._width = width;
     this._height = height;
     this.position.set(posX, posY, 0.01);
-    this._mesh.scale.set(width * 2.55, height * 2.55, 1);
+    this._mesh.scale.set(width * 2.5, height * 2.5, 1);
   }
 
   private _updateResolution() {

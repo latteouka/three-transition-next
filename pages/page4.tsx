@@ -49,6 +49,7 @@ const Page = () => {
     timeline!.add(
       gsap.to(".page-wrapper", {
         backgroundColor: theme[index].background,
+        delay: 0.5,
         duration: 2,
       }),
       0
