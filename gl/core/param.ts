@@ -17,7 +17,7 @@ export class Param {
 
   public main = {
     progress: {
-      value: Func.instance.sw() > 800 ? -0.55 : -0.55,
+      value: Func.instance.sw() > 800 ? -0.58 : -0.58,
       min: -3,
       max: 3,
     },
