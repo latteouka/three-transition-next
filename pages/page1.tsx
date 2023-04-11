@@ -67,9 +67,6 @@ const Page = () => {
           ease: "elastic",
           delay: 1,
           duration: 1.5,
-          onComplete: () => {
-            console.log("complete");
-          },
         }),
         0
       );
@@ -80,9 +77,6 @@ const Page = () => {
           ease: "elastic",
           delay: 1,
           duration: 1.5,
-          onComplete: () => {
-            console.log("complete");
-          },
         }),
         0
       );
@@ -104,6 +98,9 @@ const Page = () => {
       gsap.fromTo(sub.current, { x: 100, opacity: 0 }, { x: 0, opacity: 1 });
     });
     Param.instance.main.progress.value = 3;
+    global.images.forEach((image) => {
+      image.show();
+    });
 
     return () => {
       ctx.revert();

@@ -2,7 +2,7 @@
 import { gsap } from "gsap";
 import useScroll from "@/utils/useScroll";
 import Link from "next/link";
-import { useContext, useRef } from "react";
+import { useContext } from "react";
 import { TransitionContext } from "@/utils/TransitionContext";
 import { useIsomorphicLayoutEffect } from "react-use";
 import { Func } from "@/gl/core/func";
@@ -51,14 +51,12 @@ export const imageDatas: Data[] = [
 ];
 
 export default function Home() {
-  console.log("home");
   const { timeline } = useContext(TransitionContext);
 
   useScroll();
 
   // outro
   useIsomorphicLayoutEffect(() => {
-    console.log("setup");
     const wraps = document.querySelectorAll(`.wrap`);
     const images = gsap.utils.toArray(".image");
     const main = wraps[global.activeIndex].querySelector(".mainTitle")!;
@@ -95,9 +93,6 @@ export default function Home() {
             x: -Func.instance.sw() * 0.2 - 16,
             ease: "elastic",
             duration: 1.5,
-            onComplete: () => {
-              console.log("complete");
-            },
           }),
           0
         );
@@ -107,9 +102,6 @@ export default function Home() {
             y: 80,
             ease: "elastic",
             duration: 1.5,
-            onComplete: () => {
-              console.log("complete");
-            },
           }),
           0
         );

@@ -88,7 +88,9 @@ export class Item extends MyObject3D {
 
   protected _update(): void {
     super._update();
-    this._updateWidthHeight();
+    if (this._needUpdate) {
+      this._updateWidthHeight();
+    }
     this._updateResolution();
     this._material.uniforms.u_time.value = Update.instance.elapsed;
     this._material.uniforms.u_progress.value =

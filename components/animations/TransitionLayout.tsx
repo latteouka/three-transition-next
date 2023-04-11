@@ -31,7 +31,6 @@ export default function TransitionLayout({
     //   scale: 1.2,
     //   duration: 2,
     // });
-    // console.log(background);
     // gsap.to(el.current, {
     //   background,
     //   duration: 1,

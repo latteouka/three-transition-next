@@ -67,9 +67,6 @@ const Page = () => {
           ease: "elastic",
           delay: 1,
           duration: 1.5,
-          onComplete: () => {
-            console.log("complete");
-          },
         }),
         0
       );
@@ -80,9 +77,6 @@ const Page = () => {
           ease: "elastic",
           delay: 1,
           duration: 1.5,
-          onComplete: () => {
-            console.log("complete");
-          },
         }),
         0
       );

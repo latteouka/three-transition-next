@@ -16,4 +16,8 @@ The idea and mask images are from [riv-studio](https://www.riv-studio.com/projec
 
 - 我的處理方式是「讓 threejs 元素一直留著，而且這樣下一頁我也能玩 threejs 的特效」，在兩頁中都放一個參照位置的 html，並且計算實際的位移，在 transition 的 outro/intro 中切換 threejs 物件參照的元素。
 
+- 但這樣處理 Responsive 就有點麻煩。
+
 - 原站沒有處理上一頁返回後的 transition，但因為看過很酷的實例所以想要試試看。總之要計算完全相同的位置加上 transition，把 scrollbar 取消避免寬度不一樣造成的閃動（但要另外做 scrollbar 的進度提示）。transition 不依賴 gsap 以外函式庫。
+
+## Todos
