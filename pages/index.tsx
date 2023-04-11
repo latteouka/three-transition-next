@@ -20,7 +20,7 @@ interface Data {
 export const imageDatas: Data[] = [
   {
     main: "京都",
-    subtitle: "駅の花屋",
+    subtitle: "錦市場",
     imagePath: "/img/1.jpg",
     maskPath: "/img/mask1.jpeg",
   },
@@ -38,7 +38,7 @@ export const imageDatas: Data[] = [
   },
   {
     main: "京都",
-    subtitle: "とあるまち",
+    subtitle: "稲荷駅",
     imagePath: "/img/4.jpg",
     maskPath: "/img/mask4.jpeg",
   },
