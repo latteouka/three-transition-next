@@ -88,10 +88,11 @@ export class Item extends MyObject3D {
 
   protected _update(): void {
     super._update();
+
     if (this._needUpdate) {
-      console.log("update");
       this._updateWidthHeight();
     }
+
     this._updateResolution();
     this._material.uniforms.u_time.value = Update.instance.elapsed;
     this._material.uniforms.u_progress.value =
@@ -116,6 +117,7 @@ export class Item extends MyObject3D {
     this._needUpdate = true;
   }
   public needUpdateFalse() {
+    this._update();
     this._needUpdate = false;
   }
   public scroll(scroll: number) {

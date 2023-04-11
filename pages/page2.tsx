@@ -13,7 +13,6 @@ import { imageDatas } from ".";
 const index = 1;
 
 const Page = () => {
-  console.log("page");
   const { timeline } = useContext(TransitionContext);
   const main = useRef(null);
   const sub = useRef(null);
@@ -23,13 +22,16 @@ const Page = () => {
 
   // out
   useIsomorphicLayoutEffect(() => {
-    console.log("page setup");
     // hide text
     timeline!.add(
       gsap.to(back.current, {
         opacity: 0,
         onStart: () => {
+          window.scrollTo({
+            top: 0,
+          });
           global.lenis?.stop();
+          global.images[index].needUpdateTrue();
         },
       }),
       0
@@ -91,10 +93,6 @@ const Page = () => {
   // in
   useIsomorphicLayoutEffect(() => {
     global.activeIndex = index;
-    global.lenis!.on("scroll", ({ scroll }: Lenis) => {
-      // console.log(scroll);
-      global.images[index].scroll(scroll);
-    });
     if (global.images.length > 0) {
       global.images[index].changeSeletor(".page-image");
     }
@@ -108,6 +106,16 @@ const Page = () => {
     return () => {
       ctx.revert();
     };
+  }, []);
+
+  useEffect(() => {
+    if (global.images.length === 0) return;
+    // disable position auto update
+    global.images[index].needUpdateFalse();
+
+    global.lenis!.on("scroll", ({ scroll }: Lenis) => {
+      global.images[index].scroll(scroll);
+    });
   }, []);
 
   return (

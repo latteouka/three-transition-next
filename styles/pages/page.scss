@@ -40,13 +40,11 @@ html body::-webkit-scrollbar {
 }
 
 .back {
-  position: absolute;
-  top: 10%;
-  left: 5%;
-
   &-wrap {
+    padding-top: 1rem;
     position: relative;
     width: 100%;
+    left: 5%;
   }
 }
 

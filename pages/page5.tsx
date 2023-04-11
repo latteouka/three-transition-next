@@ -20,13 +20,6 @@ const Page = () => {
 
   useLenis();
 
-  useEffect(() => {
-    global.activeIndex = index;
-    // global.lenis!.on("scroll", ({ scroll }: Lenis) => {
-    //   global.images[index].scroll(scroll);
-    // });
-  }, []);
-
   // out
   useIsomorphicLayoutEffect(() => {
     // hide text
@@ -35,6 +28,7 @@ const Page = () => {
         opacity: 0,
         onStart: () => {
           global.lenis?.stop();
+          global.images[index].needUpdateTrue();
         },
       }),
       0
@@ -95,6 +89,7 @@ const Page = () => {
 
   // in
   useIsomorphicLayoutEffect(() => {
+    global.activeIndex = index;
     if (global.images.length > 0) {
       global.images[index].changeSeletor(".page-image");
     }
@@ -108,6 +103,16 @@ const Page = () => {
     return () => {
       ctx.revert();
     };
+  }, []);
+
+  useEffect(() => {
+    if (global.images.length === 0) return;
+    // disable position auto update
+    global.images[index].needUpdateFalse();
+
+    global.lenis!.on("scroll", ({ scroll }: Lenis) => {
+      global.images[index].scroll(scroll);
+    });
   }, []);
 
   return (
