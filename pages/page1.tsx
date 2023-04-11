@@ -67,6 +67,7 @@ const Page = () => {
       timeline!.add(
         gsap.to(".page-image", {
           x: Func.instance.sw() * 0.2 + 16,
+          y: -100,
           ease: "elastic",
           delay: 1,
           duration: 1.5,
@@ -93,6 +94,7 @@ const Page = () => {
   // in
   useIsomorphicLayoutEffect(() => {
     global.activeIndex = index;
+
     if (global.images.length > 0) {
       global.images[index].changeSeletor(".page-image");
     }

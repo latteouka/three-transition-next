@@ -67,7 +67,12 @@ export default function Home() {
         backgroundColor: "#fff",
         duration: 1,
         onStart: () => {
+          document.documentElement.style.pointerEvents = "none";
           global.lenis!.stop();
+          global.images.forEach((image, index) => {
+            if (index === global.activeIndex) return;
+            image.hide();
+          });
         },
       }),
       0
@@ -91,6 +96,7 @@ export default function Home() {
         timeline!.add(
           gsap.to(image, {
             x: -Func.instance.sw() * 0.2 - 16,
+            y: 100,
             ease: "elastic",
             duration: 1.5,
           }),
@@ -112,11 +118,8 @@ export default function Home() {
         value: 2.2,
         duration: 1.8,
         onComplete: () => {
-          global.images.forEach((image, index) => {
-            if (index === global.activeIndex) return;
-            image.hide();
-          });
           global.lenis!.start();
+          document.documentElement.style.pointerEvents = "auto";
         },
       }),
       ">"
@@ -131,6 +134,7 @@ export default function Home() {
   // init global styles
   useIsomorphicLayoutEffect(() => {
     global.lenis!.stop();
+    document.documentElement.style.pointerEvents = "none";
     const wraps = document.querySelectorAll(`.wrap`);
     const main = wraps[global.activeIndex].querySelector(".mainTitle")!;
     const sub = wraps[global.activeIndex].querySelector(".subtitle")!;
@@ -162,14 +166,17 @@ export default function Home() {
           delay: 0.8,
           onComplete: () => {
             global.lenis!.start();
+            // when come back from detail page
+            // show threejs images
+            global.images.forEach((image) => {
+              image.show();
+            });
+            document.documentElement.style.pointerEvents = "auto";
           },
         }
       );
     });
 
-    global.images.forEach((image) => {
-      image.show();
-    });
     return () => {
       ctx.revert();
     };
