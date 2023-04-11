@@ -20,4 +20,8 @@ The idea and mask images are from [riv-studio](https://www.riv-studio.com/projec
 
 - 原站沒有處理上一頁返回後的 transition，但因為看過很酷的實例所以想要試試看。總之要計算完全相同的位置加上 transition，把 scrollbar 取消避免寬度不一樣造成的閃動（但要另外做 scrollbar 的進度提示）。transition 不依賴 gsap 以外函式庫。
 
+- outro 設定的動畫會被滾動部分取消。設定 global.activeIndex 作為 effect 重發條件。
+
+- 目標頁若滾動，返回時 outro 動畫一部分取消。
+
 ## Todos

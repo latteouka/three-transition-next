@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { useIsomorphicLayoutEffect } from "react-use";
 import global from "@/utils/globalState";
 import { TransitionContext } from "@/utils/TransitionContext";
@@ -22,14 +22,14 @@ const Page = () => {
 
   // out
   useIsomorphicLayoutEffect(() => {
-    global.lenis!.on("scroll", ({ scroll }: Lenis) => {
-      global.images[index].scroll(scroll);
-    });
-    global.activeIndex = index;
     // hide text
     timeline!.add(
       gsap.to(back.current, {
         opacity: 0,
+        onStart: () => {
+          global.lenis?.stop();
+          global.images[index].needUpdateTrue();
+        },
       }),
       0
     );
@@ -89,6 +89,7 @@ const Page = () => {
 
   // in
   useIsomorphicLayoutEffect(() => {
+    global.activeIndex = index;
     if (global.images.length > 0) {
       global.images[index].changeSeletor(".page-image");
     }
@@ -98,13 +99,17 @@ const Page = () => {
       gsap.fromTo(sub.current, { x: 100, opacity: 0 }, { x: 0, opacity: 1 });
     });
     Param.instance.main.progress.value = 3;
-    global.images.forEach((image) => {
-      image.show();
-    });
 
     return () => {
       ctx.revert();
     };
+  }, []);
+
+  useEffect(() => {
+    global.images[index].needUpdateFalse();
+    global.lenis!.on("scroll", ({ scroll }: Lenis) => {
+      global.images[index].scroll(scroll);
+    });
   }, []);
 
   return (

@@ -89,6 +89,7 @@ export class Item extends MyObject3D {
   protected _update(): void {
     super._update();
     if (this._needUpdate) {
+      console.log("update");
       this._updateWidthHeight();
     }
     this._updateResolution();
@@ -111,8 +112,13 @@ export class Item extends MyObject3D {
   public show() {
     this.scale.setScalar(1);
   }
-  public scroll(scroll: number) {
+  public needUpdateTrue() {
+    this._needUpdate = true;
+  }
+  public needUpdateFalse() {
     this._needUpdate = false;
+  }
+  public scroll(scroll: number) {
     this.position.y = scroll;
   }
 }

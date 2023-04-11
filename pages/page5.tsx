@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { useIsomorphicLayoutEffect } from "react-use";
 import global from "@/utils/globalState";
 import { TransitionContext } from "@/utils/TransitionContext";
@@ -20,16 +20,22 @@ const Page = () => {
 
   useLenis();
 
+  useEffect(() => {
+    global.activeIndex = index;
+    // global.lenis!.on("scroll", ({ scroll }: Lenis) => {
+    //   global.images[index].scroll(scroll);
+    // });
+  }, []);
+
   // out
   useIsomorphicLayoutEffect(() => {
-    global.lenis!.on("scroll", ({ scroll }: Lenis) => {
-      global.images[index].scroll(scroll);
-    });
-    global.activeIndex = index;
     // hide text
     timeline!.add(
       gsap.to(back.current, {
         opacity: 0,
+        onStart: () => {
+          global.lenis?.stop();
+        },
       }),
       0
     );

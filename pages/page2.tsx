@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { useIsomorphicLayoutEffect } from "react-use";
 import global from "@/utils/globalState";
 import { TransitionContext } from "@/utils/TransitionContext";
@@ -13,6 +13,7 @@ import { imageDatas } from ".";
 const index = 1;
 
 const Page = () => {
+  console.log("page");
   const { timeline } = useContext(TransitionContext);
   const main = useRef(null);
   const sub = useRef(null);
@@ -22,14 +23,14 @@ const Page = () => {
 
   // out
   useIsomorphicLayoutEffect(() => {
-    global.lenis!.on("scroll", ({ scroll }: Lenis) => {
-      global.images[index].scroll(scroll);
-    });
-    global.activeIndex = index;
+    console.log("page setup");
     // hide text
     timeline!.add(
       gsap.to(back.current, {
         opacity: 0,
+        onStart: () => {
+          global.lenis?.stop();
+        },
       }),
       0
     );
@@ -89,6 +90,11 @@ const Page = () => {
 
   // in
   useIsomorphicLayoutEffect(() => {
+    global.activeIndex = index;
+    global.lenis!.on("scroll", ({ scroll }: Lenis) => {
+      // console.log(scroll);
+      global.images[index].scroll(scroll);
+    });
     if (global.images.length > 0) {
       global.images[index].changeSeletor(".page-image");
     }
