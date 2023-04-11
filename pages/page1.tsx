@@ -9,6 +9,8 @@ import { Param } from "@/gl/core/param";
 import { theme } from "@/utils/useScroll";
 import useLenis from "@/utils/useLenis";
 import Lenis from "@studio-freight/lenis";
+import { imageDatas } from ".";
+const index = 0;
 
 const Page = () => {
   const { timeline } = useContext(TransitionContext);
@@ -21,9 +23,9 @@ const Page = () => {
   // out
   useIsomorphicLayoutEffect(() => {
     global.lenis!.on("scroll", ({ scroll }: Lenis) => {
-      global.images[0].scroll(scroll);
+      global.images[index].scroll(scroll);
     });
-    global.activeIndex = 0;
+    global.activeIndex = index;
     // hide text
     timeline!.add(
       gsap.to(back.current, {
@@ -46,7 +48,7 @@ const Page = () => {
 
     timeline!.add(
       gsap.to(".page-wrapper", {
-        backgroundColor: theme[0].background,
+        backgroundColor: theme[index].background,
         duration: 2,
       }),
       0
@@ -94,7 +96,7 @@ const Page = () => {
   // in
   useIsomorphicLayoutEffect(() => {
     if (global.images.length > 0) {
-      global.images[0].changeSeletor(".page-image");
+      global.images[index].changeSeletor(".page-image");
     }
 
     const ctx = gsap.context(() => {
@@ -121,10 +123,10 @@ const Page = () => {
         </div>
         <div className="page-title">
           <div className="page-title-main" ref={main}>
-            Title 1
+            {imageDatas[index].main}
           </div>
           <div className="page-title-sub" ref={sub}>
-            Subtitle
+            {imageDatas[index].subtitle}
           </div>
         </div>
       </div>
