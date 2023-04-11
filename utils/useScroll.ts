@@ -160,7 +160,7 @@ const useScroll = () => {
         );
         gsap.fromTo(
           titleNext,
-          { opacity: 0, x: -100 },
+          { opacity: 0, x: isNext ? -100 : 100 },
           {
             opacity: 1,
             x: 0,
@@ -169,7 +169,7 @@ const useScroll = () => {
         );
         gsap.fromTo(
           subtitleNext,
-          { opacity: 0, x: -100 },
+          { opacity: 0, x: isNext ? -100 : 100 },
           {
             opacity: 1,
             x: 0,
