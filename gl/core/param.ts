@@ -3,6 +3,7 @@ import Stats from "three/examples/jsm/libs/stats.module";
 import { Conf } from "./conf";
 import { Update } from "../libs/update";
 import { FPS } from "../core/fps";
+import { Func } from "./func";
 
 export class Param {
   private static _instance: Param;
@@ -15,7 +16,11 @@ export class Param {
   private _stats: any;
 
   public main = {
-    progress: { value: -0.55, min: -3, max: 3 },
+    progress: {
+      value: Func.instance.sw() > 800 ? -0.55 : -0.6,
+      min: -3,
+      max: 3,
+    },
   };
 
   constructor() {
