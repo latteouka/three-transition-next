@@ -22,6 +22,8 @@ The idea and mask images are from [riv-studio](https://www.riv-studio.com/projec
 
 - outro 設定的動畫會被滾動部分取消。設定 global.activeIndex 作為 effect 重發條件。
 
-- 目標頁若滾動，返回時 outro 動畫一部分取消。
+- 目標頁若滾動，返回時 outro 動畫一部分取消。這是因為我讓滾動時更新 threejs 物件位置(position.y，不用滾動更新的話會慢)，
+
+- Mobile View 的前後頁有誤差，疑似是 scrollbar 造成。
 
 ## Todos

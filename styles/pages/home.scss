@@ -26,3 +26,14 @@ main {
   z-index: 5;
   pointer-events: none;
 }
+
+html {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  overflow-y: scroll;
+}
+
+html body::-webkit-scrollbar {
+  -webkit-appearance: none;
+  display: none;
+}
