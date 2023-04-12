@@ -26,10 +26,10 @@ export default function App({ Component, pageProps }: AppProps) {
         <main className={font.variable}>
           <Head>
             <title>Mask Blob</title>
-            <meta
-              name="viewport"
-              content="width=device-width, user-scalable=0"
-            />
+            {/* <meta */}
+            {/*   name="viewport" */}
+            {/*   content="width=device-width, user-scalable=0" */}
+            {/* /> */}
           </Head>
           <canvas className="l-canvas"></canvas>
           <Component {...pageProps} />
