@@ -21,7 +21,7 @@ const useScroll = () => {
       duration: 1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothTouch: true,
-      touchMultiplier: 3,
+      // touchMultiplier: 3,
     });
 
     setLenis(lenis);
