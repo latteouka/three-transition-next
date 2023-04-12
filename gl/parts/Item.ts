@@ -12,12 +12,12 @@ import { imageDatas } from "@/pages";
 export class Images {
   constructor(container: THREE.Object3D) {
     console.log("init images");
-    // const images = document.querySelectorAll(".image");
+    const image1 = document.querySelector(".image1");
     imageDatas.forEach((image: any, index) => {
       const item = new Item(
         image.imagePath,
         image.maskPath,
-        `.image${index + 1}`
+        image1 ? `.image${index + 1}` : "page-image"
       );
       global.images.push(item);
       container.add(item);
