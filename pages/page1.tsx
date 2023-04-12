@@ -98,15 +98,20 @@ const Page = () => {
   useIsomorphicLayoutEffect(() => {
     global.activeIndex = index;
 
-    console.log("f");
-    console.log(global.images);
-    if (global.images.length > 0) {
-      console.log("image>0");
-      global.images[index].changeSeletor(".page-image");
-    }
-
     const ctx = gsap.context(() => {
-      gsap.fromTo(main.current, { x: -100, opacity: 0 }, { x: 0, opacity: 1 });
+      gsap.fromTo(
+        main.current,
+        { x: -100, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          onStart: () => {
+            if (global.images.length > 0) {
+              global.images[index].changeSeletor(".page-image");
+            }
+          },
+        }
+      );
       gsap.fromTo(sub.current, { x: 100, opacity: 0 }, { x: 0, opacity: 1 });
     });
     Param.instance.main.progress.value = 3;

@@ -9,7 +9,6 @@ import { Func } from "@/gl/core/func";
 import global from "@/utils/globalState";
 import { Param } from "@/gl/core/param";
 import { theme } from "@/utils/useScroll";
-import { time } from "console";
 
 interface Data {
   main: string;
