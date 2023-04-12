@@ -118,9 +118,9 @@ const Page = () => {
     // disable position auto update
     // global.images[index].needUpdateFalse();
 
-    global.lenis!.on("scroll", ({ scroll }: Lenis) => {
-      global.images[index].scroll(scroll);
-    });
+    // global.lenis!.on("scroll", ({ scroll }: Lenis) => {
+    //   global.images[index].scroll(scroll);
+    // });
   }, []);
 
   return (
