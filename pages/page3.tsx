@@ -122,10 +122,6 @@ const Page = () => {
   }, []);
 
   useEffect(() => {
-    if (global.images.length === 0) return;
-    // disable position auto update
-    // global.images[index].needUpdateFalse();
-
     global.lenis!.on("scroll", ({ scroll }: Lenis) => {
       global.images[index].scroll(scroll);
     });

@@ -115,7 +115,6 @@ export class Item extends MyObject3D {
     this._needUpdate = true;
   }
   public needUpdateFalse() {
-    this._update();
     this._needUpdate = false;
   }
   public scroll(scroll: number) {

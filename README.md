@@ -28,6 +28,8 @@ The idea and mask images are from [riv-studio](https://www.riv-studio.com/projec
 
 - tween color 的時候要注意有沒有 initial color。
 
+- production build 直接看目標頁圖片出不來，因為 intro 的 effect 執行時 threejs 的圖片們還沒生成，在 develope 階段反而沒事是因為 react strict mode 的關係，生命週期果然還是 react 裡最重要的一環。
+
 ## Todos
 
 - 真實 Mobile View 是否都正常？

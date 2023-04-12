@@ -139,8 +139,7 @@ export default function Home() {
     };
   }, [global.activeIndex]);
 
-  // in
-  // init global styles
+  // intro
   useIsomorphicLayoutEffect(() => {
     global.lenis!.stop();
     document.documentElement.style.pointerEvents = "none";
