@@ -120,7 +120,8 @@ export class Item extends MyObject3D {
     this._needUpdate = false;
   }
   public scroll(scroll: number) {
-    this.position.y = scroll - 150;
+    const offset = Func.instance.sw() > 800 ? 150 : 0;
+    this.position.y = scroll - offset;
   }
 }
 
