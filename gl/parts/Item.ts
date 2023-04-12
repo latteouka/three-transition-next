@@ -11,6 +11,7 @@ import { imageDatas } from "@/pages";
 
 export class Images {
   constructor(container: THREE.Object3D) {
+    console.log("init images");
     // const images = document.querySelectorAll(".image");
     imageDatas.forEach((image: any, index) => {
       const item = new Item(
