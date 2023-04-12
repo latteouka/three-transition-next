@@ -11,13 +11,11 @@ import { imageDatas } from "@/pages";
 
 export class Images {
   constructor(container: THREE.Object3D) {
-    console.log("init images");
-    const image1 = document.querySelector(".image1");
     imageDatas.forEach((image: any, index) => {
       const item = new Item(
         image.imagePath,
         image.maskPath,
-        image1 ? `.image${index + 1}` : "page-image"
+        `.image${index + 1}`
       );
       global.images.push(item);
       container.add(item);
@@ -73,7 +71,6 @@ export class Item extends MyObject3D {
     this._width = width;
     this._height = height;
     this.position.set(posX, posY, 0.01);
-    console.log(width);
     this._mesh.scale.set(width * 2.5, height * 2.5, 1);
   }
 

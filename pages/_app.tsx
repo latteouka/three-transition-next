@@ -18,7 +18,6 @@ export default function App({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     if (three.current) return;
-    console.log("effect app");
     three.current = new Contents(document.querySelector(".l-canvas"));
   }, []);
   return (

@@ -98,7 +98,10 @@ const Page = () => {
   useIsomorphicLayoutEffect(() => {
     global.activeIndex = index;
 
+    console.log("f");
+    console.log(global.images);
     if (global.images.length > 0) {
+      console.log("image>0");
       global.images[index].changeSeletor(".page-image");
     }
 
