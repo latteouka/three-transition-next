@@ -135,7 +135,7 @@ export default function Home() {
   // init global styles
   useIsomorphicLayoutEffect(() => {
     // listen for the scroll animation in useScroll hook
-    document.addEventListener("setup", setup);
+    document.addEventListener("setupAnimation", setup);
 
     // limit user control
     document.documentElement.style.pointerEvents = "none";
@@ -182,8 +182,8 @@ export default function Home() {
               image.show();
             });
 
-            // emit outro setup
-            Util.instance.ev("setup", {});
+            // emit outro animation setup
+            Util.instance.ev("setupAnimation", {});
           },
         }
       );

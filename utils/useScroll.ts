@@ -1,6 +1,6 @@
 import { Func } from "@/gl/core/func";
 import Lenis from "@studio-freight/lenis";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { gsap } from "gsap";
 import { useIsomorphicLayoutEffect } from "react-use";
 import global from "./globalState";
@@ -47,6 +47,7 @@ const useScroll = () => {
 
     global.lenis = lenis;
 
+    // main scroll animation logic is here
     function onScroll({ velocity }: Lenis) {
       // low velocity
       if (velocity < triggerVelocity && velocity > -triggerVelocity) {
@@ -142,7 +143,7 @@ const useScroll = () => {
               console.log("complete");
               document.documentElement.style.pointerEvents = "auto";
 
-              // tell previous page to overwrite outro animations
+              // tell index to overwrite outro animations
               Util.instance.ev("setup", {});
             },
           }

@@ -25,13 +25,9 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <TransitionProvider>
       <TransitionLayout>
-        <main className={font.variable}>
+        <main>
           <Head>
             <title>Mask Blob</title>
-            {/* <meta */}
-            {/*   name="viewport" */}
-            {/*   content="width=device-width, user-scalable=0" */}
-            {/* /> */}
           </Head>
           <canvas className="l-canvas"></canvas>
           <Component {...pageProps} />
