@@ -31,6 +31,7 @@ export class Item extends MyObject3D {
   private _mesh: THREE.Mesh;
   private _selector: string;
   private _needUpdate = true;
+  private _scroll = 0;
   constructor(image: string, mask: string, selector: string) {
     super();
 
@@ -122,6 +123,9 @@ export class Item extends MyObject3D {
   public scroll(scroll: number) {
     const offset = Func.instance.sw() > 800 ? 150 : 0;
     this.position.y = scroll - offset;
+  }
+  public setScroll(scroll: number) {
+    this._scroll = scroll;
   }
 }
 
