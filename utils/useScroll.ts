@@ -144,7 +144,7 @@ const useScroll = () => {
               document.documentElement.style.pointerEvents = "auto";
 
               // tell index to overwrite outro animations
-              Util.instance.ev("setup", {});
+              Util.instance.ev("setupAnimation", {});
             },
           }
         );
