@@ -9,6 +9,7 @@ import { Func } from "@/gl/core/func";
 import global from "@/utils/globalState";
 import { Param } from "@/gl/core/param";
 import { theme } from "@/utils/useScroll";
+import { time } from "console";
 
 interface Data {
   main: string;
@@ -91,16 +92,24 @@ export default function Home() {
       }),
       0
     );
+    timeline?.addLabel("down");
     images.forEach((image: any) => {
       if (Func.instance.sw() > 800) {
         timeline!.add(
           gsap.to(image, {
             x: -Func.instance.sw() * 0.2 - 16,
-            y: 150,
             ease: "elastic",
             duration: 1.5,
           }),
           0
+        );
+        timeline!.add(
+          gsap.to(image, {
+            y: 150,
+            ease: "linear",
+            duration: 1.3,
+          }),
+          "down"
         );
       } else {
         timeline!.add(
@@ -123,7 +132,7 @@ export default function Home() {
           document.documentElement.style.pointerEvents = "auto";
         },
       }),
-      ">"
+      "down"
     );
 
     return () => {
