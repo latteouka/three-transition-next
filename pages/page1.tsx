@@ -72,7 +72,7 @@ const Page = () => {
           x: Func.instance.sw() * 0.2 + 16,
           y: -150,
           ease: "elastic",
-          delay: 1,
+          delay: 0.8,
           duration: 1.5,
         }),
         0
@@ -82,7 +82,7 @@ const Page = () => {
         gsap.to(".page-image", {
           y: -80,
           ease: "elastic",
-          delay: 1,
+          delay: 0.8,
           duration: 1.5,
         }),
         0

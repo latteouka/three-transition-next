@@ -6,6 +6,8 @@ import { Noto_Sans_JP } from "next/font/google";
 import Head from "next/head";
 import { TransitionProvider } from "@/utils/TransitionContext";
 import TransitionLayout from "@/components/animations/TransitionLayout";
+import { gsap } from "gsap";
+gsap.defaults({ overwrite: true });
 
 const font = Noto_Sans_JP({
   weight: ["400", "700"],

@@ -4,53 +4,13 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { useIsomorphicLayoutEffect } from "react-use";
 import global from "./globalState";
-
-const max = 5;
-const distance = 1300;
-export const theme = [
-  {
-    background: "#e7e0d8",
-    color: "#ab4f43",
-  },
-  {
-    background: "#bfca8c",
-    color: "#050402",
-  },
-  {
-    background: "#cac6c3",
-    color: "#243702",
-  },
-  {
-    background: "#f7f7ef",
-    color: "#ad9370",
-  },
-  {
-    background: "#a8a7b4",
-    color: "#ba3d02",
-  },
-];
+import { Util } from "@/gl/libs/util";
 
 const useScroll = () => {
   // const [active, setActive] = useState(0);
+  // const [lenis, setLenis] = useState<Lenis | null>();
   let moving = useRef(false);
-  const [lenis, setLenis] = useState<Lenis | null>();
   const reqIdRef = useRef<ReturnType<typeof requestAnimationFrame>>();
-
-  function getNext() {
-    return global.activeIndex + 1 < max ? global.activeIndex + 1 : 0;
-  }
-  function getPre() {
-    return global.activeIndex - 1 >= 0 ? global.activeIndex - 1 : max - 1;
-  }
-
-  useEffect(() => {
-    const animate = (time: DOMHighResTimeStamp) => {
-      lenis?.raf(time);
-      reqIdRef.current = requestAnimationFrame(animate);
-    };
-    reqIdRef.current = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(reqIdRef.current as number);
-  }, [lenis]);
 
   useIsomorphicLayoutEffect(() => {
     const images = document.querySelectorAll(
@@ -62,6 +22,7 @@ const useScroll = () => {
 
     const triggerVelocity = Func.instance.sw() > 600 ? 50 : 20;
 
+    // init lenis
     const lenis = new Lenis({
       duration: 1,
       easing: (t) => {
@@ -77,10 +38,17 @@ const useScroll = () => {
       smoothTouch: true,
     });
 
+    // lenis raf
+    const animate = (time: DOMHighResTimeStamp) => {
+      lenis.raf(time);
+      reqIdRef.current = requestAnimationFrame(animate);
+    };
+    reqIdRef.current = requestAnimationFrame(animate);
+
     global.lenis = lenis;
-    setLenis(lenis);
 
     function onScroll({ velocity }: Lenis) {
+      // low velocity
       if (velocity < triggerVelocity && velocity > -triggerVelocity) {
         if (moving.current) return;
         gsap.to(images[global.activeIndex], {
@@ -88,22 +56,18 @@ const useScroll = () => {
           y: -velocity * 3,
         });
       } else {
+        // trigger animation
         if (moving.current) return;
 
-        gsap.defaults({ overwrite: true });
         const isNext = velocity > 0;
         const pre = global.activeIndex;
         global.activeIndex = isNext ? getNext() : getPre();
-        // setActive(global.activeIndex);
-        // container.style.backgroundColor = theme[getNext()].background;
-        // document.documentElement.style.setProperty(
-        //   "--backgroundColor",
-        //   theme[isNext ? getNext() : getPre()].background
-        // );
         document.documentElement.style.setProperty(
           "--fontColor",
           theme[global.activeIndex].color
         );
+        // prevent clicking other link
+        document.documentElement.style.pointerEvents = "none";
 
         const titleNow = wraps[pre].querySelector(
           ".mainTitle"
@@ -174,6 +138,13 @@ const useScroll = () => {
             opacity: 1,
             x: 0,
             delay: 0.8,
+            onComplete: () => {
+              console.log("complete");
+              document.documentElement.style.pointerEvents = "auto";
+
+              // tell previous page to overwrite outro animations
+              Util.instance.ev("setup", {});
+            },
           }
         );
       }
@@ -194,6 +165,7 @@ const useScroll = () => {
     lenis.on("scroll", onScroll);
 
     return () => {
+      cancelAnimationFrame(reqIdRef.current as number);
       ctx.revert();
       lenis.destroy();
     };
@@ -202,3 +174,35 @@ const useScroll = () => {
   // return active;
 };
 export default useScroll;
+
+function getNext() {
+  return global.activeIndex + 1 < max ? global.activeIndex + 1 : 0;
+}
+function getPre() {
+  return global.activeIndex - 1 >= 0 ? global.activeIndex - 1 : max - 1;
+}
+
+const max = 5;
+const distance = 1300;
+export const theme = [
+  {
+    background: "#e7e0d8",
+    color: "#ab4f43",
+  },
+  {
+    background: "#bfca8c",
+    color: "#050402",
+  },
+  {
+    background: "#cac6c3",
+    color: "#243702",
+  },
+  {
+    background: "#f7f7ef",
+    color: "#ad9370",
+  },
+  {
+    background: "#a8a7b4",
+    color: "#ba3d02",
+  },
+];

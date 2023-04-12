@@ -9,6 +9,7 @@ import { Func } from "@/gl/core/func";
 import global from "@/utils/globalState";
 import { Param } from "@/gl/core/param";
 import { theme } from "@/utils/useScroll";
+import { Util } from "@/gl/libs/util";
 
 interface Data {
   main: string;
@@ -52,11 +53,13 @@ export const imageDatas: Data[] = [
 
 export default function Home() {
   const { timeline } = useContext(TransitionContext);
-
   useScroll();
 
-  // outro
-  useIsomorphicLayoutEffect(() => {
+  // setup outro animation
+  // this function is for a custom event listener
+  // because I need to overwrite gsap tween after another animation
+  function setup() {
+    console.log("setup");
     const wraps = document.querySelectorAll(`.wrap`);
     const images = gsap.utils.toArray(".image");
     const main = wraps[global.activeIndex].querySelector(".mainTitle")!;
@@ -66,6 +69,7 @@ export default function Home() {
       gsap.to(`.container`, {
         backgroundColor: "#fff",
         duration: 1,
+        overwrite: true,
         onStart: () => {
           document.documentElement.style.pointerEvents = "none";
           global.lenis!.stop();
@@ -91,24 +95,16 @@ export default function Home() {
       }),
       0
     );
-    timeline?.addLabel("down");
     images.forEach((image: any) => {
       if (Func.instance.sw() > 800) {
         timeline!.add(
           gsap.to(image, {
             x: -Func.instance.sw() * 0.2 - 16,
+            y: 150,
             ease: "elastic",
             duration: 1.5,
           }),
           0
-        );
-        timeline!.add(
-          gsap.to(image, {
-            y: 150,
-            ease: "linear",
-            duration: 1.3,
-          }),
-          "down"
         );
       } else {
         timeline!.add(
@@ -124,28 +120,28 @@ export default function Home() {
     timeline!.add(
       gsap.to(Param.instance.main.progress, {
         value: 2.2,
-        duration: 1.3,
+        duration: 1.8,
         ease: "linear",
         onComplete: () => {
           global.lenis!.start();
           document.documentElement.style.pointerEvents = "auto";
         },
       }),
-      "down"
+      ">"
     );
-
-    return () => {
-      timeline?.clear();
-    };
-  }, [global.activeIndex]);
+  }
 
   // intro
+  // init global styles
   useIsomorphicLayoutEffect(() => {
-    global.lenis!.stop();
+    // listen for the scroll animation in useScroll hook
+    document.addEventListener("setup", setup);
+
+    // limit user control
     document.documentElement.style.pointerEvents = "none";
-    const wraps = document.querySelectorAll(`.wrap`);
-    const main = wraps[global.activeIndex].querySelector(".mainTitle")!;
-    const sub = wraps[global.activeIndex].querySelector(".subtitle")!;
+    global.lenis!.stop();
+
+    // when back from next page change colors based on activeIndex
     document.documentElement.style.setProperty(
       "--backgroundColor",
       theme[global.activeIndex].background
@@ -155,6 +151,10 @@ export default function Home() {
       theme[global.activeIndex].color
     );
 
+    // titles animation
+    const wraps = document.querySelectorAll(`.wrap`);
+    const main = wraps[global.activeIndex].querySelector(".mainTitle")!;
+    const sub = wraps[global.activeIndex].querySelector(".subtitle")!;
     const ctx = gsap.context(() => {
       gsap.fromTo(
         main,
@@ -173,19 +173,24 @@ export default function Home() {
           x: 0,
           delay: 0.8,
           onComplete: () => {
+            // resume user control
+            document.documentElement.style.pointerEvents = "auto";
             global.lenis!.start();
-            // when come back from detail page
-            // show threejs images
+            // threejs images are hide during backward animation
+            // when come back from detail page show them all
             global.images.forEach((image) => {
               image.show();
             });
-            document.documentElement.style.pointerEvents = "auto";
+
+            // emit outro setup
+            Util.instance.ev("setup", {});
           },
         }
       );
     });
 
     return () => {
+      document.removeEventListener("setup", setup);
       ctx.revert();
     };
   }, []);
