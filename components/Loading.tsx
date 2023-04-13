@@ -1,24 +1,22 @@
-import { useEffect } from "react";
 import { gsap } from "gsap";
+import { useIsomorphicLayoutEffect } from "react-use";
 
 const count = 8;
 
 const Loading = ({ loaded }: { loaded: boolean }) => {
   const generate = new Array(count * count).fill(0);
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const ctx = gsap.context(() => {
       if (loaded) {
         gsap.to(".loading", {
           opacity: -0.5,
           delay: 2.3,
-          ease: "linear",
           duration: 1.4,
         });
         gsap.to(".loading-wrap", {
           opacity: -0.5,
           delay: 2.3,
-          ease: "linear",
           duration: 1.5,
           onComplete: () => {
             document.querySelector(".loading-wrap")!.classList.toggle("hidden");
@@ -32,7 +30,7 @@ const Loading = ({ loaded }: { loaded: boolean }) => {
     };
   }, [loaded]);
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap
         .timeline()
