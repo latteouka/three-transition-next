@@ -30,6 +30,8 @@ export class Param {
 
     if (Conf.instance.FLG_STATS) {
       this._stats = Stats();
+      this._stats.dom.style.left = null;
+      this._stats.dom.style.right = "0px";
       document.body.appendChild(this._stats.domElement);
     }
 
