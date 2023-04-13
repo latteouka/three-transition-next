@@ -27,9 +27,9 @@ const Loading = () => {
       gsap.to(".loading-wrap", {
         opacity: 0,
         delay: 2,
-        duration: 0.3,
+        duration: 0.5,
         onComplete: () => {
-          document.querySelector(".loading-wrap")!.classList.add("hidden");
+          document.querySelector(".loading-wrap")!.remove();
         },
       });
     });
