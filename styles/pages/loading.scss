@@ -1,7 +1,8 @@
 $width: min(3vw, 3vh);
 
 .hidden {
-  display: none;
+  display: none !important;
+  z-index: -1 !important;
 }
 
 .loading {

@@ -32,3 +32,5 @@ The idea and mask images are from [riv-studio](https://www.riv-studio.com/projec
 - Refactor
 
 - Detail Page 對 three.js 元素增加效果
+
+- click 的範圍用 html 的話會因為 mask 不自然，如果能用 raycaster 處理的話？
