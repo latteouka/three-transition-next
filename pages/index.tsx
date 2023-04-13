@@ -52,6 +52,7 @@ export const imageDatas: Data[] = [
 ];
 
 export default function Home() {
+  console.log("home");
   const { timeline } = useContext(TransitionContext);
   useScroll();
 

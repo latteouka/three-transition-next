@@ -16,7 +16,11 @@ a {
 
 :root {
   --backgroundColor: #e7e0d8;
-  --fontColor: #f8cfcf;
+  --fontColor: #ab4f43;
+}
+
+body {
+  background-color: var(--backgroundColor);
 }
 
 .container {
