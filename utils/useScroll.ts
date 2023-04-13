@@ -50,7 +50,6 @@ const useScroll = () => {
 
     // main scroll animation logic is here
     function onScroll({ velocity }: Lenis) {
-      console.log(velocity);
       // low velocity
       if (velocity < triggerVelocity && velocity > -triggerVelocity) {
         if (moving.current) return;
