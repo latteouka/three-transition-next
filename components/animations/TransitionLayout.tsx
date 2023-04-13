@@ -26,16 +26,16 @@ export default function TransitionLayout({
     }
   }, [children]);
 
-  useIsomorphicLayoutEffect(() => {
-    // timeline!.to(el.current, {
-    //   scale: 1.2,
-    //   duration: 2,
-    // });
-    // gsap.to(el.current, {
-    //   background,
-    //   duration: 1,
-    // });
-  }, [background]);
+  // useIsomorphicLayoutEffect(() => {
+  // timeline!.to(el.current, {
+  //   scale: 1.2,
+  //   duration: 2,
+  // });
+  // gsap.to(el.current, {
+  //   background,
+  //   duration: 1,
+  // });
+  // }, [background]);
 
   return <div ref={el}>{displayChildren}</div>;
 }
