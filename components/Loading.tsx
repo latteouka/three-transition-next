@@ -1,7 +1,11 @@
 import { gsap } from "gsap";
+import { EasePack } from "gsap/dist/EasePack";
 import { useIsomorphicLayoutEffect } from "react-use";
 
+gsap.registerPlugin(EasePack);
+
 const count = 8;
+const duration = 1.5;
 
 const Loading = ({ loaded }: { loaded: boolean }) => {
   const generate = new Array(count * count).fill(0);
@@ -11,13 +15,13 @@ const Loading = ({ loaded }: { loaded: boolean }) => {
       if (loaded) {
         gsap.to(".loading", {
           opacity: -0.5,
-          delay: 2.3,
-          duration: 1.4,
+          delay: 2.5,
+          duration,
         });
         gsap.to(".loading-wrap", {
           opacity: -0.5,
-          delay: 2.3,
-          duration: 1.5,
+          delay: 2.5,
+          duration,
           onComplete: () => {
             document.querySelector(".loading-wrap")!.classList.toggle("hidden");
           },
@@ -49,10 +53,10 @@ const Loading = ({ loaded }: { loaded: boolean }) => {
 
       tl.tweenTo("complete", {
         duration: 1.6,
-        ease: "slow(0.8, 0.9, false)",
+        // ease: "slowMo(0.8, 0.9, false)",
+        ease: EasePack.SlowMo.config(0.3, 0.5, false),
         repeat: -1,
         yoyo: true,
-        repeatDelay: 0.1,
       });
     });
 

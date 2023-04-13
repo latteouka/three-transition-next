@@ -278,9 +278,7 @@ const Image = ({ index, imagePath, maskPath }: ImageProps) => {
     }
   }, []);
   return (
-    // <Link href={`/page1`}>
     <Link href={`/page${index + 1}`} className="image-link">
-      {/* <Link href={`/page1`}> */}
       <div
         className={`image image${index + 1}`}
         data-index={index + 1}

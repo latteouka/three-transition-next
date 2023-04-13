@@ -5,12 +5,8 @@ import { gsap } from "gsap";
 import { useIsomorphicLayoutEffect } from "react-use";
 import global from "./globalState";
 import { Util } from "@/gl/libs/util";
-import { useStatusStore } from "./stores/statusStore";
 
 const useScroll = () => {
-  // const [active, setActive] = useState(0);
-  // const [lenis, setLenis] = useState<Lenis | null>();
-  const { setActive } = useStatusStore();
   let moving = useRef(false);
   const reqIdRef = useRef<ReturnType<typeof requestAnimationFrame>>();
 
@@ -75,7 +71,6 @@ const useScroll = () => {
           theme[global.activeIndex].color
         );
         // prevent clicking other link
-        // document.documentElement.style.pointerEvents = "none";
         links.forEach((link) => {
           link.style.pointerEvents = "none";
         });
@@ -150,7 +145,6 @@ const useScroll = () => {
             x: 0,
             delay: 0.8,
             onComplete: () => {
-              // document.documentElement.style.pointerEvents = "auto";
               links.forEach((link) => {
                 link.style.pointerEvents = "auto";
               });
@@ -171,8 +165,6 @@ const useScroll = () => {
       cancelAnimationFrame(reqIdRef.current as number);
     };
   }, []);
-
-  // return active;
 };
 export default useScroll;
 
