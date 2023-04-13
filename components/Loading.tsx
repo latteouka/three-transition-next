@@ -1,15 +1,12 @@
 import { useEffect } from "react";
 import { gsap } from "gsap";
-import useImagePreloader from "@/utils/usePreloadImage";
 
 const count = 8;
 
 const Loading = ({ loaded }: { loaded: boolean }) => {
-  console.log("loading");
   const generate = new Array(count * count).fill(0);
 
   useEffect(() => {
-    console.log(loaded);
     const ctx = gsap.context(() => {
       if (loaded) {
         gsap.to(".loading", {
