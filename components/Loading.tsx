@@ -10,13 +10,13 @@ const Loading = ({ loaded }: { loaded: boolean }) => {
     const ctx = gsap.context(() => {
       if (loaded) {
         gsap.to(".loading", {
-          opacity: 0,
+          opacity: -0.5,
           delay: 2.3,
           ease: "linear",
           duration: 1.4,
         });
         gsap.to(".loading-wrap", {
-          opacity: 0,
+          opacity: -0.5,
           delay: 2.3,
           ease: "linear",
           duration: 1.5,
