@@ -10,17 +10,17 @@ interface TransitionContextProps {
 
 const TransitionContext = createContext<TransitionContextProps>({
   timeline: null,
-  background: "#fff",
+  background: "#e7e0d8",
   setTimeline: null,
   setBackground: null,
 });
 
 const TransitionProvider = ({ children }: { children: React.ReactNode }) => {
   const [timeline, setTimeline] = useState(() =>
-    gsap.timeline({ paused: true, defaults: { overwrite: false } })
+    gsap.timeline({ paused: true, defaults: { overwrite: true } })
   );
 
-  const [background, setBackground] = useState("white");
+  const [background, setBackground] = useState("#e7e0d8");
 
   return (
     <TransitionContext.Provider

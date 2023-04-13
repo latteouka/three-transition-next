@@ -10,8 +10,6 @@ import global from "@/utils/globalState";
 import { Param } from "@/gl/core/param";
 import { theme } from "@/utils/useScroll";
 import { Util } from "@/gl/libs/util";
-import useImagePreloader from "@/utils/usePreloadImage";
-import Loading from "@/components/Loading";
 
 interface Data {
   main: string;
@@ -55,7 +53,6 @@ export const imageDatas: Data[] = [
 
 export default function Home() {
   const { timeline } = useContext(TransitionContext);
-  const { imagesPreloaded } = useImagePreloader(images);
   useScroll();
 
   // setup outro animation
@@ -202,8 +199,6 @@ export default function Home() {
 
   return (
     <div className="container">
-      <Loading loaded={imagesPreloaded} />
-
       {imageDatas.map((data: Data, index) => {
         return (
           <div className="wrap" key={index}>
@@ -253,16 +248,3 @@ const Image = ({ index, imagePath, maskPath }: ImageProps) => {
     </Link>
   );
 };
-
-const images = [
-  "/img/1.jpg",
-  "/img/2.jpg",
-  "/img/3.jpg",
-  "/img/4.jpg",
-  "/img/5.jpg",
-  "/img/mask1.jpeg",
-  "/img/mask2.jpeg",
-  "/img/mask3.jpeg",
-  "/img/mask4.jpeg",
-  "/img/mask5.jpeg",
-];

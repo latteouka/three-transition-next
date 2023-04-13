@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   webpack(config, { isServer }) {
     // audio support
     config.module.rules.push({
