@@ -84,6 +84,7 @@ export default function Home() {
     timeline!.add(
       gsap.to(main, {
         y: -100,
+        opacity: 0,
         duration: 1,
       }),
       0
@@ -91,6 +92,7 @@ export default function Home() {
     timeline!.add(
       gsap.to(sub, {
         y: -100,
+        opacity: 0,
         duration: 1,
       }),
       0

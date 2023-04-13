@@ -22,8 +22,8 @@ The idea and mask images are from [riv-studio](https://www.riv-studio.com/projec
 
 - outro 設定的動畫會被滾動部分取消。設定 global.activeIndex 作為 effect 重發條件。（並未解決）
 - 目標頁若滾動，返回時 outro 動畫一部分取消。這是因為我讓滾動時更新 threejs 物件位置(position.y，不用滾動更新的話會慢)，必須在 outro 中加入取消持續更新的邏輯。
-- production build 直接看目標頁圖片出不來，因為 intro 的 effect 執行時 threejs 的圖片們還沒生成，在 develope 階段反而沒事是因為 react strict mode 的關係，將切換追蹤目標的動作放到動畫播放時。
-- overwrite 問題會一直發生，因為前頁後頁的 intro/outro animation，加上 scroll 都會操作到相同物件，不斷覆寫的情形就要自己去管理 timeline 重新設定的時間，我用 custom event 解決。
+- production build 直接看目標頁圖片出不來，因為 intro 的 effect 執行時 threejs 的圖片們還沒生成，在開發時反而沒事是因為 react strict mode 的關係，將切換追蹤目標的動作放到動畫播放時。
+- overwrite 問題會一直發生，導致邏輯非常紊亂，因為前頁後頁的 intro/outro animation，加上 scroll 都會操作到相同物件，不斷覆寫的情形就要自己去管理 timeline 重新設定的時間，我用 custom event 解決。
 
 ## Todos
 

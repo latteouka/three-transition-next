@@ -10,7 +10,6 @@ import { theme } from "@/utils/useScroll";
 import useLenis from "@/utils/useLenis";
 import Lenis from "@studio-freight/lenis";
 import { imageDatas } from ".";
-import Div100vh from "react-div-100vh";
 
 const index = 3;
 
@@ -128,28 +127,26 @@ const Page = () => {
   }, []);
 
   return (
-    <Div100vh>
-      <div className="page-wrapper">
-        <div className="page-image-wrap">
-          <div className="page-image"></div>
-        </div>
-        <div className="page-content">
-          <div className="back-wrap">
-            <div className="back" ref={back}>
-              <Link href="/">Back</Link>
-            </div>
+    <div className="page-wrapper">
+      <div className="page-image-wrap">
+        <div className="page-image"></div>
+      </div>
+      <div className="page-content">
+        <div className="back-wrap">
+          <div className="back" ref={back}>
+            <Link href="/">Back</Link>
           </div>
-          <div className="page-title">
-            <div className="page-title-main" ref={main}>
-              {imageDatas[index].main}
-            </div>
-            <div className="page-title-sub" ref={sub}>
-              {imageDatas[index].subtitle}
-            </div>
+        </div>
+        <div className="page-title">
+          <div className="page-title-main" ref={main}>
+            {imageDatas[index].main}
+          </div>
+          <div className="page-title-sub" ref={sub}>
+            {imageDatas[index].subtitle}
           </div>
         </div>
       </div>
-    </Div100vh>
+    </div>
   );
 };
 
