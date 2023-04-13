@@ -10,6 +10,7 @@ export default function TransitionLayout({
   console.log("layout");
   const [displayChildren, setDisplayChildren] = useState(children);
   const { timeline, background } = useContext(TransitionContext);
+  console.log(displayChildren);
   const el = useRef(null);
 
   useIsomorphicLayoutEffect(() => {

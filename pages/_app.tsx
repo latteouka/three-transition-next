@@ -22,10 +22,12 @@ export default function App({ Component, pageProps }: AppProps) {
   let three = useRef<Contents>();
 
   const { imagesPreloaded } = useImagePreloader(images);
+
   useEffect(() => {
     if (three.current) return;
     three.current = new Contents(document.querySelector(".l-canvas"));
   }, []);
+
   return (
     <TransitionProvider>
       <TransitionLayout>
@@ -34,10 +36,8 @@ export default function App({ Component, pageProps }: AppProps) {
             <title>Mask Blob</title>
           </Head>
           <canvas className="l-canvas"></canvas>
-          {/* {!imagesPreloaded && <Loading />} */}
-          {/* {imagesPreloaded && <Component {...pageProps} />} */}
-          <Component {...pageProps} />
-          <Loading />
+          {imagesPreloaded && <Component {...pageProps} />}
+          <Loading loaded={imagesPreloaded} />
         </main>
       </TransitionLayout>
     </TransitionProvider>

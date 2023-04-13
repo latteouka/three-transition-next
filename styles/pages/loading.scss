@@ -1,4 +1,6 @@
-$width: min(2vw, 2vh);
+@use "../global" as *;
+
+$width: min(3vw, 3vh);
 
 .hidden {
   display: none !important;
@@ -7,7 +9,11 @@ $width: min(2vw, 2vh);
 .loading {
   display: grid;
   grid-template-columns: repeat(8, $width);
-  gap: 0.35rem;
+  gap: 0.45rem;
+
+  @include sp {
+    gap: 0.25rem;
+  }
 
   &-wrap {
     color: white;
@@ -33,6 +39,11 @@ $width: min(2vw, 2vh);
   outline: #fea9cb 2px solid;
   border-radius: 0.3rem;
   position: relative;
+
+  @include sp {
+    outline: #fea9cb 1px solid;
+    border-radius: 0.1rem;
+  }
 }
 
 .word {
@@ -44,5 +55,8 @@ $width: min(2vw, 2vh);
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  @include sp {
+    font-size: calc($width * 0.9);
   }
 }

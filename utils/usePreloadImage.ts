@@ -14,9 +14,11 @@ function preloadImage(src: string) {
 }
 
 export default function useImagePreloader(imageList: string[]) {
+  console.log("pre");
   const [imagesPreloaded, setImagesPreloaded] = useState<boolean>(false);
 
   useEffect(() => {
+    console.log("loda");
     let isCancelled = false;
 
     async function effect() {
