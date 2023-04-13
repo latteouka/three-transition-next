@@ -7,6 +7,7 @@ import Head from "next/head";
 import { TransitionProvider } from "@/utils/TransitionContext";
 import TransitionLayout from "@/components/animations/TransitionLayout";
 import { gsap } from "gsap";
+import Loading from "@/components/Loading";
 gsap.defaults({ overwrite: true });
 
 const font = Noto_Sans_JP({
@@ -30,6 +31,7 @@ export default function App({ Component, pageProps }: AppProps) {
             <title>Mask Blob</title>
           </Head>
           <canvas className="l-canvas"></canvas>
+          <Loading />
           <Component {...pageProps} />
         </main>
       </TransitionLayout>

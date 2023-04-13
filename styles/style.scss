@@ -1,6 +1,7 @@
 @use "./global" as *;
 @use "./pages/home";
 @use "./pages/page";
+@use "./pages/loading";
 @use "./utils/transition";
 
 a {
