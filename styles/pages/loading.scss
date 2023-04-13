@@ -36,7 +36,8 @@ $width: min(2vw, 2vh);
 }
 
 .word {
-  font-size: 0.8rem;
+  font-size: $width;
+  font-weight: 700;
 
   &-wrap {
     color: #fea9cd;
