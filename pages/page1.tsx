@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useIsomorphicLayoutEffect } from "react-use";
 import global from "@/utils/globalState";
 import { TransitionContext } from "@/utils/TransitionContext";
@@ -14,6 +14,7 @@ import { imageDatas } from ".";
 const index = 0;
 
 const Page = () => {
+  const [loaded, setLoaded] = useState(false);
   const { timeline } = useContext(TransitionContext);
   const main = useRef(null);
   const sub = useRef(null);
@@ -91,7 +92,7 @@ const Page = () => {
     return () => {
       timeline?.clear();
     };
-  }, []);
+  }, [loaded]);
 
   // in
   useIsomorphicLayoutEffect(() => {
@@ -105,13 +106,27 @@ const Page = () => {
           x: 0,
           opacity: 1,
           onStart: () => {
+            // document.documentElement.style.setProperty(
+            //   "--backgroundColor",
+            //   "white"
+            // );
             if (global.images.length > 0) {
               global.images[index].changeSeletor(".page-image");
             }
           },
         }
       );
-      gsap.fromTo(sub.current, { x: 100, opacity: 0 }, { x: 0, opacity: 1 });
+      gsap.fromTo(
+        sub.current,
+        { x: 100, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          onComplete: () => {
+            setLoaded(true);
+          },
+        }
+      );
     });
     Param.instance.main.progress.value = 3;
 

@@ -203,6 +203,6 @@ export const theme = [
   },
   {
     background: "#a8a7b4",
-    color: "#ba3d02",
+    color: "#d24407",
   },
 ];
