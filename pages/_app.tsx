@@ -2,14 +2,14 @@ import { Contents } from "@/gl/parts/contents";
 import "@/styles/style.scss";
 import type { AppProps } from "next/app";
 import { useEffect, useRef } from "react";
-import { Noto_Sans_JP } from "next/font/google";
+import { Noto_Serif_JP } from "next/font/google";
 import Head from "next/head";
 import { TransitionProvider } from "@/utils/TransitionContext";
 import TransitionLayout from "@/components/animations/TransitionLayout";
 import { gsap } from "gsap";
 gsap.defaults({ overwrite: true });
 
-const font = Noto_Sans_JP({
+const font = Noto_Serif_JP({
   weight: ["400", "700"],
   subsets: ["latin"],
   variable: "--noto-font",
@@ -25,7 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <TransitionProvider>
       <TransitionLayout>
-        <main>
+        <main className={font.className}>
           <Head>
             <title>Mask Blob</title>
           </Head>
