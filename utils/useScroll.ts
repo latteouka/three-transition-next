@@ -140,7 +140,6 @@ const useScroll = () => {
             x: 0,
             delay: 0.8,
             onComplete: () => {
-              console.log("complete");
               document.documentElement.style.pointerEvents = "auto";
 
               // tell index to overwrite outro animations

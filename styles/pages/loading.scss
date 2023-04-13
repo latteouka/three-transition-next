@@ -41,7 +41,6 @@ $width: min(3vw, 3vh);
   position: relative;
 
   @include sp {
-    outline: #fea9cb 1px solid;
     border-radius: 0.1rem;
   }
 }

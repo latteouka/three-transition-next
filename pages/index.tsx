@@ -52,7 +52,6 @@ export const imageDatas: Data[] = [
 ];
 
 export default function Home() {
-  console.log("home");
   const { timeline } = useContext(TransitionContext);
   useScroll();
 
@@ -60,7 +59,6 @@ export default function Home() {
   // this function is for a custom event listener
   // because I need to overwrite gsap tween after another animation
   function setup() {
-    console.log("setup");
     const wraps = document.querySelectorAll(`.wrap`);
     const images = gsap.utils.toArray(".image");
     const main = wraps[global.activeIndex].querySelector(".mainTitle")!;
