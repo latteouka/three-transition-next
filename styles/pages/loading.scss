@@ -34,3 +34,14 @@ $width: min(2vw, 2vh);
   border-radius: 0.3rem;
   position: relative;
 }
+
+.word {
+  font-size: 0.8rem;
+
+  &-wrap {
+    color: #fea9cd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

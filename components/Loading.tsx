@@ -50,7 +50,7 @@ const Loading = () => {
     const ctx = gsap.context(() => {
       const tl = gsap
         .timeline()
-        .from(".rect", {
+        .from(".rotate", {
           scale: 0,
           outlineColor: "#fff",
           rotation: -360,
@@ -80,10 +80,28 @@ const Loading = () => {
     <div className="loading-wrap">
       <div className="loading">
         {generate.map((_item, index) => {
-          return <div className="rect" key={index}></div>;
+          if (index === 18) {
+            return <Word text="C" index={index} />;
+          } else if (index === 27) {
+            return <Word text="H" index={index} />;
+          } else if (index === 36) {
+            return <Word text="U" index={index} />;
+          } else if (index === 45) {
+            return <Word text="N" index={index} />;
+          } else {
+            return <div className="rect rotate" key={index}></div>;
+          }
         })}
       </div>
     </div>
   );
 };
 export default Loading;
+
+const Word = ({ text, index }: { text: string; index: number }) => {
+  return (
+    <div key={index} className="word-wrap rotate">
+      <div className="word">{text}</div>
+    </div>
+  );
+};
