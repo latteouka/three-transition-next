@@ -27,7 +27,7 @@ const Loading = () => {
       gsap.to(".loading-wrap", {
         opacity: 0,
         delay: 2.3,
-        duration: 1,
+        duration: 1.5,
         onComplete: () => {
           document.querySelector(".loading-wrap")!.classList.toggle("hidden");
         },
