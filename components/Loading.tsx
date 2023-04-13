@@ -24,9 +24,16 @@ const Loading = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      gsap.to(".loading", {
+        opacity: 0,
+        delay: 2.3,
+        ease: "linear",
+        duration: 1.4,
+      });
       gsap.to(".loading-wrap", {
         opacity: 0,
         delay: 2.3,
+        ease: "linear",
         duration: 1.5,
         onComplete: () => {
           document.querySelector(".loading-wrap")!.classList.toggle("hidden");
