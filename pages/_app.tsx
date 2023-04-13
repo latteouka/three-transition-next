@@ -8,6 +8,7 @@ import { TransitionProvider } from "@/utils/TransitionContext";
 import TransitionLayout from "@/components/animations/TransitionLayout";
 import { gsap } from "gsap";
 import Loading from "@/components/Loading";
+import useImagePreloader from "@/utils/usePreloadImage";
 gsap.defaults({ overwrite: true });
 
 const font = Noto_Sans_JP({
@@ -19,6 +20,7 @@ const font = Noto_Sans_JP({
 export default function App({ Component, pageProps }: AppProps) {
   let three = useRef<Contents>();
 
+  const { imagesPreloaded } = useImagePreloader(images);
   useEffect(() => {
     if (three.current) return;
     three.current = new Contents(document.querySelector(".l-canvas"));
@@ -31,10 +33,23 @@ export default function App({ Component, pageProps }: AppProps) {
             <title>Mask Blob</title>
           </Head>
           <canvas className="l-canvas"></canvas>
-          <Loading />
-          <Component {...pageProps} />
+          <Loading loaded={imagesPreloaded} />
+          {imagesPreloaded && <Component {...pageProps} />}
         </main>
       </TransitionLayout>
     </TransitionProvider>
   );
 }
+
+const images = [
+  "/img/1.jpg",
+  "/img/2.jpg",
+  "/img/3.jpg",
+  "/img/4.jpg",
+  "/img/5.jpg",
+  "/img/mask1.jpeg",
+  "/img/mask2.jpeg",
+  "/img/mask3.jpeg",
+  "/img/mask4.jpeg",
+  "/img/mask5.jpeg",
+];

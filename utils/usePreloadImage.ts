@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 function preloadImage(src: string) {
   return new Promise((resolve, reject) => {
     const img = new Image();
+    console.log(img);
     img.onload = function () {
       resolve(img);
     };
@@ -14,9 +15,11 @@ function preloadImage(src: string) {
 }
 
 export default function useImagePreloader(imageList: string[]) {
+  console.log("use preloader");
   const [imagesPreloaded, setImagesPreloaded] = useState<boolean>(false);
 
   useEffect(() => {
+    console.log("preloader effect");
     let isCancelled = false;
 
     async function effect() {
