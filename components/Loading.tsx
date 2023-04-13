@@ -29,7 +29,7 @@ const Loading = () => {
         delay: 2,
         duration: 0.3,
         onComplete: () => {
-          document.querySelector(".loading")!.classList.add("hidden");
+          document.querySelector(".loading-wrap")!.classList.add("hidden");
         },
       });
     });
