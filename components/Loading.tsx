@@ -38,7 +38,7 @@ const Loading = ({ loaded }: { loaded: boolean }) => {
         .timeline()
         .from(".rotate", {
           scale: 0,
-          outlineColor: "#fff",
+          outlineColor: "#e7e0d8",
           rotation: -360,
           duration: 1.5,
           stagger: {
