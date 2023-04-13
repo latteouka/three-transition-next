@@ -21,7 +21,7 @@ export default function App({ Component, pageProps }: AppProps) {
   console.log("app");
   let three = useRef<Contents>();
 
-  // const { imagesPreloaded } = useImagePreloader(images);
+  const { imagesPreloaded } = useImagePreloader(images);
   useEffect(() => {
     if (three.current) return;
     three.current = new Contents(document.querySelector(".l-canvas"));
