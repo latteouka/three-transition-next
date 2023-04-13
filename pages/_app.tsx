@@ -18,6 +18,7 @@ const font = Noto_Sans_JP({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  console.log("app");
   let three = useRef<Contents>();
 
   // const { imagesPreloaded } = useImagePreloader(images);

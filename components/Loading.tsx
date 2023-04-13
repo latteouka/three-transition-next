@@ -4,7 +4,6 @@ import { useIsomorphicLayoutEffect } from "react-use";
 const count = 8;
 
 const Loading = () => {
-  console.log("loading");
   const generate = new Array(count * count).fill(0);
 
   useIsomorphicLayoutEffect(() => {

@@ -7,6 +7,7 @@ export default function TransitionLayout({
 }: {
   children: React.ReactNode;
 }) {
+  console.log("layout");
   const [displayChildren, setDisplayChildren] = useState(children);
   const { timeline, background } = useContext(TransitionContext);
   const el = useRef(null);
