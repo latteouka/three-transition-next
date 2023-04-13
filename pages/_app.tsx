@@ -18,9 +18,9 @@ const font = Noto_Sans_JP({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  console.log("app");
   let three = useRef<Contents>();
 
-  const { imagesPreloaded } = useImagePreloader(images);
   useEffect(() => {
     if (three.current) return;
     three.current = new Contents(document.querySelector(".l-canvas"));
@@ -33,8 +33,7 @@ export default function App({ Component, pageProps }: AppProps) {
             <title>Mask Blob</title>
           </Head>
           <canvas className="l-canvas"></canvas>
-          <Loading loaded={imagesPreloaded} />
-          {imagesPreloaded && <Component {...pageProps} />}
+          <Component {...pageProps} />
         </main>
       </TransitionLayout>
     </TransitionProvider>
