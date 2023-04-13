@@ -52,7 +52,7 @@ const Loading = ({ loaded }: { loaded: boolean }) => {
         .addLabel("complete");
 
       tl.tweenTo("complete", {
-        duration: 1.6,
+        duration: 3,
         // ease: "slowMo(0.8, 0.9, false)",
         ease: EasePack.SlowMo.config(0.3, 0.5, false),
         repeat: -1,
