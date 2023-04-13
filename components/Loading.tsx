@@ -81,13 +81,13 @@ const Loading = () => {
       <div className="loading">
         {generate.map((_item, index) => {
           if (index === 18) {
-            return <Word text="C" index={index} />;
+            return <Word text="C" key={index} />;
           } else if (index === 27) {
-            return <Word text="H" index={index} />;
+            return <Word text="H" key={index} />;
           } else if (index === 36) {
-            return <Word text="U" index={index} />;
+            return <Word text="U" key={index} />;
           } else if (index === 45) {
-            return <Word text="N" index={index} />;
+            return <Word text="N" key={index} />;
           } else {
             return <div className="rect rotate" key={index}></div>;
           }
@@ -98,9 +98,9 @@ const Loading = () => {
 };
 export default Loading;
 
-const Word = ({ text, index }: { text: string; index: number }) => {
+const Word = ({ text }: { text: string }) => {
   return (
-    <div key={index} className="word-wrap rotate">
+    <div className="word-wrap rotate">
       <div className="word">{text}</div>
     </div>
   );
