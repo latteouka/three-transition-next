@@ -7,24 +7,25 @@ const Loading = () => {
   const generate = new Array(count * count).fill(0);
 
   useIsomorphicLayoutEffect(() => {
-    // const ctx = gsap.context(() => {
-    //   gsap.to(".loading", {
-    //     opacity: -0.5,
-    //     delay: 2.3,
-    //     duration: 1.4,
-    //   });
-    //   gsap.to(".loading-wrap", {
-    //     opacity: -0.5,
-    //     delay: 2.3,
-    //     duration: 1.5,
-    //     onComplete: () => {
-    //       document.querySelector(".loading-wrap")!.classList.toggle("hidden");
-    //     },
-    //   });
-    // });
-    // return () => {
-    //   ctx.revert();
-    // };
+    const ctx = gsap.context(() => {
+      gsap.to(".loading", {
+        opacity: -0.5,
+        delay: 2.3,
+        duration: 1.4,
+      });
+      gsap.to(".loading-wrap", {
+        opacity: -0.5,
+        delay: 2.3,
+        duration: 1.5,
+        onComplete: () => {
+          document.querySelector(".loading-wrap")!.classList.toggle("hidden");
+        },
+      });
+    });
+
+    return () => {
+      ctx.revert();
+    };
   }, []);
 
   useIsomorphicLayoutEffect(() => {
