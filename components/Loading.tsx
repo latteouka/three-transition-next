@@ -70,8 +70,8 @@ const Loading = () => {
   return (
     <div className="loading-wrap">
       <div className="loading">
-        {generate.map((_item) => {
-          return <div className="rect"></div>;
+        {generate.map((_item, index) => {
+          return <div className="rect" key={index}></div>;
         })}
       </div>
     </div>
