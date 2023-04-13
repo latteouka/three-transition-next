@@ -5,10 +5,12 @@ import { gsap } from "gsap";
 import { useIsomorphicLayoutEffect } from "react-use";
 import global from "./globalState";
 import { Util } from "@/gl/libs/util";
+import { useStatusStore } from "./stores/statusStore";
 
 const useScroll = () => {
   // const [active, setActive] = useState(0);
   // const [lenis, setLenis] = useState<Lenis | null>();
+  const { setActive } = useStatusStore();
   let moving = useRef(false);
   const reqIdRef = useRef<ReturnType<typeof requestAnimationFrame>>();
 
@@ -18,6 +20,9 @@ const useScroll = () => {
     )! as NodeListOf<HTMLDivElement>;
     const wraps = document.querySelectorAll(
       ".wrap"
+    )! as NodeListOf<HTMLDivElement>;
+    const links = document.querySelectorAll(
+      ".image-link"
     )! as NodeListOf<HTMLDivElement>;
 
     const triggerVelocity = Func.instance.sw() > 600 ? 50 : 20;
@@ -49,12 +54,13 @@ const useScroll = () => {
 
     // main scroll animation logic is here
     function onScroll({ velocity }: Lenis) {
+      console.log(velocity);
       // low velocity
       if (velocity < triggerVelocity && velocity > -triggerVelocity) {
         if (moving.current) return;
         gsap.to(images[global.activeIndex], {
-          x: velocity * 3,
-          y: -velocity * 3,
+          x: velocity * 8,
+          y: -velocity * 8,
         });
       } else {
         // trigger animation
@@ -63,12 +69,16 @@ const useScroll = () => {
         const isNext = velocity > 0;
         const pre = global.activeIndex;
         global.activeIndex = isNext ? getNext() : getPre();
+
         document.documentElement.style.setProperty(
           "--fontColor",
           theme[global.activeIndex].color
         );
         // prevent clicking other link
-        document.documentElement.style.pointerEvents = "none";
+        // document.documentElement.style.pointerEvents = "none";
+        links.forEach((link) => {
+          link.style.pointerEvents = "none";
+        });
 
         const titleNow = wraps[pre].querySelector(
           ".mainTitle"
@@ -140,7 +150,10 @@ const useScroll = () => {
             x: 0,
             delay: 0.8,
             onComplete: () => {
-              document.documentElement.style.pointerEvents = "auto";
+              // document.documentElement.style.pointerEvents = "auto";
+              links.forEach((link) => {
+                link.style.pointerEvents = "auto";
+              });
 
               // tell index to overwrite outro animations
               Util.instance.ev("setupAnimation", {});
@@ -150,24 +163,12 @@ const useScroll = () => {
       }
     }
 
-    // 最初の位置
-    const ctx = gsap.context(() => {
-      const now = global.activeIndex;
-      // const now = 3;
-      images.forEach((image, index) => {
-        if (index === now) return;
-        gsap.set(image, {
-          x: -distance,
-          y: distance,
-        });
-      });
-    });
     lenis.on("scroll", onScroll);
 
     return () => {
-      cancelAnimationFrame(reqIdRef.current as number);
-      ctx.revert();
+      lenis.off("scroll", onScroll);
       lenis.destroy();
+      cancelAnimationFrame(reqIdRef.current as number);
     };
   }, []);
 

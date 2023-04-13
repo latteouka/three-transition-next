@@ -18,7 +18,7 @@ The idea and mask images are from [riv-studio](https://www.riv-studio.com/projec
 - Mobile View 的前後頁有誤差，疑似是 scrollbar 造成。用了好久才發現在真的手機上不會發生，待觀察。
 - tween color 的時候要注意有沒有 initial color。
 - 加入 Loading Component。
-- Loading Component，一進入頁面的時候會閃一下。
+- Loading Component，一進入頁面的時候會閃一下。背景顏色處理問題。
 
 ### gsap overwrite 問題
 

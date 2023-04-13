@@ -10,6 +10,7 @@ import global from "@/utils/globalState";
 import { Param } from "@/gl/core/param";
 import { theme } from "@/utils/useScroll";
 import { Util } from "@/gl/libs/util";
+const distance = 1300;
 
 interface Data {
   main: string;
@@ -96,6 +97,14 @@ export default function Home() {
       }),
       0
     );
+    timeline!.add(
+      gsap.to(".bottomNav", {
+        y: 100,
+        opacity: 0,
+        duration: 1,
+      }),
+      0
+    );
     images.forEach((image: any) => {
       if (Func.instance.sw() > 800) {
         timeline!.add(
@@ -158,6 +167,19 @@ export default function Home() {
     const sub = wraps[global.activeIndex].querySelector(".subtitle")!;
     const ctx = gsap.context(() => {
       gsap.fromTo(
+        ".bottomNav",
+        {
+          y: 100,
+          opacity: 0,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+        }
+      ),
+        0;
+      gsap.fromTo(
         main,
         { opacity: 0, x: -100 },
         {
@@ -196,6 +218,26 @@ export default function Home() {
     };
   }, []);
 
+  // initial positions
+  useIsomorphicLayoutEffect(() => {
+    const images = document.querySelectorAll(
+      ".image"
+    )! as NodeListOf<HTMLDivElement>;
+    const now = global.activeIndex;
+    const ctx = gsap.context(() => {
+      images.forEach((image, index) => {
+        if (index === now) return;
+        gsap.set(image, {
+          x: -distance,
+          y: distance,
+        });
+      });
+    });
+    return () => {
+      ctx.revert();
+    };
+  }, []);
+
   return (
     <div className="container">
       {imageDatas.map((data: Data, index) => {
@@ -218,6 +260,7 @@ export default function Home() {
           </div>
         );
       })}
+      <BottomNav />
     </div>
   );
 }
@@ -236,7 +279,7 @@ const Image = ({ index, imagePath, maskPath }: ImageProps) => {
   }, []);
   return (
     // <Link href={`/page1`}>
-    <Link href={`/page${index + 1}`}>
+    <Link href={`/page${index + 1}`} className="image-link">
       {/* <Link href={`/page1`}> */}
       <div
         className={`image image${index + 1}`}
@@ -245,5 +288,27 @@ const Image = ({ index, imagePath, maskPath }: ImageProps) => {
         data-mask={maskPath}
       ></div>
     </Link>
+  );
+};
+
+const BottomNav = () => {
+  function before() {
+    const wheelEvt = document.createEvent("MouseEvents") as any;
+    wheelEvt.initEvent("wheel", true, true);
+    wheelEvt.deltaY = -170;
+    document.dispatchEvent(wheelEvt);
+  }
+  function next() {
+    const wheelEvt = document.createEvent("MouseEvents") as any;
+    wheelEvt.initEvent("wheel", true, true);
+    wheelEvt.deltaY = 170;
+    document.dispatchEvent(wheelEvt);
+  }
+  return (
+    <div className="bottomNav">
+      <div onClick={() => before()}>Before</div>
+      <div>/</div>
+      <div onClick={() => next()}>After</div>
+    </div>
   );
 };
