@@ -8,16 +8,16 @@ export class Contents extends MyDisplay {
 
     AssetManager.instance.load({
       assets: [
-        { name: "image1", path: "/img/1.jpg", type: "tex", timing: "must" },
-        { name: "image2", path: "/img/2.jpg", type: "tex", timing: "must" },
-        { name: "image3", path: "/img/3.jpg", type: "tex", timing: "must" },
-        { name: "image4", path: "/img/4.jpg", type: "tex", timing: "must" },
-        { name: "image5", path: "/img/5.jpg", type: "tex", timing: "must" },
-        { name: "mask1", path: "/img/mask1.jpeg", type: "tex", timing: "must" },
-        { name: "mask2", path: "/img/mask2.jpeg", type: "tex", timing: "must" },
-        { name: "mask3", path: "/img/mask3.jpeg", type: "tex", timing: "must" },
-        { name: "mask4", path: "/img/mask4.jpeg", type: "tex", timing: "must" },
-        { name: "mask5", path: "/img/mask5.jpeg", type: "tex", timing: "must" },
+        { name: "image1", path: "/img/1.webp", type: "tex", timing: "must" },
+        { name: "image2", path: "/img/2.webp", type: "tex", timing: "must" },
+        { name: "image3", path: "/img/3.webp", type: "tex", timing: "must" },
+        { name: "image4", path: "/img/4.webp", type: "tex", timing: "must" },
+        { name: "image5", path: "/img/5.webp", type: "tex", timing: "must" },
+        { name: "mask1", path: "/img/mask1.webp", type: "tex", timing: "must" },
+        { name: "mask2", path: "/img/mask2.webp", type: "tex", timing: "must" },
+        { name: "mask3", path: "/img/mask3.webp", type: "tex", timing: "must" },
+        { name: "mask4", path: "/img/mask4.webp", type: "tex", timing: "must" },
+        { name: "mask5", path: "/img/mask5.webp", type: "tex", timing: "must" },
       ],
     });
 

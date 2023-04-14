@@ -27,12 +27,15 @@ The idea and mask images are from [riv-studio](https://www.riv-studio.com/projec
 - production build 直接看目標頁圖片出不來，因為 intro 的 effect 執行時 threejs 的圖片們還沒生成，在開發時反而沒事是因為 react strict mode 的關係，將切換追蹤目標的動作放到動畫播放時。
 - overwrite 問題會一直發生，導致邏輯非常紊亂，因為前頁後頁的 intro/outro animation，加上 scroll 都會操作到相同物件，不斷覆寫的情形就要自己去管理 timeline 重新設定的時間，我用 custom event 解決。
 
+### Preload 問題
+
+- 用 image preload 跟 three.js 的 ImageLoader 是沒有通的，所以用 image preload 等於是多做一件事。
+- 要處理 async/await
+- 所有 Texture 應該在同一處被 Preload
+
 ## Todos
 
 - 真實 Mobile View 是否都正常？
-
 - Refactor
-
 - Detail Page 對 three.js 元素增加效果
-
 - click 的範圍用 html 的話會因為 mask 不自然，如果能用 raycaster 處理的話？
