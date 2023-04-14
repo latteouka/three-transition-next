@@ -3,20 +3,16 @@ import vertex from "../glsl/item.vert";
 import fragment from "../glsl/item.frag";
 import { MyObject3D } from "../webgl/myObject3D";
 import { Update } from "../libs/update";
-import { TexLoader } from "../webgl/texLoader";
 import { Func } from "../core/func";
 import { Param } from "../core/param";
 import global from "@/utils/globalState";
 import { imageDatas } from "@/pages";
+import { AssetManager } from "../webgl/assetsManager";
 
 export class Images {
   constructor(container: THREE.Object3D) {
-    imageDatas.forEach((image: any, index) => {
-      const item = new Item(
-        image.imagePath,
-        image.maskPath,
-        `.image${index + 1}`
-      );
+    imageDatas.forEach((_, index) => {
+      const item = new Item(`.image${index + 1}`, index);
       global.images.push(item);
       container.add(item);
     });
@@ -30,7 +26,8 @@ export class Item extends MyObject3D {
   private _mesh: THREE.Mesh;
   private _selector: string;
   private _needUpdate = true;
-  constructor(image: string, mask: string, selector: string) {
+
+  constructor(selector: string, index: number) {
     super();
 
     this._selector = selector;
@@ -40,8 +37,8 @@ export class Item extends MyObject3D {
       fragmentShader: fragment,
       uniforms: {
         u_time: { value: Update.instance.elapsed },
-        u_texture: { value: TexLoader.instance.get(image) },
-        u_mask: { value: TexLoader.instance.get(mask) },
+        u_texture: { value: null },
+        u_mask: { value: null },
         u_resolution: {
           value: new THREE.Vector4(1, 1, 1, 1),
         },
@@ -53,6 +50,15 @@ export class Item extends MyObject3D {
         },
       },
       transparent: true,
+    });
+
+    AssetManager.instance.addEventListener("cancelLoading", () => {
+      this._material.uniforms.u_texture.value = AssetManager.instance.getTex(
+        `image${index + 1}`
+      ).value;
+      this._material.uniforms.u_mask.value = AssetManager.instance.getTex(
+        `mask${index + 1}`
+      ).value;
     });
 
     this._mesh = new THREE.Mesh(geometry, this._material);

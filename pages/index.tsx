@@ -272,10 +272,11 @@ interface ImageProps {
 }
 
 const Image = ({ index, imagePath, maskPath }: ImageProps) => {
+  function setupSelectors() {
+    global.images[index].changeSeletor(`.image${index + 1}`);
+  }
   useIsomorphicLayoutEffect(() => {
-    if (global.images.length > 0) {
-      global.images[index].changeSeletor(`.image${index + 1}`);
-    }
+    document.addEventListener("setupSelectors", setupSelectors);
   }, []);
   return (
     <Link href={`/page${index + 1}`} className="image-link">
@@ -304,9 +305,13 @@ const BottomNav = () => {
   }
   return (
     <div className="bottomNav">
-      <div onClick={() => before()}>Before</div>
+      <div className="bottomNav-before" onClick={() => before()}>
+        Before
+      </div>
       <div>/</div>
-      <div onClick={() => next()}>After</div>
+      <div className="bottomNav-after" onClick={() => next()}>
+        After
+      </div>
     </div>
   );
 };

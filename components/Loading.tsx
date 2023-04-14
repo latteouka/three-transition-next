@@ -1,3 +1,4 @@
+import { AssetManager } from "@/gl/webgl/assetsManager";
 import { gsap } from "gsap";
 import { EasePack } from "gsap/dist/EasePack";
 import { useIsomorphicLayoutEffect } from "react-use";
@@ -7,34 +8,52 @@ gsap.registerPlugin(EasePack);
 const count = 8;
 const duration = 1.5;
 
-const Loading = ({ loaded }: { loaded: boolean }) => {
+const Loading = () => {
   const generate = new Array(count * count).fill(0);
 
-  useIsomorphicLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      if (loaded) {
-        gsap.to(".loading", {
-          opacity: -0.5,
-          delay: 2.5,
-          duration,
-        });
-        gsap.to(".loading-wrap", {
-          opacity: -0.5,
-          delay: 2.5,
-          duration,
-          onComplete: () => {
-            document.querySelector(".loading-wrap")!.classList.toggle("hidden");
-          },
-        });
-      }
+  function loadingComplete() {
+    gsap.to(".loading", {
+      opacity: -0.5,
+      delay: 2.5,
+      duration,
     });
+    gsap.to(".loading-wrap", {
+      opacity: -0.5,
+      delay: 2.5,
+      duration,
+      onComplete: () => {
+        document.querySelector(".loading-wrap")!.classList.toggle("hidden");
+      },
+    });
+  }
 
-    return () => {
-      ctx.revert();
-    };
-  }, [loaded]);
+  // useIsomorphicLayoutEffect(() => {
+  //   const ctx = gsap.context(() => {
+  //     if (loaded) {
+  //       gsap.to(".loading", {
+  //         opacity: -0.5,
+  //         delay: 2.5,
+  //         duration,
+  //       });
+  //       gsap.to(".loading-wrap", {
+  //         opacity: -0.5,
+  //         delay: 2.5,
+  //         duration,
+  //         onComplete: () => {
+  //           document.querySelector(".loading-wrap")!.classList.toggle("hidden");
+  //         },
+  //       });
+  //     }
+  //   });
+  //
+  //   return () => {
+  //     ctx.revert();
+  //   };
+  // }, [loaded]);
 
   useIsomorphicLayoutEffect(() => {
+    AssetManager.instance.addEventListener("loadMustAssets", loadingComplete);
+
     const ctx = gsap.context(() => {
       const tl = gsap
         .timeline()

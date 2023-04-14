@@ -5,4 +5,9 @@
   gap: 0.5rem;
   right: 1rem;
   bottom: 1rem;
+
+  &-before,
+  &-after {
+    cursor: pointer;
+  }
 }

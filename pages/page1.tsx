@@ -10,6 +10,7 @@ import { theme } from "@/utils/useScroll";
 import useLenis from "@/utils/useLenis";
 import Lenis from "@studio-freight/lenis";
 import { imageDatas } from ".";
+import { Util } from "@/gl/libs/util";
 
 const index = 0;
 
@@ -84,6 +85,9 @@ const Page = () => {
           ease: "elastic",
           delay: 0.8,
           duration: 1.5,
+          onComplete: () => {
+            Util.instance.ev("setupSelectors", {});
+          },
         }),
         0
       );
