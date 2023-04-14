@@ -52,7 +52,7 @@ export class Item extends MyObject3D {
       transparent: true,
     });
 
-    AssetManager.instance.addEventListener("cancelLoading", () => {
+    AssetManager.instance.addEventListener("updateTexture", () => {
       this._material.uniforms.u_texture.value = AssetManager.instance.getTex(
         `image${index + 1}`
       ).value;

@@ -1,7 +1,7 @@
 import { AssetManager } from "@/gl/webgl/assetsManager";
 import { gsap } from "gsap";
 import { EasePack } from "gsap/dist/EasePack";
-import { useIsomorphicLayoutEffect } from "react-use";
+import useIsomorphicLayoutEffect from "@/utils/useIsomorphicLayoutEffect";
 
 gsap.registerPlugin(EasePack);
 
@@ -52,7 +52,7 @@ const Loading = () => {
   // }, [loaded]);
 
   useIsomorphicLayoutEffect(() => {
-    AssetManager.instance.addEventListener("loadMustAssets", loadingComplete);
+    AssetManager.instance.addEventListener("cancelLoading", loadingComplete);
 
     const ctx = gsap.context(() => {
       const tl = gsap

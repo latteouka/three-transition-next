@@ -2,7 +2,7 @@ import { Func } from "@/gl/core/func";
 import Lenis from "@studio-freight/lenis";
 import { useRef } from "react";
 import { gsap } from "gsap";
-import { useIsomorphicLayoutEffect } from "react-use";
+import useIsomorphicLayoutEffect from "@/utils/useIsomorphicLayoutEffect";
 import global from "./globalState";
 import { Util } from "@/gl/libs/util";
 

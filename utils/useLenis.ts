@@ -1,6 +1,6 @@
 import Lenis from "@studio-freight/lenis";
 import { useEffect, useRef, useState } from "react";
-import { useIsomorphicLayoutEffect } from "react-use";
+import useIsomorphicLayoutEffect from "@/utils/useIsomorphicLayoutEffect";
 import global from "./globalState";
 
 const useScroll = () => {

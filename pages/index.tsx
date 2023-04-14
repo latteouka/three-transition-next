@@ -4,7 +4,7 @@ import useScroll from "@/utils/useScroll";
 import Link from "next/link";
 import { useContext } from "react";
 import { TransitionContext } from "@/utils/TransitionContext";
-import { useIsomorphicLayoutEffect } from "react-use";
+import useIsomorphicLayoutEffect from "@/utils/useIsomorphicLayoutEffect";
 import { Func } from "@/gl/core/func";
 import global from "@/utils/globalState";
 import { Param } from "@/gl/core/param";

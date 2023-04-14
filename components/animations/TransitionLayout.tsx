@@ -1,6 +1,6 @@
 import { TransitionContext } from "@/utils/TransitionContext";
 import { useState, useContext, useRef } from "react";
-import { useIsomorphicLayoutEffect } from "react-use";
+import useIsomorphicLayoutEffect from "@/utils/useIsomorphicLayoutEffect";
 
 export default function TransitionLayout({
   children,

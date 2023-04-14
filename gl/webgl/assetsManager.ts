@@ -36,21 +36,21 @@ export class AssetManager extends THREE.EventDispatcher {
 
     this.preLoadManager = new THREE.LoadingManager(
       undefined,
-      (url, loaded, total) => {
+      (_url, loaded, total) => {
         this.processEvent("processPreAssets", loaded, total);
       }
     );
 
     this.mustLoadManager = new THREE.LoadingManager(
       undefined,
-      (url, loaded, total) => {
+      (_url, loaded, total) => {
         this.processEvent("processMustAssets", loaded, total);
       }
     );
 
     this.subLoadManager = new THREE.LoadingManager(
       undefined,
-      (url, loaded, total) => {
+      (_url, loaded, total) => {
         this.processEvent("processSubAssets", loaded, total);
       }
     );
@@ -84,6 +84,7 @@ export class AssetManager extends THREE.EventDispatcher {
     );
     this.dispatchEvent({ type: "loadMustAssets" });
     this.dispatchEvent({ type: "cancelLoading" });
+    this.dispatchEvent({ type: "updateTexture" });
 
     await this.loadAssets(
       params.assets.filter((item) => item.timing == "sub"),

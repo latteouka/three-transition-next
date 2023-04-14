@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { useIsomorphicLayoutEffect } from "react-use";
+import useIsomorphicLayoutEffect from "@/utils/useIsomorphicLayoutEffect";
 import global from "@/utils/globalState";
 import { TransitionContext } from "@/utils/TransitionContext";
 import { Func } from "@/gl/core/func";
