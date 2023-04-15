@@ -66,7 +66,13 @@ const usePageSetup = (index: number) => {
       gsap.to(".page-wrapper", {
         backgroundColor: theme[index].background,
         delay: 0.5,
-        duration: 2,
+        duration: 1,
+        onStart: () => {
+          document.documentElement.style.setProperty(
+            "--backgroundColor",
+            theme[global.activeIndex].background
+          );
+        },
       }),
       0
     );

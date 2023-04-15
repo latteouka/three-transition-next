@@ -127,10 +127,10 @@ export default function Home() {
     global.lenis!.stop();
 
     // when back from next page change colors based on activeIndex
-    document.documentElement.style.setProperty(
-      "--backgroundColor",
-      theme[global.activeIndex].background
-    );
+    // document.documentElement.style.setProperty(
+    //   "--backgroundColor",
+    //   theme[global.activeIndex].background
+    // );
     document.documentElement.style.setProperty(
       "--fontColor",
       theme[global.activeIndex].color
