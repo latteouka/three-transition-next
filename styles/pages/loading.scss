@@ -4,6 +4,7 @@ $width: min(3vw, 3vh);
 
 .hidden {
   display: none !important;
+  z-index: -1 !important;
 }
 
 .loading {
@@ -22,6 +23,7 @@ $width: min(3vw, 3vh);
     top: 0;
     left: 0;
     width: 100%;
+    height: 100vh;
     height: 100dvh;
     z-index: 9999;
     font-family: sans-serif;
@@ -32,16 +34,22 @@ $width: min(3vw, 3vh);
 }
 
 .rect {
+  position: relative;
+
   display: border-box;
   width: $width;
   height: $width;
   display: block;
-  outline: #fea9cb 2px solid;
-  border-radius: 0.3rem;
-  position: relative;
 
-  @include sp {
-    border-radius: 0.1rem;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border: 2px solid #fea9cb;
+    border-radius: 0.3rem;
+    @include sp {
+      border-radius: 0.1rem;
+    }
   }
 }
 

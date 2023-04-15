@@ -2,6 +2,7 @@
 
 .page-wrapper {
   width: 100%;
+  height: 300vh;
   height: 300dvh;
   position: relative;
   background-color: white;
@@ -18,6 +19,7 @@
     transform: translateY(150px);
     display: flex;
     width: 100%;
+    height: 100vh;
     height: 100dvh;
     justify-content: center;
     align-items: center;
@@ -34,6 +36,7 @@
   top: 0;
   left: 0;
   width: 100%;
+  height: 300vh;
   height: 300dvh;
   z-index: 6;
   overflow-x: hidden;

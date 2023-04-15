@@ -276,11 +276,11 @@ const BottomNav = () => {
   }
   return (
     <div className="bottomNav">
-      <div className="bottomNav-before" onClick={() => before()}>
+      <div className="bottomNav-before notouch" onClick={() => before()}>
         Before
       </div>
       <div>/</div>
-      <div className="bottomNav-after" onClick={() => next()}>
+      <div className="bottomNav-after notouch" onClick={() => next()}>
         After
       </div>
     </div>
