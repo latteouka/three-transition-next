@@ -110,7 +110,7 @@ export default function Home() {
       }),
       ">"
     );
-  }, []);
+  }, [timeline]);
 
   // intro
   // init global styles
@@ -223,7 +223,7 @@ export default function Home() {
                 <div className="subtitle">{data.subtitle}</div>
               </div>
             </div>
-            <Image
+            <ImageBlock
               index={index}
               imagePath={data.imagePath}
               maskPath={data.maskPath}
@@ -242,13 +242,7 @@ interface ImageProps {
   maskPath: string;
 }
 
-const Image = ({ index, imagePath, maskPath }: ImageProps) => {
-  // function setupSelectors() {
-  //   global.images[index].changeSeletor(`.image${index + 1}`);
-  // }
-  // useIsomorphicLayoutEffect(() => {
-  //   document.addEventListener("setupSelectors", setupSelectors);
-  // }, []);
+const ImageBlock = ({ index, imagePath, maskPath }: ImageProps) => {
   return (
     <Link href={`/page${index + 1}`} className="image-link">
       <div
