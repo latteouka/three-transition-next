@@ -244,7 +244,11 @@ interface ImageProps {
 
 const ImageBlock = ({ index, imagePath, maskPath }: ImageProps) => {
   return (
-    <Link href={`/page${index + 1}`} className="image-link">
+    <Link
+      href={`/page${index + 1}`}
+      className="image-link"
+      aria-label={`link to page${index + 1}`}
+    >
       <div
         className={`image image${index + 1}`}
         data-index={index + 1}
