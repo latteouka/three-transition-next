@@ -79,7 +79,7 @@ export default function Home() {
       if (Func.instance.sw() > 800) {
         timeline!.add(
           gsap.to(image, {
-            x: -Func.instance.sw() * 0.2 - 16,
+            x: -Func.instance.sw() * 0.2,
             y: 150,
             ease: "elastic",
             duration: 1.5,
@@ -89,7 +89,7 @@ export default function Home() {
       } else {
         timeline!.add(
           gsap.to(image, {
-            y: 80,
+            y: 64,
             ease: "elastic",
             duration: 1.5,
           }),
@@ -214,7 +214,6 @@ export default function Home() {
       {imageDatas.map((data: ImageDataType, index) => {
         return (
           <div className="wrap" key={index}>
-            <div className="spacer"></div>
             <div className="titles">
               <div className="mainTitle-wrap">
                 <div className="mainTitle">{data.main}</div>
@@ -223,11 +222,13 @@ export default function Home() {
                 <div className="subtitle">{data.subtitle}</div>
               </div>
             </div>
-            <ImageBlock
-              index={index}
-              imagePath={data.imagePath}
-              maskPath={data.maskPath}
-            />
+            <div>
+              <ImageBlock
+                index={index}
+                imagePath={data.imagePath}
+                maskPath={data.maskPath}
+              />
+            </div>
           </div>
         );
       })}

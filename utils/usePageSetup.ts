@@ -80,7 +80,7 @@ const usePageSetup = (index: number) => {
     if (Func.instance.sw() > 800) {
       timeline!.add(
         gsap.to(".page-image", {
-          x: Func.instance.sw() * 0.2 + 16,
+          x: Func.instance.sw() * 0.2,
           y: -150,
           ease: "elastic",
           delay: 0.8,
@@ -94,7 +94,7 @@ const usePageSetup = (index: number) => {
     } else {
       timeline!.add(
         gsap.to(".page-image", {
-          y: -80,
+          y: -64,
           ease: "elastic",
           delay: 0.8,
           duration: 1.5,
