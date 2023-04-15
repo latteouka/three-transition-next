@@ -33,21 +33,29 @@ const Loading = () => {
     const ctx = gsap.context(() => {
       const tl = gsap
         .timeline()
-        .from(".rotate", {
-          scale: 0,
-          outlineColor: "#e7e0d8",
-          rotation: -360,
-          duration: 1.5,
-          stagger: {
-            each: 0.1,
-            from: "center",
-            grid: "auto",
+        .fromTo(
+          ".rotate",
+          {
+            scale: 0,
+            outlineColor: "#fff",
+            rotation: 0,
           },
-        })
+          {
+            scale: 1,
+            outlineColor: "#e7e0d8",
+            rotation: -360,
+            duration: 1.5,
+            stagger: {
+              each: 0.1,
+              from: "center",
+              grid: "auto",
+            },
+          }
+        )
         .addLabel("complete");
 
       tl.tweenTo("complete", {
-        duration: 3,
+        duration: 2.5,
         ease: EasePack.SlowMo.config(0.3, 0.5, false),
         repeat: -1,
         yoyo: true,

@@ -33,6 +33,10 @@ $width: min(3vw, 3vh);
   }
 }
 
+.rotate {
+  transform: scale(0);
+}
+
 .rect {
   position: relative;
 
