@@ -5,6 +5,11 @@ import { gsap } from "gsap";
 import useIsomorphicLayoutEffect from "@/utils/useIsomorphicLayoutEffect";
 import global from "./globalState";
 import { Util } from "@/gl/libs/util";
+import { theme } from "@/datas/theme";
+import { enableLink } from "@/pages";
+
+const max = global.imagesLength;
+const distance = global.distance;
 
 const useScroll = () => {
   let moving = useRef(false);
@@ -16,9 +21,6 @@ const useScroll = () => {
     )! as NodeListOf<HTMLDivElement>;
     const wraps = document.querySelectorAll(
       ".wrap"
-    )! as NodeListOf<HTMLDivElement>;
-    const links = document.querySelectorAll(
-      ".image-link"
     )! as NodeListOf<HTMLDivElement>;
 
     const triggerVelocity = Func.instance.sw() > 600 ? 50 : 20;
@@ -70,9 +72,7 @@ const useScroll = () => {
           theme[global.activeIndex].color
         );
         // prevent clicking other link
-        links.forEach((link) => {
-          link.style.pointerEvents = "none";
-        });
+        enableLink(false);
 
         const titleNow = wraps[pre].querySelector(
           ".mainTitle"
@@ -144,10 +144,7 @@ const useScroll = () => {
             x: 0,
             delay: 0.8,
             onComplete: () => {
-              links.forEach((link) => {
-                link.style.pointerEvents = "auto";
-              });
-
+              enableLink(true);
               // tell index to overwrite outro animations
               Util.instance.ev("setupAnimation", {});
             },
@@ -173,28 +170,3 @@ function getNext() {
 function getPre() {
   return global.activeIndex - 1 >= 0 ? global.activeIndex - 1 : max - 1;
 }
-
-const max = 5;
-const distance = 1300;
-export const theme = [
-  {
-    background: "#e7e0d8",
-    color: "#ab4f43",
-  },
-  {
-    background: "#bfca8c",
-    color: "#050402",
-  },
-  {
-    background: "#cac6c3",
-    color: "#243702",
-  },
-  {
-    background: "#f7f7ef",
-    color: "#ad9370",
-  },
-  {
-    background: "#a8a7b4",
-    color: "#d24407",
-  },
-];

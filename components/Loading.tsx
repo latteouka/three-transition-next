@@ -27,30 +27,6 @@ const Loading = () => {
     });
   }
 
-  // useIsomorphicLayoutEffect(() => {
-  //   const ctx = gsap.context(() => {
-  //     if (loaded) {
-  //       gsap.to(".loading", {
-  //         opacity: -0.5,
-  //         delay: 2.5,
-  //         duration,
-  //       });
-  //       gsap.to(".loading-wrap", {
-  //         opacity: -0.5,
-  //         delay: 2.5,
-  //         duration,
-  //         onComplete: () => {
-  //           document.querySelector(".loading-wrap")!.classList.toggle("hidden");
-  //         },
-  //       });
-  //     }
-  //   });
-  //
-  //   return () => {
-  //     ctx.revert();
-  //   };
-  // }, [loaded]);
-
   useIsomorphicLayoutEffect(() => {
     AssetManager.instance.addEventListener("cancelLoading", loadingComplete);
 

@@ -1,56 +1,25 @@
-"use client";
 import { gsap } from "gsap";
 import useScroll from "@/utils/useScroll";
 import Link from "next/link";
-import { useContext } from "react";
+import { useCallback, useContext } from "react";
 import { TransitionContext } from "@/utils/TransitionContext";
 import useIsomorphicLayoutEffect from "@/utils/useIsomorphicLayoutEffect";
 import { Func } from "@/gl/core/func";
 import global from "@/utils/globalState";
 import { Param } from "@/gl/core/param";
-import { theme } from "@/utils/useScroll";
+import { theme } from "@/datas/theme";
 import { Util } from "@/gl/libs/util";
-const distance = 1300;
+import { ImageDataType, imageDatas } from "@/datas/imageDatas";
 
-interface Data {
-  main: string;
-  subtitle: string;
-  imagePath: string;
-  maskPath: string;
+export function enableLink(enable: boolean) {
+  const links = document.querySelectorAll(
+    ".image-link"
+  )! as NodeListOf<HTMLDivElement>;
+
+  links.forEach((link) => {
+    link.style.pointerEvents = enable ? "auto" : "none";
+  });
 }
-
-export const imageDatas: Data[] = [
-  {
-    main: "京都",
-    subtitle: "錦市場",
-    imagePath: "/img/1.jpg",
-    maskPath: "/img/mask1.jpeg",
-  },
-  {
-    main: "祇園",
-    subtitle: "四条",
-    imagePath: "/img/2.jpg",
-    maskPath: "/img/mask2.jpeg",
-  },
-  {
-    main: "嵐山",
-    subtitle: "竹の道",
-    imagePath: "/img/3.jpg",
-    maskPath: "/img/mask3.jpeg",
-  },
-  {
-    main: "京都",
-    subtitle: "稲荷駅",
-    imagePath: "/img/4.jpg",
-    maskPath: "/img/mask4.jpeg",
-  },
-  {
-    main: "京都",
-    subtitle: "伏見稲荷大社",
-    imagePath: "/img/5.jpg",
-    maskPath: "/img/mask5.jpeg",
-  },
-];
 
 export default function Home() {
   const { timeline } = useContext(TransitionContext);
@@ -59,19 +28,20 @@ export default function Home() {
   // setup outro animation
   // this function is for a custom event listener
   // because I need to overwrite gsap tween after another animation
-  function setup() {
+  const setupIndexOutro = useCallback(() => {
     const wraps = document.querySelectorAll(`.wrap`);
     const images = gsap.utils.toArray(".image");
     const main = wraps[global.activeIndex].querySelector(".mainTitle")!;
     const sub = wraps[global.activeIndex].querySelector(".subtitle")!;
 
+    timeline?.clear();
     timeline!.add(
       gsap.to(`.container`, {
         backgroundColor: "#fff",
         duration: 1,
-        overwrite: true,
         onStart: () => {
-          document.documentElement.style.pointerEvents = "none";
+          enableLink(false);
+
           global.lenis!.stop();
           global.images.forEach((image, index) => {
             if (index === global.activeIndex) return;
@@ -134,18 +104,19 @@ export default function Home() {
         ease: "linear",
         onComplete: () => {
           global.lenis!.start();
-          document.documentElement.style.pointerEvents = "auto";
+
+          enableLink(true);
         },
       }),
       ">"
     );
-  }
+  }, []);
 
   // intro
   // init global styles
   useIsomorphicLayoutEffect(() => {
     // listen for the scroll animation in useScroll hook
-    document.addEventListener("setupAnimation", setup);
+    document.addEventListener("setupAnimation", setupIndexOutro);
 
     // limit user control
     document.documentElement.style.pointerEvents = "none";
@@ -213,12 +184,12 @@ export default function Home() {
     });
 
     return () => {
-      document.removeEventListener("setup", setup);
+      document.removeEventListener("setupAnimation", setupIndexOutro);
       ctx.revert();
     };
   }, []);
 
-  // initial positions
+  // initial positions(separate images)
   useIsomorphicLayoutEffect(() => {
     const images = document.querySelectorAll(
       ".image"
@@ -228,8 +199,8 @@ export default function Home() {
       images.forEach((image, index) => {
         if (index === now) return;
         gsap.set(image, {
-          x: -distance,
-          y: distance,
+          x: -global.distance,
+          y: global.distance,
         });
       });
     });
@@ -240,7 +211,7 @@ export default function Home() {
 
   return (
     <div className="container">
-      {imageDatas.map((data: Data, index) => {
+      {imageDatas.map((data: ImageDataType, index) => {
         return (
           <div className="wrap" key={index}>
             <div className="spacer"></div>
@@ -272,12 +243,12 @@ interface ImageProps {
 }
 
 const Image = ({ index, imagePath, maskPath }: ImageProps) => {
-  function setupSelectors() {
-    global.images[index].changeSeletor(`.image${index + 1}`);
-  }
-  useIsomorphicLayoutEffect(() => {
-    document.addEventListener("setupSelectors", setupSelectors);
-  }, []);
+  // function setupSelectors() {
+  //   global.images[index].changeSeletor(`.image${index + 1}`);
+  // }
+  // useIsomorphicLayoutEffect(() => {
+  //   document.addEventListener("setupSelectors", setupSelectors);
+  // }, []);
   return (
     <Link href={`/page${index + 1}`} className="image-link">
       <div

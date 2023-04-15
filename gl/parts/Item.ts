@@ -6,7 +6,7 @@ import { Update } from "../libs/update";
 import { Func } from "../core/func";
 import { Param } from "../core/param";
 import global from "@/utils/globalState";
-import { imageDatas } from "@/pages";
+import { imageDatas } from "@/datas/imageDatas";
 import { AssetManager } from "../webgl/assetsManager";
 
 export class Images {
@@ -30,7 +30,8 @@ export class Item extends MyObject3D {
   constructor(selector: string, index: number) {
     super();
 
-    this._selector = selector;
+    this._selector =
+      window.location.pathname === "/" ? selector : ".page-image";
     const geometry = new THREE.PlaneGeometry(1, 1);
     this._material = new THREE.ShaderMaterial({
       vertexShader: vertex,

@@ -17,7 +17,7 @@ const TransitionContext = createContext<TransitionContextProps>({
 
 const TransitionProvider = ({ children }: { children: React.ReactNode }) => {
   const [timeline, setTimeline] = useState(() =>
-    gsap.timeline({ paused: true, defaults: { overwrite: true } })
+    gsap.timeline({ paused: true })
   );
 
   const [background, setBackground] = useState("#e7e0d8");
