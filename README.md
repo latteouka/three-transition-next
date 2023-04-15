@@ -33,6 +33,10 @@ The idea and mask images are from [riv-studio](https://www.riv-studio.com/projec
 - 要處理 async/await
 - 所有 Texture 應該在同一處被 Preload
 
+### gap 問題
+
+在 safari 上會發現 gap 的異常現象，很晚才支援所以直接取消。
+
 ## Todos
 
 - 真實 Mobile View 是否都正常？
