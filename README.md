@@ -33,9 +33,11 @@ The idea and mask images are from [riv-studio](https://www.riv-studio.com/projec
 - 要處理 async/await
 - 所有 Texture 應該在同一處被 Preload
 
-### gap 問題
+### safari 問題
 
-在 safari 上會發現 gap 的異常現象，很晚才支援所以直接取消。
+- 上下軸會吃 body 的背景色，加入 transition。
+- 在 safari 上會發現 gap 的異常現象，很晚才支援所以直接取消，單純用 margin 解決，並調整 transition 參數。
+- 不支援 dvh，所以要有 vh 做 fallback。
 
 ## Todos
 

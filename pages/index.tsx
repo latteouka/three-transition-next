@@ -41,6 +41,10 @@ export default function Home() {
         duration: 1,
         onStart: () => {
           enableLink(false);
+          document.documentElement.style.setProperty(
+            "--backgroundColor",
+            "white"
+          );
 
           global.lenis!.stop();
           global.images.forEach((image, index) => {
