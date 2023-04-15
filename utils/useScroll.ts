@@ -91,7 +91,6 @@ const useScroll = () => {
         // 換顏色
         gsap.to(".container", {
           backgroundColor: theme[global.activeIndex].background,
-          ease: "linear",
           duration: 1,
           onStart: () => {
             document.documentElement.style.setProperty(
