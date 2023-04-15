@@ -1,6 +1,11 @@
-import * as THREE from "three";
+import {
+  EventDispatcher,
+  VideoTexture,
+  ClampToEdgeWrapping,
+  TextureLoader,
+} from "three";
 
-export class VideoTextureLoader extends THREE.EventDispatcher {
+export class VideoTextureLoader extends EventDispatcher {
   private url: string;
   private subImgURL?: string;
   private loaded: boolean;
@@ -29,7 +34,7 @@ export class VideoTextureLoader extends THREE.EventDispatcher {
     this.videoElm.src =
       this.url + "?v=" + Math.floor(Math.random() * 10000).toString();
 
-    this.videoElm.onstalled = (e) => {
+    this.videoElm.onstalled = () => {
       this.createImageTexture();
     };
 
@@ -42,11 +47,11 @@ export class VideoTextureLoader extends THREE.EventDispatcher {
 
     this.videoElm.play();
 
-    let tex = new THREE.VideoTexture(this.videoElm);
+    let tex = new VideoTexture(this.videoElm);
     tex.image.width = tex.image.videoWidth;
     tex.image.height = tex.image.videoHeight;
-    tex.wrapS = THREE.ClampToEdgeWrapping;
-    tex.wrapT = THREE.ClampToEdgeWrapping;
+    tex.wrapS = ClampToEdgeWrapping;
+    tex.wrapT = ClampToEdgeWrapping;
     tex.needsUpdate = true;
 
     this.dispatchEvent({
@@ -74,7 +79,7 @@ export class VideoTextureLoader extends THREE.EventDispatcher {
 
   public createImageTexture() {
     if (this.subImgURL) {
-      let loader = new THREE.TextureLoader();
+      let loader = new TextureLoader();
       loader.crossOrigin = "use-credentials";
 
       loader.load(this.subImgURL, (tex) => {

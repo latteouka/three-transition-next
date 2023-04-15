@@ -1,11 +1,11 @@
-import * as THREE from "three";
+import { Cache } from "three";
 import { Func } from "../core/func";
 import { Canvas } from "../webgl/canvas";
 import { Object3D } from "three/src/core/Object3D";
 import { Update } from "../libs/update";
 import { Images } from "./Item";
 
-THREE.Cache.enabled = true;
+Cache.enabled = true;
 
 export class Visual extends Canvas {
   private _con: Object3D;

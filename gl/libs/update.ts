@@ -1,11 +1,11 @@
-import * as THREE from "three";
+import { Clock } from "three";
 
 export class Update {
   private static _instance: Update;
 
   // count and elapsed time
   public cnt: number = 0;
-  private _clock: THREE.Clock;
+  private _clock: Clock;
   public elapsed: number = 0;
 
   // use add function to participate in frame update
@@ -14,7 +14,7 @@ export class Update {
   public play: boolean = true;
 
   constructor() {
-    this._clock = new THREE.Clock();
+    this._clock = new Clock();
     window.requestAnimationFrame(this._update);
   }
 

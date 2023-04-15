@@ -1,4 +1,11 @@
-import * as THREE from "three";
+import {
+  Mesh,
+  PlaneGeometry,
+  ShaderMaterial,
+  Vector2,
+  Vector4,
+  Object3D,
+} from "three";
 import vertex from "../glsl/item.vert";
 import fragment from "../glsl/item.frag";
 import { MyObject3D } from "../webgl/myObject3D";
@@ -10,7 +17,7 @@ import { imageDatas } from "@/datas/imageDatas";
 import { AssetManager } from "../webgl/assetsManager";
 
 export class Images {
-  constructor(container: THREE.Object3D) {
+  constructor(container: Object3D) {
     imageDatas.forEach((_, index) => {
       const item = new Item(`.image${index + 1}`, index);
       global.images.push(item);
@@ -22,8 +29,8 @@ export class Images {
 export class Item extends MyObject3D {
   private _width = 0;
   private _height = 0;
-  private _material: THREE.ShaderMaterial;
-  private _mesh: THREE.Mesh;
+  private _material: ShaderMaterial;
+  private _mesh: Mesh;
   private _selector: string;
   private _needUpdate = true;
 
@@ -32,8 +39,8 @@ export class Item extends MyObject3D {
 
     this._selector =
       window.location.pathname === "/" ? selector : ".page-image";
-    const geometry = new THREE.PlaneGeometry(1, 1);
-    this._material = new THREE.ShaderMaterial({
+    const geometry = new PlaneGeometry(1, 1);
+    this._material = new ShaderMaterial({
       vertexShader: vertex,
       fragmentShader: fragment,
       uniforms: {
@@ -41,13 +48,13 @@ export class Item extends MyObject3D {
         u_texture: { value: null },
         u_mask: { value: null },
         u_resolution: {
-          value: new THREE.Vector4(1, 1, 1, 1),
+          value: new Vector4(1, 1, 1, 1),
         },
         u_progress: {
           value: 0,
         },
         u_imageResolution: {
-          value: new THREE.Vector2(1280, 530),
+          value: new Vector2(1280, 530),
         },
       },
       transparent: true,
@@ -62,7 +69,7 @@ export class Item extends MyObject3D {
       ).value;
     });
 
-    this._mesh = new THREE.Mesh(geometry, this._material);
+    this._mesh = new Mesh(geometry, this._material);
     this.add(this._mesh);
     this._updateWidthHeight();
     this._resize();

@@ -1,10 +1,10 @@
-import * as THREE from "three";
+import { LoadingManager, EventDispatcher } from "three";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { Texture } from "three/src/textures/Texture";
 import { Util } from "../libs/util";
 import { IETexture } from "./ieTexture";
 
-export class TexLoader extends THREE.EventDispatcher {
+export class TexLoader extends EventDispatcher {
   private static _instance: TexLoader;
 
   private _list: Array<any> = [];
@@ -13,7 +13,7 @@ export class TexLoader extends THREE.EventDispatcher {
   private _loadedNum: number = 0;
   private _isIE: boolean = Util.instance.isIE();
 
-  private _manager = new THREE.LoadingManager();
+  private _manager = new LoadingManager();
 
   public onComplete?: Function;
   public onProgress?: Function;
