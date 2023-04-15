@@ -92,6 +92,12 @@ const useScroll = () => {
         gsap.to(".container", {
           backgroundColor: theme[global.activeIndex].background,
           duration: 1,
+          onStart: () => {
+            document.documentElement.style.setProperty(
+              "--backgroundColor",
+              theme[global.activeIndex].background
+            );
+          },
         });
 
         // hide titles now
