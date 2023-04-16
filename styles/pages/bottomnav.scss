@@ -1,3 +1,5 @@
+@use "../global/variables" as *;
+
 .bottomNav {
   display: flex;
   position: absolute;
@@ -5,9 +7,23 @@
   gap: 0.5rem;
   right: 1rem;
   bottom: 1rem;
+  font-size: 1.3rem;
+  color: $slate-700;
 
   &-before,
   &-after {
     cursor: pointer;
+    transition: color 0.4s;
+    &:hover {
+      color: var(--fontColor);
+    }
+  }
+
+  &-before {
+    transform: rotate(20deg);
+  }
+
+  &-after {
+    transform: rotate(20deg);
   }
 }

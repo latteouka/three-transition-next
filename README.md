@@ -1,4 +1,6 @@
-The idea and mask images are from [riv-studio](https://www.riv-studio.com/projects)
+Ispired by [riv-studio](https://www.riv-studio.com/projects)
+
+自己用 Photoshop 做了一些 mask 來用。
 
 ## prototype
 
@@ -15,6 +17,7 @@ The idea and mask images are from [riv-studio](https://www.riv-studio.com/projec
 - 原站的動畫在 06->01 及 06->05 間有時會跳掉，有可能是 gsap overwrite 問題？因為滾動動畫還沒結束就能點 link，所以有可能互吃到。
 - 原站點擊後的 transition 應是將圖片放到與目標頁接近的位置，並處理 shader 的 progress 去放大 Blob 的範圍，到 transition 結束後直接切到目標頁的純 html，然後播放新頁面的 intro animation，過程中因為位置有不一樣所以還是有閃動。
 - 原站沒有處理上一頁返回後的 transition，但因為看過很酷的實例所以想要試試看。要計算完全相同的位置加上 transition，把 scrollbar 取消避免寬度不一樣造成的閃動（但要另外做 scrollbar 的進度提示）。transition 不依賴 gsap 以外函式庫。
+- 原站雖然有 Preload 過程，但進到 detail 頁後圖片還是有讀取過程。
 
 ### 我想想
 
@@ -33,7 +36,7 @@ The idea and mask images are from [riv-studio](https://www.riv-studio.com/projec
 
 ### Preload 問題
 
-- 用 image preload 跟 three.js 的 ImageLoader 是沒有通的，所以用 image preload 等於是多做一件事。
+- 用 image preload 跟 three.js 的 ImageLoader 是沒有通的，如果兩者都要用就要都做，但我只用在 texture，所以用 image preload 等於是多做一件事。
 - 要處理 async/await
 - 所有 Texture 應該在同一處被 Preload，結束後再開始 render threejs 元素即可。
 

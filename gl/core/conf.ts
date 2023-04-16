@@ -6,13 +6,13 @@ export class Conf {
   // #############################################
   // 本番フラグ
   // #############################################
-  public IS_BUILD: boolean = true;
+  public IS_BUILD: boolean = false;
 
   // テスト用 パラメータ
-  public FLG_PARAM: boolean = this.IS_BUILD ? false : true;
+  public FLG_PARAM: boolean = this.IS_BUILD ? false : false;
   public FLG_LOW_FPS: boolean = this.IS_BUILD ? false : false;
   public FLG_DEBUG_TXT: boolean = this.IS_BUILD ? false : false;
-  public FLG_STATS: boolean = this.IS_BUILD ? false : false;
+  public FLG_STATS: boolean = this.IS_BUILD ? false : true;
 
   // パス
   public PATH_IMG: string = "./assets/img/";
