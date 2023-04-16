@@ -264,13 +264,13 @@ const BottomNav = () => {
   function before() {
     const wheelEvt = document.createEvent("MouseEvents") as any;
     wheelEvt.initEvent("wheel", true, true);
-    wheelEvt.deltaY = -170;
+    wheelEvt.deltaY = -200;
     document.dispatchEvent(wheelEvt);
   }
   function next() {
     const wheelEvt = document.createEvent("MouseEvents") as any;
     wheelEvt.initEvent("wheel", true, true);
-    wheelEvt.deltaY = 170;
+    wheelEvt.deltaY = 200;
     document.dispatchEvent(wheelEvt);
   }
   return (

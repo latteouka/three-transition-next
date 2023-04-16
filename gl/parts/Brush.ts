@@ -74,8 +74,8 @@ export class Brush extends MyObject3D {
         return;
       }
       mesh.rotation.z += 0.02;
-      mesh.scale.setScalar(0.98 * mesh.scale.x + 0.1);
-      material.opacity *= 0.96;
+      mesh.scale.setScalar(1.02 * mesh.scale.x + 0.1);
+      material.opacity *= 0.94;
     });
   }
 }

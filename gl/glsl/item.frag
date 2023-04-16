@@ -7,7 +7,7 @@ uniform sampler2D u_texture;
 uniform sampler2D u_mask;
 uniform sampler2D u_brush;
 uniform vec2 u_imageResolution;
-uniform vec2 u_screen;
+uniform vec3 u_screen;
 uniform vec4 u_resolution;
 
 float PI = 3.1415926535897932384626433832795;
@@ -21,7 +21,7 @@ vec3 greyscale(vec3 color, float str) {
 }
 
 void main(void) {
-  vec2 screenUv = gl_FragCoord.xy / u_screen;
+  vec2 screenUv = gl_FragCoord.xy / u_screen.xy / u_screen.z;
   vec2 coverUv = (v_uv - vec2(0.5)) * u_resolution.zw + vec2(0.5);
 
   vec2 originUv = v_uv;
@@ -71,6 +71,6 @@ void main(void) {
   gl_FragColor = vec4(grayFinal, final.a);
   // gl_FragColor = brush;
   // gl_FragColor = vec4(vec3(blobMask), 1.0);
-  // gl_FragColor = vec4(screenUv.y, 0.0, 0.0, 1.0);
+  // gl_FragColor = vec4(screenUv.x, 0.0, 0.0, 1.0);
 }
 

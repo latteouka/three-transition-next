@@ -141,7 +141,6 @@ const usePageSetup = (index: number) => {
           onComplete: () => {
             selectorToPage();
             hideAllOtherImages();
-
             setLoaded(true);
           },
         }

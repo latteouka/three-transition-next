@@ -38,7 +38,7 @@ export class MousePointer {
     window.addEventListener("pointerup", () => {
       this._eUp();
     });
-    window.addEventListener("pointermove", (e: any = {}) => {
+    document.addEventListener("pointermove", (e: any = {}) => {
       this._eMove(e);
     });
   }
@@ -74,6 +74,10 @@ export class MousePointer {
   }
 
   private _eMove(e: any = {}): void {
+    const dx = this.old.x - this.x;
+    const dy = this.old.y - this.y;
+    this.dist = Math.sqrt(dx * dx + dy * dy);
+
     this.old.x = this.x;
     this.old.y = this.y;
 
@@ -85,10 +89,6 @@ export class MousePointer {
 
     this.cx = e.clientX - window.innerWidth / 2;
     this.cy = e.clientY - window.innerHeight / 2;
-
-    const dx = this.old.x - this.x;
-    const dy = this.old.y - this.y;
-    this.dist = Math.sqrt(dx * dx + dy * dy);
   }
 
   private _update(): void {
