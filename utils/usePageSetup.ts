@@ -7,6 +7,8 @@ import { gsap } from "gsap";
 import { Param } from "@/gl/core/param";
 import { theme } from "@/datas/theme";
 import Lenis from "@studio-freight/lenis";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 // change threejs images following target
 function selectorToIndex() {
@@ -144,6 +146,16 @@ const usePageSetup = (index: number) => {
           },
         }
       );
+
+      gsap.to(Param.instance.main.colorFactor, {
+        value: 1,
+        scrollTrigger: {
+          trigger: ".page-section2",
+          start: "top bottom",
+          end: "+=400",
+          scrub: 1,
+        },
+      });
     });
 
     // when user directly enter page

@@ -4,6 +4,7 @@ import { Conf } from "./conf";
 import { Update } from "../libs/update";
 import { FPS } from "../core/fps";
 import { Func } from "./func";
+import { argv0 } from "process";
 
 export class Param {
   private static _instance: Param;
@@ -20,6 +21,11 @@ export class Param {
       value: Func.instance.sw() > 800 ? -0.58 : -0.58,
       min: -3,
       max: 3,
+    },
+    colorFactor: {
+      value: 0,
+      min: 0,
+      max: 1,
     },
   };
 

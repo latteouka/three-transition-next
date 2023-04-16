@@ -15,6 +15,7 @@ import { Param } from "../core/param";
 import global from "@/utils/globalState";
 import { imageDatas } from "@/datas/imageDatas";
 import { AssetManager } from "../webgl/assetsManager";
+import { MousePointer } from "../core/mousePointer";
 
 export class Images {
   constructor(container: Object3D) {
@@ -55,6 +56,9 @@ export class Item extends MyObject3D {
         },
         u_imageResolution: {
           value: new Vector2(1280, 530),
+        },
+        u_colorFactor: {
+          value: 0,
         },
       },
       transparent: true,
@@ -106,9 +110,13 @@ export class Item extends MyObject3D {
     }
 
     this._updateResolution();
+
+    // uniforms
     this._material.uniforms.u_time.value = Update.instance.elapsed;
     this._material.uniforms.u_progress.value =
       Param.instance.main.progress.value;
+    this._material.uniforms.u_colorFactor.value =
+      Param.instance.main.colorFactor.value;
   }
 
   protected _resize(): void {

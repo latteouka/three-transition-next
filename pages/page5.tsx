@@ -24,6 +24,8 @@ const Page = () => {
           <div className="page-title-main">{imageDatas[index].main}</div>
           <div className="page-title-sub">{imageDatas[index].subtitle}</div>
         </div>
+        <div className="page-section1"></div>
+        <div className="page-section2"></div>
       </div>
     </div>
   );

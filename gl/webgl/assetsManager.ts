@@ -1,4 +1,4 @@
-import { EventDispatcher, LoadingManager, TextureLoader } from "three";
+import * as THREE from "three";
 import { GLTF, GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { VideoTextureLoader } from "./VideoTextureLoader";
 
@@ -18,15 +18,15 @@ export declare interface AssetManagerAssetData {
 export declare interface AssetManagerParams {
   assets: AssetManagerAssetData[];
 }
-export class AssetManager extends EventDispatcher {
+export class AssetManager extends THREE.EventDispatcher {
   private static _instance: AssetManager;
 
   private textures: { [key: string]: AssetManagerTexture };
   private gltfs: { [key: string]: GLTF };
 
-  private preLoadManager: LoadingManager;
-  private mustLoadManager: LoadingManager;
-  private subLoadManager: LoadingManager;
+  private preLoadManager: THREE.LoadingManager;
+  private mustLoadManager: THREE.LoadingManager;
+  private subLoadManager: THREE.LoadingManager;
 
   constructor() {
     super();
@@ -34,21 +34,21 @@ export class AssetManager extends EventDispatcher {
     this.textures = {};
     this.gltfs = {};
 
-    this.preLoadManager = new LoadingManager(
+    this.preLoadManager = new THREE.LoadingManager(
       undefined,
       (_url, loaded, total) => {
         this.processEvent("processPreAssets", loaded, total);
       }
     );
 
-    this.mustLoadManager = new LoadingManager(
+    this.mustLoadManager = new THREE.LoadingManager(
       undefined,
       (_url, loaded, total) => {
         this.processEvent("processMustAssets", loaded, total);
       }
     );
 
-    this.subLoadManager = new LoadingManager(
+    this.subLoadManager = new THREE.LoadingManager(
       undefined,
       (_url, loaded, total) => {
         this.processEvent("processSubAssets", loaded, total);
@@ -93,7 +93,10 @@ export class AssetManager extends EventDispatcher {
     this.dispatchEvent({ type: "loadSubAssets" });
   }
 
-  private loadAssets(assets: AssetManagerAssetData[], manager: LoadingManager) {
+  private loadAssets(
+    assets: AssetManagerAssetData[],
+    manager: THREE.LoadingManager
+  ) {
     let tex = assets.filter((item) => item.type == "tex");
     let videoTex = assets.filter((item) => item.type == "videoTex");
     let gltf = assets.filter((item) => item.type == "gltf");
@@ -102,7 +105,7 @@ export class AssetManager extends EventDispatcher {
 			Load Texture
 		-------------------------------*/
 
-    let texLoader = new TextureLoader(manager);
+    let texLoader = new THREE.TextureLoader(manager);
 
     tex.forEach((item) => {
       texLoader.load(item.path, (t) => {

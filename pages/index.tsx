@@ -126,11 +126,6 @@ export default function Home() {
     document.documentElement.style.pointerEvents = "none";
     global.lenis!.stop();
 
-    // when back from next page change colors based on activeIndex
-    // document.documentElement.style.setProperty(
-    //   "--backgroundColor",
-    //   theme[global.activeIndex].background
-    // );
     document.documentElement.style.setProperty(
       "--fontColor",
       theme[global.activeIndex].color
@@ -174,6 +169,7 @@ export default function Home() {
             // resume user control
             document.documentElement.style.pointerEvents = "auto";
             global.lenis!.start();
+
             // threejs images are hide during backward animation
             // when come back from detail page show them all
             global.images.forEach((image) => {

@@ -2,6 +2,7 @@
 
 uniform float u_time;
 uniform float u_progress;
+uniform float u_colorFactor;
 uniform sampler2D u_texture;
 uniform sampler2D u_mask;
 uniform vec2 u_imageResolution;
@@ -9,6 +10,11 @@ uniform vec4 u_resolution;
 
 varying vec3 v_pos;
 varying vec2 v_uv;
+
+vec3 greyscale(vec3 color, float str) {
+    float g = dot(color, vec3(0.299, 0.587, 0.114));
+    return mix(color, vec3(g), str);
+}
 
 void main(void) {
   vec2 coverUv = (v_uv - vec2(0.5)) * u_resolution.zw + vec2(0.5);
@@ -48,7 +54,10 @@ void main(void) {
 
   vec4 final = mix(color, transparent, blobMask);
 
+  vec3 grayFinal = greyscale(final.rgb, u_colorFactor);
+
   gl_FragColor = final;
+  gl_FragColor = vec4(grayFinal, final.a);
   // gl_FragColor = vec4(vec3(blobMask), 1.0);
   // gl_FragColor = vec4(vec3(n), 1.0);
 }

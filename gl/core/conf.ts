@@ -9,10 +9,10 @@ export class Conf {
   public IS_BUILD: boolean = false;
 
   // テスト用 パラメータ
-  public FLG_PARAM: boolean = this.IS_BUILD ? false : false;
+  public FLG_PARAM: boolean = this.IS_BUILD ? false : true;
   public FLG_LOW_FPS: boolean = this.IS_BUILD ? false : false;
   public FLG_DEBUG_TXT: boolean = this.IS_BUILD ? false : false;
-  public FLG_STATS: boolean = this.IS_BUILD ? false : true;
+  public FLG_STATS: boolean = this.IS_BUILD ? false : false;
 
   // パス
   public PATH_IMG: string = "./assets/img/";
