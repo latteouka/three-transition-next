@@ -247,11 +247,11 @@ const ImageBlock = ({ index, imagePath, maskPath }: ImageProps) => {
   return (
     <Link
       href={`/page${index + 1}`}
-      className="image-link"
+      className="image-link notouch"
       aria-label={`link to page${index + 1}`}
     >
       <div
-        className={`image image${index + 1}`}
+        className={`image image${index + 1} notouch`}
         data-index={index + 1}
         data-image={imagePath}
         data-mask={maskPath}

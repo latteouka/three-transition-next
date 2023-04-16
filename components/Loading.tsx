@@ -5,7 +5,7 @@ import useIsomorphicLayoutEffect from "@/utils/useIsomorphicLayoutEffect";
 
 gsap.registerPlugin(EasePack);
 
-const debug = true;
+const debug = false;
 const count = 8;
 const duration = 1.5;
 
