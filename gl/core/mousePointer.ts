@@ -71,6 +71,7 @@ export class MousePointer {
 
   private _eUp(): void {
     this.isDown = false;
+    this.dist = 0;
   }
 
   private _eMove(e: any = {}): void {
