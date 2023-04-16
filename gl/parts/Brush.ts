@@ -18,7 +18,7 @@ export class Brush extends MyObject3D {
       format: THREE.RGBAFormat,
     }
   );
-  private _width = 100;
+  private _width = 50;
 
   constructor() {
     super();
@@ -26,7 +26,7 @@ export class Brush extends MyObject3D {
     for (let i = 0; i < this.max; i++) {
       const geometry = new THREE.PlaneGeometry(this._width, this._width);
       const material = new THREE.MeshBasicMaterial({
-        map: TexLoader.instance.get("/brush.png"),
+        map: TexLoader.instance.get("/brush4.png"),
         transparent: true,
       });
 
