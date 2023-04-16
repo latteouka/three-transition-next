@@ -4,10 +4,13 @@ import { Canvas } from "../webgl/canvas";
 import { Object3D } from "three/src/core/Object3D";
 import { Update } from "../libs/update";
 import { Images } from "./Item";
+import { Brush } from "./Brush";
+import global from "@/utils/globalState";
 
 Cache.enabled = true;
 
 export class Visual extends Canvas {
+  private _brush: Brush;
   private _con: Object3D;
 
   constructor(opt: any) {
@@ -17,6 +20,8 @@ export class Visual extends Canvas {
     this.mainScene.add(this._con);
 
     new Images(this._con);
+
+    this._brush = new Brush();
 
     this._resize();
   }
@@ -31,6 +36,13 @@ export class Visual extends Canvas {
 
   private _render(): void {
     this.renderer.setClearColor("#fff", 0);
+    this.renderer.setRenderTarget(this._brush.brushTexture);
+    this.renderer.render(this._brush.scene, this.cameraPers);
+    global.images.forEach((image) => {
+      image.material.uniforms.u_brush.value = this._brush.brushTexture.texture;
+    });
+    this.renderer.setRenderTarget(null);
+    this.renderer.clear();
     this.renderer.render(this.mainScene, this.cameraPers);
   }
 

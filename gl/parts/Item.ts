@@ -15,7 +15,6 @@ import { Param } from "../core/param";
 import global from "@/utils/globalState";
 import { imageDatas } from "@/datas/imageDatas";
 import { AssetManager } from "../webgl/assetsManager";
-import { MousePointer } from "../core/mousePointer";
 
 export class Images {
   constructor(container: Object3D) {
@@ -30,7 +29,7 @@ export class Images {
 export class Item extends MyObject3D {
   private _width = 0;
   private _height = 0;
-  private _material: ShaderMaterial;
+  material: ShaderMaterial;
   private _mesh: Mesh;
   private _selector: string;
   private _needUpdate = true;
@@ -41,7 +40,7 @@ export class Item extends MyObject3D {
     this._selector =
       window.location.pathname === "/" ? selector : ".page-image";
     const geometry = new PlaneGeometry(1, 1);
-    this._material = new ShaderMaterial({
+    this.material = new ShaderMaterial({
       vertexShader: vertex,
       fragmentShader: fragment,
       uniforms: {
@@ -60,20 +59,26 @@ export class Item extends MyObject3D {
         u_colorFactor: {
           value: 0,
         },
+        u_brush: {
+          value: null,
+        },
+        u_screen: {
+          value: new Vector2(0, 0),
+        },
       },
       transparent: true,
     });
 
     AssetManager.instance.addEventListener("updateTexture", () => {
-      this._material.uniforms.u_texture.value = AssetManager.instance.getTex(
+      this.material.uniforms.u_texture.value = AssetManager.instance.getTex(
         `image${index + 1}`
       ).value;
-      this._material.uniforms.u_mask.value = AssetManager.instance.getTex(
+      this.material.uniforms.u_mask.value = AssetManager.instance.getTex(
         `mask${index + 1}`
       ).value;
     });
 
-    this._mesh = new Mesh(geometry, this._material);
+    this._mesh = new Mesh(geometry, this.material);
     this.add(this._mesh);
     this._updateWidthHeight();
     this._resize();
@@ -99,7 +104,7 @@ export class Item extends MyObject3D {
       530,
       1280
     );
-    this._material.uniforms.u_resolution.value.set(width, height, a1, a2);
+    this.material.uniforms.u_resolution.value.set(width, height, a1, a2);
   }
 
   protected _update(): void {
@@ -112,15 +117,20 @@ export class Item extends MyObject3D {
     this._updateResolution();
 
     // uniforms
-    this._material.uniforms.u_time.value = Update.instance.elapsed;
-    this._material.uniforms.u_progress.value =
+    this.material.uniforms.u_time.value = Update.instance.elapsed;
+    this.material.uniforms.u_progress.value =
       Param.instance.main.progress.value;
-    this._material.uniforms.u_colorFactor.value =
+    this.material.uniforms.u_colorFactor.value =
       Param.instance.main.colorFactor.value;
   }
 
   protected _resize(): void {
     super._resize();
+
+    this.material.uniforms.u_screen.value.set(
+      Func.instance.sw(),
+      Func.instance.sh()
+    );
   }
 
   public changeSeletor(seletor: string) {

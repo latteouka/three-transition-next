@@ -7,12 +7,16 @@ export class MousePointer {
 
   public x: number = window.innerWidth * 0.5;
   public y: number = window.innerHeight * 0.5;
+  public cx: number = window.innerWidth * 0.5;
+  public cy: number = window.innerHeight * 0.5;
   public old: Point = new Point();
+  public cOld: Point = new Point();
   public normal: Point = new Point();
   public easeNormal: Point = new Point();
   public start: Point = new Point();
   public moveDist: Point = new Point();
   public dist: number = 0;
+  public cDist: number = 0;
   public isDown: boolean = false;
   public usePreventDefault: boolean = true;
 
@@ -73,8 +77,14 @@ export class MousePointer {
     this.old.x = this.x;
     this.old.y = this.y;
 
+    this.cOld.x = this.cx;
+    this.cOld.y = this.cy;
+
     this.x = e.clientX;
     this.y = e.clientY;
+
+    this.cx = e.clientX - window.innerWidth / 2;
+    this.cy = e.clientY - window.innerHeight / 2;
 
     const dx = this.old.x - this.x;
     const dy = this.old.y - this.y;

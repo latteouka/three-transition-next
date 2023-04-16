@@ -5,6 +5,7 @@ import useIsomorphicLayoutEffect from "@/utils/useIsomorphicLayoutEffect";
 
 gsap.registerPlugin(EasePack);
 
+const debug = true;
 const count = 8;
 const duration = 1.5;
 
@@ -12,6 +13,7 @@ const Loading = () => {
   const generate = new Array(count * count).fill(0);
 
   function loadingComplete() {
+    if (debug) return;
     gsap.to(".loading", {
       opacity: -0.5,
       delay: 2.5,
@@ -67,23 +69,27 @@ const Loading = () => {
     };
   }, []);
   return (
-    <div className="loading-wrap">
-      <div className="loading">
-        {generate.map((_item, index) => {
-          if (index === 18) {
-            return <Word text="C" key={index} />;
-          } else if (index === 27) {
-            return <Word text="H" key={index} />;
-          } else if (index === 36) {
-            return <Word text="U" key={index} />;
-          } else if (index === 45) {
-            return <Word text="N" key={index} />;
-          } else {
-            return <div className="rect rotate" key={index}></div>;
-          }
-        })}
-      </div>
-    </div>
+    <>
+      {!debug && (
+        <div className="loading-wrap">
+          <div className="loading">
+            {generate.map((_item, index) => {
+              if (index === 18) {
+                return <Word text="C" key={index} />;
+              } else if (index === 27) {
+                return <Word text="H" key={index} />;
+              } else if (index === 36) {
+                return <Word text="U" key={index} />;
+              } else if (index === 45) {
+                return <Word text="N" key={index} />;
+              } else {
+                return <div className="rect rotate" key={index}></div>;
+              }
+            })}
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 export default Loading;

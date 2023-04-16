@@ -5,8 +5,12 @@ uniform float u_progress;
 uniform float u_colorFactor;
 uniform sampler2D u_texture;
 uniform sampler2D u_mask;
+uniform sampler2D u_brush;
 uniform vec2 u_imageResolution;
+uniform vec2 u_screen;
 uniform vec4 u_resolution;
+
+float PI = 3.1415926535897932384626433832795;
 
 varying vec3 v_pos;
 varying vec2 v_uv;
@@ -17,6 +21,7 @@ vec3 greyscale(vec3 color, float str) {
 }
 
 void main(void) {
+  vec2 screenUv = gl_FragCoord.xy / u_screen;
   vec2 coverUv = (v_uv - vec2(0.5)) * u_resolution.zw + vec2(0.5);
 
   vec2 originUv = v_uv;
@@ -29,7 +34,14 @@ void main(void) {
   // scale with progress
   vec2 maskUv = (uv + vec2(u_progress / 2.0)) / (1.0 + u_progress);
 
-  vec4 color = texture2D(u_texture, originUv);
+  // brush distort
+  vec4 brush = texture2D(u_brush, screenUv);
+  float theta = brush.r * PI * 2.0;
+  vec2 dir = vec2(sin(theta), cos(theta));
+
+  vec2 distort = dir * brush.r * 0.01;
+
+  vec4 color = texture2D(u_texture, originUv + distort);
 
   if(originUv.y < 0.0 ) {
     color.rgb = vec3(1.0, 1.0, 1.0);
@@ -37,7 +49,6 @@ void main(void) {
   if(originUv.y > 1.0 ) {
     color.rgb = vec3(1.0, 1.0, 1.0);
   }
-
 
   vec4 mask = texture2D(u_mask, maskUv);
 
@@ -58,7 +69,8 @@ void main(void) {
 
   gl_FragColor = final;
   gl_FragColor = vec4(grayFinal, final.a);
+  // gl_FragColor = brush;
   // gl_FragColor = vec4(vec3(blobMask), 1.0);
-  // gl_FragColor = vec4(vec3(n), 1.0);
+  // gl_FragColor = vec4(screenUv.y, 0.0, 0.0, 1.0);
 }
 

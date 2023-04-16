@@ -6,7 +6,7 @@ export class Conf {
   // #############################################
   // 本番フラグ
   // #############################################
-  public IS_BUILD: boolean = false;
+  public IS_BUILD: boolean = true;
 
   // テスト用 パラメータ
   public FLG_PARAM: boolean = this.IS_BUILD ? false : true;
