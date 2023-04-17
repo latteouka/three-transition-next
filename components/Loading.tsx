@@ -13,7 +13,10 @@ const duration = 1.5;
 
 function playIntroOnce() {
   const wraps = document.querySelectorAll(`.wrap`);
-  if (wraps.length === 0) return;
+  if (wraps.length === 0) {
+    global.loaded = true;
+    return;
+  }
   const main = wraps[global.activeIndex].querySelector(".mainTitle")!;
   const sub = wraps[global.activeIndex].querySelector(".subtitle")!;
   gsap.fromTo(
