@@ -25,6 +25,7 @@ export default function Home() {
   // this function is for a custom event listener
   // because I need to overwrite gsap tween after another animation
   const setupIndexOutro = useCallback(() => {
+    console.log("setup");
     const wraps = document.querySelectorAll(`.wrap`);
     const images = gsap.utils.toArray(".image");
     const main = wraps[global.activeIndex].querySelector(".mainTitle")!;
@@ -166,7 +167,7 @@ export default function Home() {
             });
 
             // emit outro animation setup
-            Util.instance.ev("setupAnimation", {});
+            // Util.instance.ev("setupAnimation", {});
           },
         }
       );

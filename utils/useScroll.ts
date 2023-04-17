@@ -148,6 +148,7 @@ const useScroll = () => {
             x: 0,
             delay: 0.8,
             onComplete: () => {
+              console.log("complete");
               enableLink(true);
               // tell index to overwrite outro animations
               Util.instance.ev("setupAnimation", {});
