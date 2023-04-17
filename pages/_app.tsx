@@ -30,7 +30,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <TransitionLayout>
         <main className={font.className}>
           <Head>
-            <title>Mask Blob</title>
+            <title>Next.js Transition</title>
           </Head>
           <canvas className="l-canvas"></canvas>
           <Component {...pageProps} />
