@@ -13,6 +13,7 @@ const duration = 1.5;
 
 function playIntroOnce() {
   const wraps = document.querySelectorAll(`.wrap`);
+  if (wraps.length === 0) return;
   const main = wraps[global.activeIndex].querySelector(".mainTitle")!;
   const sub = wraps[global.activeIndex].querySelector(".subtitle")!;
   gsap.fromTo(
@@ -90,6 +91,7 @@ const Loading = () => {
   useIsomorphicLayoutEffect(() => {
     AssetManager.instance.addEventListener("cancelLoading", loadingComplete);
 
+    // grid animation
     const ctx = gsap.context(() => {
       const tl = gsap
         .timeline()

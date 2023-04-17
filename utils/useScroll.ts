@@ -6,7 +6,8 @@ import useIsomorphicLayoutEffect from "@/utils/useIsomorphicLayoutEffect";
 import global from "./globalState";
 import { Util } from "@/gl/libs/util";
 import { theme } from "@/datas/theme";
-import { enableLink } from "@/pages";
+import { enableLink } from "./controls";
+import { setBackgroundColor } from "./controls";
 
 const max = global.imagesLength;
 const distance = global.distance;
@@ -93,10 +94,7 @@ const useScroll = () => {
           backgroundColor: theme[global.activeIndex].background,
           duration: 1,
           onStart: () => {
-            document.documentElement.style.setProperty(
-              "--backgroundColor",
-              theme[global.activeIndex].background
-            );
+            setBackgroundColor(theme[global.activeIndex].background);
           },
         });
 

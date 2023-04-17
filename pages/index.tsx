@@ -10,16 +10,12 @@ import { Param } from "@/gl/core/param";
 import { theme } from "@/datas/theme";
 import { Util } from "@/gl/libs/util";
 import { ImageDataType, imageDatas } from "@/datas/imageDatas";
-
-export function enableLink(enable: boolean) {
-  const links = document.querySelectorAll(
-    ".image-link"
-  )! as NodeListOf<HTMLDivElement>;
-
-  links.forEach((link) => {
-    link.style.pointerEvents = enable ? "auto" : "none";
-  });
-}
+import {
+  enableLenis,
+  enableLink,
+  hideAllOtherImages,
+  setBackgroundColor,
+} from "@/utils/controls";
 
 export default function Home() {
   const { timeline } = useContext(TransitionContext);
@@ -41,16 +37,9 @@ export default function Home() {
         duration: 1,
         onStart: () => {
           enableLink(false);
-          document.documentElement.style.setProperty(
-            "--backgroundColor",
-            "white"
-          );
-
-          global.lenis!.stop();
-          global.images.forEach((image, index) => {
-            if (index === global.activeIndex) return;
-            image.hide();
-          });
+          setBackgroundColor("white");
+          enableLenis(false);
+          hideAllOtherImages();
         },
       }),
       0

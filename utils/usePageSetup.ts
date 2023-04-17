@@ -8,6 +8,7 @@ import { Param } from "@/gl/core/param";
 import { theme } from "@/datas/theme";
 import Lenis from "@studio-freight/lenis";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { hideAllOtherImages, setBackgroundColor } from "./controls";
 gsap.registerPlugin(ScrollTrigger);
 
 // change threejs images following target
@@ -19,14 +20,6 @@ function selectorToIndex() {
 function selectorToPage() {
   global.images.forEach((image) => {
     image.changeSeletor(".page-image");
-  });
-}
-
-// hide all other threejs images
-function hideAllOtherImages() {
-  global.images.forEach((image, index) => {
-    if (index === global.activeIndex) return;
-    image.hide();
   });
 }
 
@@ -70,10 +63,7 @@ const usePageSetup = (index: number) => {
         delay: 0.5,
         duration: 1,
         onStart: () => {
-          document.documentElement.style.setProperty(
-            "--backgroundColor",
-            theme[global.activeIndex].background
-          );
+          setBackgroundColor(theme[global.activeIndex].background);
         },
       }),
       0
