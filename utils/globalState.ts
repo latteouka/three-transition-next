@@ -8,6 +8,7 @@ interface GlobalType {
   lenis: Lenis | null;
   distance: number;
   imagesLength: number;
+  loaded: boolean;
 }
 
 const global: GlobalType = {
@@ -16,6 +17,7 @@ const global: GlobalType = {
   lenis: null,
   distance: 1300,
   imagesLength: 5,
+  loaded: false,
 };
 
 export default global;

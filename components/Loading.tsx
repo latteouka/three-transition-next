@@ -2,12 +2,69 @@ import { AssetManager } from "@/gl/webgl/assetsManager";
 import { gsap } from "gsap";
 import { EasePack } from "gsap/dist/EasePack";
 import useIsomorphicLayoutEffect from "@/utils/useIsomorphicLayoutEffect";
+import global from "@/utils/globalState";
+import { Util } from "@/gl/libs/util";
 
 gsap.registerPlugin(EasePack);
 
 const debug = false;
 const count = 8;
 const duration = 1.5;
+
+function playIntroOnce() {
+  const wraps = document.querySelectorAll(`.wrap`);
+  const main = wraps[global.activeIndex].querySelector(".mainTitle")!;
+  const sub = wraps[global.activeIndex].querySelector(".subtitle")!;
+  gsap.fromTo(
+    ".bottomNav",
+    {
+      y: 100,
+      opacity: 0,
+    },
+    {
+      y: 0,
+      opacity: 1,
+      duration: 1,
+      onStart: () => {
+        document.documentElement.style.pointerEvents = "none";
+        global.lenis!.stop();
+      },
+    }
+  );
+  gsap.fromTo(
+    main,
+    { opacity: 0, x: -100 },
+    {
+      opacity: 1,
+      x: 0,
+      delay: 0.5,
+    }
+  );
+  gsap.fromTo(
+    sub,
+    { opacity: 0, x: -100 },
+    {
+      opacity: 1,
+      x: 0,
+      delay: 0.8,
+      onComplete: () => {
+        // resume user control
+        document.documentElement.style.pointerEvents = "auto";
+        global.lenis!.start();
+
+        // threejs images are hide during backward animation
+        // when come back from detail page show them all
+        global.images.forEach((image) => {
+          image.show();
+        });
+
+        // emit outro animation setup
+        Util.instance.ev("setupAnimation", {});
+        global.loaded = true;
+      },
+    }
+  );
+}
 
 const Loading = () => {
   const generate = new Array(count * count).fill(0);
@@ -25,6 +82,7 @@ const Loading = () => {
       duration,
       onComplete: () => {
         document.querySelector(".loading-wrap")!.classList.toggle("hidden");
+        playIntroOnce();
       },
     });
   }

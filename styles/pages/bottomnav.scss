@@ -1,6 +1,7 @@
 @use "../global/variables" as *;
 
 .bottomNav {
+  opacity: 0;
   display: flex;
   position: absolute;
   z-index: 7;

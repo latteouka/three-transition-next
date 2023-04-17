@@ -122,6 +122,7 @@ export default function Home() {
     // listen for the scroll animation in useScroll hook
     document.addEventListener("setupAnimation", setupIndexOutro);
 
+    if (!global.loaded) return;
     // limit user control
     document.documentElement.style.pointerEvents = "none";
     global.lenis!.stop();
@@ -147,8 +148,7 @@ export default function Home() {
           opacity: 1,
           duration: 1,
         }
-      ),
-        0;
+      );
       gsap.fromTo(
         main,
         { opacity: 0, x: -100 },
