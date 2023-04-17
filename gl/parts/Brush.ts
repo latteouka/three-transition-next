@@ -18,7 +18,7 @@ export class Brush extends MyObject3D {
       format: THREE.RGBAFormat,
     }
   );
-  private _width = 50;
+  private _width = Func.instance.sw() > 800 ? 70 : 50;
 
   constructor() {
     super();
