@@ -50,7 +50,7 @@ export class Brush extends MyObject3D {
   }
 
   private _trackMousePos() {
-    if (MousePointer.instance.dist > 1) {
+    if (MousePointer.instance.dist > 4) {
       this._setNewWave(
         MousePointer.instance.cx,
         -MousePointer.instance.cy,
