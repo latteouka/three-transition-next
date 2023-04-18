@@ -8,6 +8,7 @@ import { Param } from "../core/param";
 import global from "@/utils/globalState";
 import { imageDatas } from "@/datas/imageDatas";
 import { AssetManager } from "../webgl/assetsManager";
+import { EasyRaycaster } from "../webgl/raycaster";
 
 export class Images {
   constructor(container: THREE.Object3D) {
@@ -15,6 +16,7 @@ export class Images {
       const item = new Item(`.image${index + 1}`, index);
       global.images.push(item);
       container.add(item);
+      EasyRaycaster.instance.touchableObjects.push(item);
     });
   }
 }

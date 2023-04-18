@@ -1,3 +1,4 @@
+import * as THREE from "three";
 import { Cache } from "three";
 import { Func } from "../core/func";
 import { Canvas } from "../webgl/canvas";
@@ -6,12 +7,15 @@ import { Update } from "../libs/update";
 import { Images } from "./Item";
 import { Brush } from "./Brush";
 import global from "@/utils/globalState";
+import { EasyRaycaster } from "../webgl/raycaster";
+import { MousePointer } from "../core/mousePointer";
 
 Cache.enabled = true;
 
 export class Visual extends Canvas {
   private _brush: Brush;
   private _con: Object3D;
+  private _cursor = new THREE.Vector2(0, 0);
 
   constructor(opt: any) {
     super(opt);
@@ -20,6 +24,10 @@ export class Visual extends Canvas {
     this.mainScene.add(this._con);
 
     new Images(this._con);
+
+    EasyRaycaster.instance.addEventListener("hover", () => {
+      console.log("hover");
+    });
 
     this._brush = new Brush();
 
@@ -32,6 +40,12 @@ export class Visual extends Canvas {
     if (this.isNowRenderFrame()) {
       this._render();
     }
+
+    this._cursor.set(
+      MousePointer.instance.normal.x,
+      MousePointer.instance.normal.y
+    );
+    EasyRaycaster.instance.update(this._cursor, this.cameraPers);
   }
 
   private _render(): void {

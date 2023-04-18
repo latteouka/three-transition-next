@@ -1,11 +1,11 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useIsomorphicLayoutEffect from "@/utils/useIsomorphicLayoutEffect";
 import global from "@/utils/globalState";
-import { TransitionContext } from "@/utils/TransitionContext";
 import { Func } from "@/gl/core/func";
 import { gsap } from "gsap";
 import { Param } from "@/gl/core/param";
 import { theme } from "@/datas/theme";
+import { useTimeline } from "@/components/animations/Gransition";
 import Lenis from "@studio-freight/lenis";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { hideAllOtherImages, setBackgroundColor } from "./controls";
@@ -26,12 +26,13 @@ function selectorToPage() {
 const usePageSetup = (index: number) => {
   // when intro is done, use this state to trigger outro setup
   const [loaded, setLoaded] = useState(false);
-  const { timeline } = useContext(TransitionContext);
+  // const { timeline } = useContext(TransitionContext);
+  const timeline = useTimeline();
 
   // out
   useIsomorphicLayoutEffect(() => {
     // hide text
-    timeline!.add(
+    timeline.add(
       gsap.to(".back", {
         opacity: 0,
         onStart: () => {
@@ -44,20 +45,20 @@ const usePageSetup = (index: number) => {
       }),
       0
     );
-    timeline!.add(
+    timeline.add(
       gsap.to(".page-title-main", {
         opacity: 0,
       }),
       0
     );
-    timeline!.add(
+    timeline.add(
       gsap.to(".page-title-sub", {
         opacity: 0,
       }),
       0
     );
 
-    timeline!.add(
+    timeline.add(
       gsap.to(".page-wrapper", {
         backgroundColor: theme[index].background,
         delay: 0.5,
@@ -68,7 +69,7 @@ const usePageSetup = (index: number) => {
       }),
       0
     );
-    timeline!.add(
+    timeline.add(
       gsap.to(Param.instance.main.progress, {
         value: -0.6,
         duration: 1,
@@ -76,7 +77,7 @@ const usePageSetup = (index: number) => {
       0
     );
     if (Func.instance.sw() > 800) {
-      timeline!.add(
+      timeline.add(
         gsap.to(".page-image", {
           x: Func.instance.sw() * 0.2,
           y: -150,
@@ -90,7 +91,7 @@ const usePageSetup = (index: number) => {
         0
       );
     } else {
-      timeline!.add(
+      timeline.add(
         gsap.to(".page-image", {
           y: -64,
           ease: "elastic",
@@ -156,7 +157,8 @@ const usePageSetup = (index: number) => {
   }, []);
 
   useEffect(() => {
-    global.lenis!.on("scroll", ({ scroll }: Lenis) => {
+    if (!global.lenis) return;
+    global.lenis.on("scroll", ({ scroll }: Lenis) => {
       global.images[index].scroll(scroll);
     });
   }, []);

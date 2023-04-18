@@ -78,5 +78,6 @@ Ispired by [riv-studio](https://www.riv-studio.com/projects)
 - ~~真實 Mobile View 是否都正常？~~
 - ~~Refactor~~
 - ~~Detail Page 對 three.js 元素增加效果~~
-- click 的範圍用 html 的話會因為 mask 不自然，如果能用 raycaster 處理的話？
+- click 的範圍用 html 的話會因為 mask 不自然，如果能用 raycaster 處理的話？  
+  不行，因為我把它放大惹
 - AssetManager 流程中加入 HTML Image 的 Preload？

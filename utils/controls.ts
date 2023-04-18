@@ -28,3 +28,7 @@ export function enableLenis(enable: boolean) {
 export function setBackgroundColor(color: string) {
   document.documentElement.style.setProperty("--backgroundColor", color);
 }
+
+export function setFontColor(color: string) {
+  document.documentElement.style.setProperty("--fontColor", color);
+}

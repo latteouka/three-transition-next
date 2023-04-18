@@ -1,16 +1,14 @@
-import { Func } from "@/gl/core/func";
-import Lenis from "@studio-freight/lenis";
 import { useRef } from "react";
+import { useIsomorphicLayoutEffect } from "@/components/animations/Gransition";
 import { gsap } from "gsap";
-import useIsomorphicLayoutEffect from "@/utils/useIsomorphicLayoutEffect";
 import global from "./globalState";
 import { Util } from "@/gl/libs/util";
+import { Func } from "@/gl/core/func";
+import Lenis from "@studio-freight/lenis";
 import { theme } from "@/datas/theme";
-import { enableLink } from "./controls";
-import { setBackgroundColor } from "./controls";
+import { enableLink, setFontColor, setBackgroundColor } from "./controls";
 
-const max = global.imagesLength;
-const distance = global.distance;
+const { imagesLength, distance } = global;
 
 const useScroll = () => {
   let moving = useRef(false);
@@ -61,6 +59,7 @@ const useScroll = () => {
           y: -velocity * 8,
         });
       } else {
+        // high velocity
         // trigger animation
         if (moving.current) return;
 
@@ -68,10 +67,8 @@ const useScroll = () => {
         const pre = global.activeIndex;
         global.activeIndex = isNext ? getNext() : getPre();
 
-        document.documentElement.style.setProperty(
-          "--fontColor",
-          theme[global.activeIndex].color
-        );
+        setFontColor(theme[global.activeIndex].color);
+
         // prevent clicking other link
         enableLink(false);
 
@@ -98,7 +95,7 @@ const useScroll = () => {
           },
         });
 
-        // hide titles now
+        // hide current titles
         gsap.set(titleNow, {
           opacity: 0,
         });
@@ -106,12 +103,12 @@ const useScroll = () => {
           opacity: 0,
         });
 
-        // move image top-right
+        // move current image top-right
         gsap.to(images[pre], {
           x: isNext ? distance : -distance,
           y: isNext ? -distance : distance,
         });
-        // move image from bottom-left to 0,0
+        // move next image from bottom-left to 0,0
         gsap.fromTo(
           images[global.activeIndex],
           {
@@ -131,6 +128,7 @@ const useScroll = () => {
             },
           }
         );
+        // animate next titles
         gsap.fromTo(
           titleNext,
           { opacity: 0, x: isNext ? -100 : 100 },
@@ -148,7 +146,6 @@ const useScroll = () => {
             x: 0,
             delay: 0.8,
             onComplete: () => {
-              console.log("complete");
               enableLink(true);
               // tell index to overwrite outro animations
               Util.instance.ev("setupAnimation", {});
@@ -170,8 +167,10 @@ const useScroll = () => {
 export default useScroll;
 
 function getNext() {
-  return global.activeIndex + 1 < max ? global.activeIndex + 1 : 0;
+  return global.activeIndex + 1 < imagesLength ? global.activeIndex + 1 : 0;
 }
 function getPre() {
-  return global.activeIndex - 1 >= 0 ? global.activeIndex - 1 : max - 1;
+  return global.activeIndex - 1 >= 0
+    ? global.activeIndex - 1
+    : imagesLength - 1;
 }

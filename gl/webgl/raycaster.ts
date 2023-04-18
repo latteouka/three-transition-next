@@ -1,6 +1,7 @@
 import * as THREE from "three";
 
 export class EasyRaycaster extends THREE.EventDispatcher {
+  private static _instance: AssetManager;
   private raycaster: THREE.Raycaster;
   public touchableObjects: THREE.Object3D[];
 
@@ -23,6 +24,13 @@ export class EasyRaycaster extends THREE.EventDispatcher {
     this.hoverMemObj = null;
     this.touchStartObj = null;
     this.clickStart = 0;
+  }
+
+  public static get instance(): EasyRaycaster {
+    if (!this._instance) {
+      this._instance = new EasyRaycaster();
+    }
+    return this._instance;
   }
 
   private dispatchMouseEvent(

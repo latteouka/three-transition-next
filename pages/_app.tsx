@@ -1,13 +1,13 @@
-import { Contents } from "@/gl/parts/contents";
 import "@/styles/style.scss";
-import type { AppProps } from "next/app";
 import { useEffect, useRef } from "react";
-import { Noto_Sans_JP } from "next/font/google";
 import Head from "next/head";
-import { TransitionProvider } from "@/utils/TransitionContext";
-import TransitionLayout from "@/components/animations/TransitionLayout";
-import { gsap } from "gsap";
+import type { AppProps } from "next/app";
+import { Noto_Sans_JP } from "next/font/google";
+import Gransition from "@/components/animations/Gransition";
+
+import { Contents } from "@/gl/parts/contents";
 import Loading from "@/components/Loading";
+import { gsap } from "gsap";
 
 gsap.defaults({ overwrite: true });
 
@@ -26,17 +26,15 @@ export default function App({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <TransitionProvider>
-      <TransitionLayout>
-        <main className={font.className}>
-          <Head>
-            <title>Next.js Transition</title>
-          </Head>
-          <canvas className="l-canvas"></canvas>
-          <Component {...pageProps} />
-          <Loading />
-        </main>
-      </TransitionLayout>
-    </TransitionProvider>
+    <Gransition>
+      <main className={font.className}>
+        <Head>
+          <title>Next.js Transition</title>
+        </Head>
+        <canvas className="l-canvas"></canvas>
+        <Component {...pageProps} />
+        <Loading />
+      </main>
+    </Gransition>
   );
 }

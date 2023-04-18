@@ -1,14 +1,16 @@
-import { gsap } from "gsap";
+import { useCallback } from "react";
 import useScroll from "@/utils/useScroll";
+import { gsap } from "gsap";
 import Link from "next/link";
-import { useCallback, useContext } from "react";
-import { TransitionContext } from "@/utils/TransitionContext";
-import useIsomorphicLayoutEffect from "@/utils/useIsomorphicLayoutEffect";
+import {
+  useTimeline,
+  useIsomorphicLayoutEffect,
+} from "@/components/animations/Gransition";
 import { Func } from "@/gl/core/func";
-import global from "@/utils/globalState";
-import { Param } from "@/gl/core/param";
-import { theme } from "@/datas/theme";
 import { Util } from "@/gl/libs/util";
+import { Param } from "@/gl/core/param";
+import global from "@/utils/globalState";
+import { theme } from "@/datas/theme";
 import { ImageDataType, imageDatas } from "@/datas/imageDatas";
 import {
   enableLenis,
@@ -18,21 +20,21 @@ import {
 } from "@/utils/controls";
 
 export default function Home() {
-  const { timeline } = useContext(TransitionContext);
+  // const { timeline } = useContext(TransitionContext);
+  const timeline = useTimeline();
   useScroll();
 
   // setup outro animation
   // this function is for a custom event listener
   // because I need to overwrite gsap tween after another animation
   const setupIndexOutro = useCallback(() => {
-    console.log("setup");
     const wraps = document.querySelectorAll(`.wrap`);
     const images = gsap.utils.toArray(".image");
     const main = wraps[global.activeIndex].querySelector(".mainTitle")!;
     const sub = wraps[global.activeIndex].querySelector(".subtitle")!;
 
-    timeline?.clear();
-    timeline!.add(
+    timeline.clear();
+    timeline.add(
       gsap.to(`.container`, {
         backgroundColor: "#fff",
         duration: 1,
@@ -45,7 +47,7 @@ export default function Home() {
       }),
       0
     );
-    timeline!.add(
+    timeline.add(
       gsap.to(main, {
         y: -100,
         opacity: 0,
@@ -53,7 +55,7 @@ export default function Home() {
       }),
       0
     );
-    timeline!.add(
+    timeline.add(
       gsap.to(sub, {
         y: -100,
         opacity: 0,
@@ -61,7 +63,7 @@ export default function Home() {
       }),
       0
     );
-    timeline!.add(
+    timeline.add(
       gsap.to(".bottomNav", {
         y: 100,
         opacity: 0,
@@ -71,7 +73,7 @@ export default function Home() {
     );
     images.forEach((image: any) => {
       if (Func.instance.sw() > 800) {
-        timeline!.add(
+        timeline.add(
           gsap.to(image, {
             x: -Func.instance.sw() * 0.2,
             y: 150,
@@ -81,7 +83,7 @@ export default function Home() {
           0
         );
       } else {
-        timeline!.add(
+        timeline.add(
           gsap.to(image, {
             y: 64,
             ease: "elastic",
@@ -91,7 +93,7 @@ export default function Home() {
         );
       }
     });
-    timeline!.add(
+    timeline.add(
       gsap.to(Param.instance.main.progress, {
         value: 2.2,
         duration: 1.8,
@@ -112,10 +114,12 @@ export default function Home() {
     // listen for the scroll animation in useScroll hook
     document.addEventListener("setupAnimation", setupIndexOutro);
 
+    // if not loaded don't play intro
+    // the first time playing intro is controled by loading component
     if (!global.loaded) return;
     // limit user control
     document.documentElement.style.pointerEvents = "none";
-    global.lenis!.stop();
+    global.lenis?.stop();
 
     document.documentElement.style.setProperty(
       "--fontColor",
@@ -166,8 +170,8 @@ export default function Home() {
               image.show();
             });
 
-            // emit outro animation setup
-            // Util.instance.ev("setupAnimation", {});
+            // emit outro animation setup when intro is over
+            Util.instance.ev("setupAnimation", {});
           },
         }
       );
