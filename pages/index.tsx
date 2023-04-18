@@ -18,6 +18,8 @@ import {
   hideAllOtherImages,
   setBackgroundColor,
 } from "@/utils/controls";
+import BottomLink from "@/components/BottomLink";
+import BottomNav from "@/components/BottomNav";
 
 export default function Home() {
   // const { timeline } = useContext(TransitionContext);
@@ -226,6 +228,7 @@ export default function Home() {
           </div>
         );
       })}
+      <BottomLink />
       <BottomNav />
     </div>
   );
@@ -251,31 +254,5 @@ const ImageBlock = ({ index, imagePath, maskPath }: ImageProps) => {
         data-mask={maskPath}
       ></div>
     </Link>
-  );
-};
-
-const BottomNav = () => {
-  function before() {
-    const wheelEvt = document.createEvent("MouseEvents") as any;
-    wheelEvt.initEvent("wheel", true, true);
-    wheelEvt.deltaY = -500;
-    document.dispatchEvent(wheelEvt);
-  }
-  function next() {
-    const wheelEvt = document.createEvent("MouseEvents") as any;
-    wheelEvt.initEvent("wheel", true, true);
-    wheelEvt.deltaY = 500;
-    document.dispatchEvent(wheelEvt);
-  }
-  return (
-    <div className="bottomNav">
-      <div className="bottomNav-before notouch" onClick={() => before()}>
-        ↑
-      </div>
-      <div>/</div>
-      <div className="bottomNav-after notouch" onClick={() => next()}>
-        ↓
-      </div>
-    </div>
   );
 };
