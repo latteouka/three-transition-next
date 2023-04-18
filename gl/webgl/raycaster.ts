@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
 export class EasyRaycaster extends THREE.EventDispatcher {
-  private static _instance: AssetManager;
+  private static _instance: EasyRaycaster;
   private raycaster: THREE.Raycaster;
   public touchableObjects: THREE.Object3D[];
 
