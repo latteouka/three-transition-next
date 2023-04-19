@@ -16,7 +16,8 @@ html {
   -ms-overflow-style: none;
 }
 
-html body::-webkit-scrollbar {
+::-webkit-scrollbar {
+  width: 0px;
   display: none;
   -webkit-appearance: none;
 }
