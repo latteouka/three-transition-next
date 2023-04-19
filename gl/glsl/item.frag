@@ -25,13 +25,13 @@ void main(void) {
   vec2 coverUv = (v_uv - vec2(0.5)) * u_resolution.zw + vec2(0.5);
 
   vec2 originUv = v_uv;
-  originUv.y *= u_imageResolution.x/u_imageResolution.y;
+  originUv.y *= u_imageResolution.x / u_imageResolution.y;
   // originUv.y -= 0.5;
   float uvOffset = (1.0 + u_imageResolution.y / u_imageResolution.x) / 2.0;
   originUv.y -= uvOffset;
 
   vec2 uv = v_uv / (1.0 + sin(u_time * 1.1) * 0.025);
-  // scale with progress
+  // scale with progress 0 -> 1
   vec2 maskUv = (uv + vec2(u_progress / 2.0)) / (1.0 + u_progress);
 
   // brush distort
@@ -59,7 +59,7 @@ void main(void) {
   // float r = 0.5;
   // float dis = length(v_uv - vec2(0.5));
   // float blob = smoothstep(r, 0.0, dis) * 3.0;
-  float blobMask = smoothstep(0.4, 0.4, n + mask.r);
+  float blobMask = smoothstep(0.4, 0.45, n + mask.r);
 
   vec4 transparent = vec4(1.0, 1.0, 1.0, 0.0);
 
