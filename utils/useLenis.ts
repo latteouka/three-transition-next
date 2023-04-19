@@ -27,8 +27,11 @@ const useScroll = () => {
 
     lenis.on("scroll", ({ progress }: any) => {
       gsap.to(".scrollbar", {
-        y: Math.max(progress * window.innerHeight - 30, 0),
-        duration: 0.6,
+        y: Math.max(
+          progress * window.innerHeight - window.innerHeight * 0.08,
+          0
+        ),
+        duration: 0.4,
       });
     });
 
