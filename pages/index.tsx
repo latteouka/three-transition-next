@@ -73,6 +73,14 @@ export default function Home() {
       }),
       0
     );
+    timeline.add(
+      gsap.to(".bottomLink", {
+        y: 100,
+        opacity: 0,
+        duration: 1,
+      }),
+      0
+    );
     images.forEach((image: any) => {
       if (Func.instance.sw() > 800) {
         timeline.add(
@@ -135,6 +143,18 @@ export default function Home() {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         ".bottomNav",
+        {
+          y: 100,
+          opacity: 0,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+        }
+      );
+      gsap.fromTo(
+        ".bottomLink",
         {
           y: 100,
           opacity: 0,

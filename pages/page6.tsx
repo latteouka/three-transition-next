@@ -1,8 +1,4 @@
-import {
-  useTimeline,
-  useIsomorphicLayoutEffect,
-} from "@/components/animations/Gransition";
-import useIntroOutro from "@/components/animations/useIntroOutro";
+import { useTimeline, useIsomorphicLayoutEffect } from "@chundev/gransition";
 import { gsap } from "gsap";
 import Link from "next/link";
 import { useRef } from "react";

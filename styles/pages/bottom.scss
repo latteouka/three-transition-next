@@ -4,7 +4,6 @@
   opacity: 0;
   display: flex;
   position: absolute;
-  z-index: 7;
   gap: 0.5rem;
   right: 1rem;
   bottom: 1rem;
@@ -30,26 +29,23 @@
 }
 
 .bottomLink {
-  &-wrap {
-    opacity: 1;
-    display: flex;
-    position: absolute;
-    z-index: 7;
-    gap: 1rem;
-    left: 1rem;
-    bottom: 1rem;
-    font-size: 1.3rem;
-    color: $slate-700;
+  opacity: 0;
+  display: flex;
+  position: absolute;
+  gap: 1rem;
+  left: 1rem;
+  bottom: 1rem;
+  font-size: 1.3rem;
 
-    a {
-      color: $slate-700;
-      text-decoration: none;
-      cursor: pointer;
-      transition: color 0.4s;
+  a {
+    color: var(--fontColor);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.4s;
+    filter: brightness(1.2);
 
-      &:hover {
-        color: $slate-500;
-      }
+    &:hover {
+      filter: brightness(0.5);
     }
   }
 }

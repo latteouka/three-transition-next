@@ -36,12 +36,24 @@ function playIntroOnce() {
     }
   );
   gsap.fromTo(
+    ".bottomLink",
+    {
+      y: 100,
+      opacity: 0,
+    },
+    {
+      y: 0,
+      opacity: 1,
+      duration: 1,
+    }
+  );
+  gsap.fromTo(
     main,
     { opacity: 0, x: -100 },
     {
       opacity: 1,
       x: 0,
-      delay: 0.5,
+      delay: 0.3,
     }
   );
   gsap.fromTo(
@@ -50,7 +62,7 @@ function playIntroOnce() {
     {
       opacity: 1,
       x: 0,
-      delay: 0.8,
+      delay: 0.6,
       onComplete: () => {
         // resume user control
         document.documentElement.style.pointerEvents = "auto";

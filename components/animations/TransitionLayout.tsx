@@ -1,6 +1,5 @@
-import { useRouter } from "next/router";
 import { useTimeline, useIsomorphicLayoutEffect } from "./Gransition";
-import { useState, useRef } from "react";
+import { useState } from "react";
 
 export default function TransitionLayout({
   children,
@@ -8,9 +7,7 @@ export default function TransitionLayout({
   children: React.ReactNode;
 }) {
   const [displayChildren, setDisplayChildren] = useState(children);
-  const router = useRouter();
   const timeline = useTimeline();
-  const el = useRef(null);
 
   useIsomorphicLayoutEffect(() => {
     if (children !== displayChildren) {
@@ -25,7 +22,7 @@ export default function TransitionLayout({
         });
       }
     }
-  }, [router.asPath]);
+  }, [children]);
 
   // useIsomorphicLayoutEffect(() => {
   //   gsap.to(el.current, {
@@ -34,5 +31,5 @@ export default function TransitionLayout({
   //   });
   // }, [background]);
 
-  return <div ref={el}>{displayChildren}</div>;
+  return <div>{displayChildren}</div>;
 }

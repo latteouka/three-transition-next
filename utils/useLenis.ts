@@ -2,6 +2,7 @@ import Lenis from "@studio-freight/lenis";
 import { useEffect, useRef, useState } from "react";
 import useIsomorphicLayoutEffect from "@/utils/useIsomorphicLayoutEffect";
 import global from "./globalState";
+import { gsap } from "gsap";
 
 const useScroll = () => {
   const [lenis, setLenis] = useState<Lenis | null>();
@@ -22,6 +23,13 @@ const useScroll = () => {
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothTouch: true,
       touchMultiplier: 3.5,
+    });
+
+    lenis.on("scroll", ({ progress }: any) => {
+      gsap.to(".scrollbar", {
+        y: Math.max(progress * window.innerHeight - 30, 0),
+        duration: 0.6,
+      });
     });
 
     setLenis(lenis);

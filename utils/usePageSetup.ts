@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import useIsomorphicLayoutEffect from "@/utils/useIsomorphicLayoutEffect";
 import global from "@/utils/globalState";
 import { Func } from "@/gl/core/func";
 import { gsap } from "gsap";
@@ -9,6 +8,8 @@ import { useTimeline } from "@/components/animations/Gransition";
 import Lenis from "@studio-freight/lenis";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { hideAllOtherImages, setBackgroundColor } from "./controls";
+import { useIsomorphicLayoutEffect } from "@chundev/gransition";
+
 gsap.registerPlugin(ScrollTrigger);
 
 // change threejs images following target

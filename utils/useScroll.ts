@@ -33,7 +33,7 @@ const useScroll = () => {
           ? 0
           : t === 1
           ? 1
-          : Math.pow(2, -10 * t) * Math.sin((t * 8 - 0.75) * c4) + 1;
+          : Math.pow(2, -10 * t) * Math.sin((t * 12 - 0.75) * c4) + 1;
       },
       touchMultiplier: 2.5,
       infinite: true,

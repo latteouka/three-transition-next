@@ -27,6 +27,10 @@ const Page = () => {
         <div className="page-section1"></div>
         <div className="page-section2"></div>
       </div>
+      <div className="scrollbar-wrap">
+        <div className="scrollbar-bg"></div>
+        <div className="scrollbar"></div>
+      </div>
     </div>
   );
 };
