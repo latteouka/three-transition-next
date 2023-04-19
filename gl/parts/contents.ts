@@ -13,7 +13,7 @@ export class Contents extends MyDisplay {
         { name: "image3", path: "/img/3.webp", type: "tex", timing: "must" },
         { name: "image4", path: "/img/4.webp", type: "tex", timing: "must" },
         { name: "image5", path: "/img/5.webp", type: "tex", timing: "must" },
-        { name: "mask1", path: "/img/mask1.webp", type: "tex", timing: "must" },
+        { name: "mask1", path: "/img/mask6.png", type: "tex", timing: "must" },
         { name: "mask2", path: "/img/mask2.webp", type: "tex", timing: "must" },
         { name: "mask3", path: "/img/mask3.webp", type: "tex", timing: "must" },
         { name: "mask4", path: "/img/mask4.webp", type: "tex", timing: "must" },
