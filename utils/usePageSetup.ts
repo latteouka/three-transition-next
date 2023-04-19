@@ -8,7 +8,7 @@ import { useTimeline } from "@/components/animations/Gransition";
 import Lenis from "@studio-freight/lenis";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { hideAllOtherImages, setBackgroundColor } from "./controls";
-import { useIsomorphicLayoutEffect } from "@chundev/gransition";
+import useIsomorphicLayoutEffect from "./useIsomorphicLayoutEffect";
 
 gsap.registerPlugin(ScrollTrigger);
 
