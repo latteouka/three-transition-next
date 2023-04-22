@@ -3,6 +3,10 @@ import * as THREE from "three";
 export class EasyRaycaster extends THREE.EventDispatcher {
   private static _instance: EasyRaycaster;
   private raycaster: THREE.Raycaster;
+
+  /*-------------------------------
+    Name and add target objects into this array
+	-------------------------------*/
   public touchableObjects: THREE.Object3D[];
 
   /*-------------------------------
@@ -33,6 +37,7 @@ export class EasyRaycaster extends THREE.EventDispatcher {
     return this._instance;
   }
 
+  // ex: listen with 'hover/image1', 'enter/image2'
   private dispatchMouseEvent(
     type: "enter" | "out" | "hover" | "click",
     name: string,
@@ -107,6 +112,9 @@ export class EasyRaycaster extends THREE.EventDispatcher {
     return [];
   }
 
+  /*-------------------------------
+	  Bind with pointerdown	
+	-------------------------------*/
   public touchStart(cursor: THREE.Vector2, camera: THREE.Camera) {
     let intersection = this.getIntersection(
       cursor,
@@ -120,6 +128,9 @@ export class EasyRaycaster extends THREE.EventDispatcher {
     }
   }
 
+  /*-------------------------------
+	  Bind with pointerup	
+	-------------------------------*/
   public touchEnd(cursor: THREE.Vector2, camera: THREE.Camera) {
     let intersection = this.getIntersection(
       cursor,

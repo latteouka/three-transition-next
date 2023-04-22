@@ -9,6 +9,7 @@ import global from "@/utils/globalState";
 import { imageDatas } from "@/datas/imageDatas";
 import { AssetManager } from "../webgl/assetsManager";
 import { EasyRaycaster } from "../webgl/raycaster";
+import { MousePointer } from "../core/mousePointer";
 
 export class Images {
   constructor(container: THREE.Object3D) {
@@ -16,6 +17,7 @@ export class Images {
       const item = new Item(`.image${index + 1}`, index);
       global.images.push(item);
       container.add(item);
+
       EasyRaycaster.instance.touchableObjects.push(item);
     });
   }
@@ -74,6 +76,7 @@ export class Item extends MyObject3D {
     });
 
     this._mesh = new THREE.Mesh(geometry, this.material);
+    this._mesh.name = `image${index + 1}`;
     this.add(this._mesh);
     this._updateWidthHeight();
     this._resize();
@@ -113,8 +116,10 @@ export class Item extends MyObject3D {
 
     // uniforms
     this.material.uniforms.u_time.value = Update.instance.elapsed;
+
     this.material.uniforms.u_progress.value =
       Param.instance.main.progress.value;
+
     this.material.uniforms.u_colorFactor.value =
       Param.instance.main.colorFactor.value;
   }

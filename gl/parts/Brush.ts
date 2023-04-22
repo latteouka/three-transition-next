@@ -4,6 +4,9 @@ import { TexLoader } from "../webgl/texLoader";
 import { MousePointer } from "../core/mousePointer";
 import { Func } from "../core/func";
 
+/*-------------------------------
+* Off screen rendering
+-------------------------------*/
 export class Brush extends MyObject3D {
   public scene = new THREE.Scene();
   meshes: THREE.Mesh[] = [];
@@ -18,6 +21,8 @@ export class Brush extends MyObject3D {
       format: THREE.RGBAFormat,
     }
   );
+
+  // brush size
   private _width = Func.instance.sw() > 800 ? 100 : 50;
 
   constructor() {
@@ -64,11 +69,10 @@ export class Brush extends MyObject3D {
     super._update();
 
     this._trackMousePos();
-    this.meshes.forEach((mesh) => {
-      // mesh.position.x = MousePointer.instance.cx;
-      // mesh.position.y = -MousePointer.instance.cy;
 
+    this.meshes.forEach((mesh) => {
       const material = mesh.material as THREE.MeshBasicMaterial;
+
       if (material.opacity < 0.002) {
         mesh.visible = false;
         return;
@@ -77,5 +81,11 @@ export class Brush extends MyObject3D {
       mesh.scale.setScalar(1.005 * mesh.scale.x + 0.1);
       material.opacity *= 0.94;
     });
+  }
+
+  protected _resize() {
+    super._resize();
+
+    this._width = Func.instance.sw() > 800 ? 100 : 50;
   }
 }

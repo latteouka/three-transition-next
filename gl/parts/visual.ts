@@ -25,11 +25,18 @@ export class Visual extends Canvas {
 
     new Images(this._con);
 
-    EasyRaycaster.instance.addEventListener("hover", () => {
-      console.log("hover");
+    this._brush = new Brush();
+
+    EasyRaycaster.instance.addEventListener("click/image1", () => {
+      console.log("click");
     });
 
-    this._brush = new Brush();
+    document.addEventListener("pointerdown", () =>
+      EasyRaycaster.instance.touchStart(this._cursor, this.cameraPers)
+    );
+    document.addEventListener("pointerup", () =>
+      EasyRaycaster.instance.touchEnd(this._cursor, this.cameraPers)
+    );
 
     this._resize();
   }
@@ -45,6 +52,7 @@ export class Visual extends Canvas {
       MousePointer.instance.normal.x,
       MousePointer.instance.normal.y
     );
+
     EasyRaycaster.instance.update(this._cursor, this.cameraPers);
   }
 

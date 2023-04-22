@@ -1,102 +1,62 @@
 import { gsap } from "gsap";
 import { AssetManager } from "@/gl/webgl/assetsManager";
-import { EasePack } from "gsap/dist/EasePack";
-import { useIsomorphicLayoutEffect } from "./animations/Gransition";
+import { triggerFor, useIsomorphicLayoutEffect } from "@chundev/gtranz";
 import global from "@/utils/globalState";
-import { Util } from "@/gl/libs/util";
-
-gsap.registerPlugin(EasePack);
+import { useMemo } from "react";
+import {
+  bottomLinkShow,
+  bottomNavShow,
+  loadingGrid,
+  mainTitleShow,
+  subTitleShow,
+} from "@/utils/animations";
+import {
+  enableLink,
+  enablePointer,
+  enableScroll,
+  showAllImages,
+} from "@/utils/controls";
 
 const debug = false;
+
 const count = 8;
-const duration = 1.5;
+const loadingDuration = 1.5;
 
 function playIntroOnce() {
   const wraps = document.querySelectorAll(`.wrap`);
+
+  // this means we are in detail page
   if (wraps.length === 0) {
     global.loaded = true;
     return;
   }
-  const main = wraps[global.activeIndex].querySelector(".mainTitle")!;
-  const sub = wraps[global.activeIndex].querySelector(".subtitle")!;
-  gsap.fromTo(
-    ".bottomNav",
-    {
-      y: 100,
-      opacity: 0,
-    },
-    {
-      y: 0,
-      opacity: 1,
-      duration: 1,
-      onStart: () => {
-        document.documentElement.style.pointerEvents = "none";
-        global.lenis!.stop();
-      },
-    }
-  );
-  gsap.fromTo(
-    ".bottomLink",
-    {
-      y: 100,
-      opacity: 0,
-    },
-    {
-      y: 0,
-      opacity: 1,
-      duration: 1,
-    }
-  );
-  gsap.fromTo(
-    main,
-    { opacity: 0, x: -100 },
-    {
-      opacity: 1,
-      x: 0,
-      delay: 0.3,
-    }
-  );
-  gsap.fromTo(
-    sub,
-    { opacity: 0, x: -100 },
-    {
-      opacity: 1,
-      x: 0,
-      delay: 0.6,
-      onComplete: () => {
-        // resume user control
-        document.documentElement.style.pointerEvents = "auto";
-        global.lenis!.start();
-
-        // threejs images are hide during backward animation
-        // when come back from detail page show them all
-        global.images.forEach((image) => {
-          image.show();
-        });
-
-        // emit outro animation setup
-        Util.instance.ev("setupAnimation", {});
-        global.loaded = true;
-      },
-    }
-  );
+  bottomNavShow(() => {
+    enablePointer(false);
+    enableScroll(false);
+  });
+  bottomLinkShow();
+  mainTitleShow(0.1);
+  subTitleShow(0.3, () => {
+    triggerFor("indexOutroReset");
+    enableScroll(true);
+    showAllImages();
+    global.loaded = true;
+    enablePointer(true);
+    enableLink(true);
+  });
 }
 
 const Loading = () => {
-  const generate = new Array(count * count).fill(0);
+  const dummy = useMemo(() => new Array(count * count).fill(0), []);
 
   function loadingComplete() {
     if (debug) return;
-    gsap.to(".loading", {
-      opacity: -0.5,
-      delay: 2.5,
-      duration,
-    });
     gsap.to(".loading-wrap", {
       opacity: -0.5,
       delay: 2.5,
-      duration,
+      duration: loadingDuration,
       onComplete: () => {
+        enableLink(false);
         document.querySelector(".loading-wrap")!.classList.toggle("hidden");
         playIntroOnce();
       },
@@ -104,39 +64,12 @@ const Loading = () => {
   }
 
   useIsomorphicLayoutEffect(() => {
+    // listen to asset loading manager's status
     AssetManager.instance.addEventListener("cancelLoading", loadingComplete);
 
     // grid animation
     const ctx = gsap.context(() => {
-      const tl = gsap
-        .timeline()
-        .fromTo(
-          ".rotate",
-          {
-            scale: 0,
-            outlineColor: "#fff",
-            rotation: 0,
-          },
-          {
-            scale: 1,
-            outlineColor: "#e7e0d8",
-            rotation: -360,
-            duration: 1.5,
-            stagger: {
-              each: 0.1,
-              from: "center",
-              grid: "auto",
-            },
-          }
-        )
-        .addLabel("complete");
-
-      tl.tweenTo("complete", {
-        duration: 2.5,
-        ease: EasePack.SlowMo.config(0.3, 0.5, false),
-        repeat: -1,
-        yoyo: true,
-      });
+      loadingGrid();
     });
 
     return () => {
@@ -148,7 +81,7 @@ const Loading = () => {
       {!debug && (
         <div className="loading-wrap">
           <div className="loading">
-            {generate.map((_item, index) => {
+            {dummy.map((_item, index) => {
               if (index === 18) {
                 return <Word text="C" key={index} />;
               } else if (index === 27) {

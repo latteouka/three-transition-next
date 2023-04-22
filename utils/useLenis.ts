@@ -1,6 +1,6 @@
 import Lenis from "@studio-freight/lenis";
 import { useEffect, useRef, useState } from "react";
-import useIsomorphicLayoutEffect from "@/utils/useIsomorphicLayoutEffect";
+import { useIsomorphicLayoutEffect } from "@chundev/gtranz";
 import global from "./globalState";
 import { gsap } from "gsap";
 

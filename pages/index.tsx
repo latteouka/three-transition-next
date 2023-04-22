@@ -5,21 +5,40 @@ import Link from "next/link";
 import {
   useTimeline,
   useIsomorphicLayoutEffect,
-} from "@/components/animations/Gransition";
+  listenTo,
+  stopListenTo,
+  triggerFor,
+} from "@chundev/gtranz";
 import { Func } from "@/gl/core/func";
-import { Util } from "@/gl/libs/util";
-import { Param } from "@/gl/core/param";
 import global from "@/utils/globalState";
 import { theme } from "@/datas/theme";
 import { ImageDataType, imageDatas } from "@/datas/imageDatas";
 import {
   enableLenis,
   enableLink,
+  enablePointer,
+  enableScroll,
   hideAllOtherImages,
   setBackgroundColor,
+  setFontColor,
+  showAllImages,
 } from "@/utils/controls";
 import BottomLink from "@/components/BottomLink";
 import BottomNav from "@/components/BottomNav";
+import {
+  bottomLinkHide,
+  bottomLinkShow,
+  bottomNavHide,
+  bottomNavShow,
+  containerBgColor,
+  imageTranLarge,
+  imageTranSmall,
+  mainTitleHide,
+  mainTitleShow,
+  progressUp,
+  subTitleHide,
+  subTitleShow,
+} from "@/utils/animations";
 
 export default function Home() {
   // const { timeline } = useContext(TransitionContext);
@@ -30,177 +49,71 @@ export default function Home() {
   // this function is for a custom event listener
   // because I need to overwrite gsap tween after another animation
   const setupIndexOutro = useCallback(() => {
-    const wraps = document.querySelectorAll(`.wrap`);
     const images = gsap.utils.toArray(".image");
-    const main = wraps[global.activeIndex].querySelector(".mainTitle")!;
-    const sub = wraps[global.activeIndex].querySelector(".subtitle")!;
 
     timeline.clear();
     timeline.add(
-      gsap.to(`.container`, {
-        backgroundColor: "#fff",
-        duration: 1,
-        onStart: () => {
-          enableLink(false);
-          setBackgroundColor("white");
-          enableLenis(false);
-          hideAllOtherImages();
-        },
+      containerBgColor("white", () => {
+        enableLink(false);
+        setBackgroundColor("white");
+        enableLenis(false);
+        hideAllOtherImages();
       }),
       0
     );
-    timeline.add(
-      gsap.to(main, {
-        y: -100,
-        opacity: 0,
-        duration: 1,
-      }),
-      0
-    );
-    timeline.add(
-      gsap.to(sub, {
-        y: -100,
-        opacity: 0,
-        duration: 1,
-      }),
-      0
-    );
-    timeline.add(
-      gsap.to(".bottomNav", {
-        y: 100,
-        opacity: 0,
-        duration: 1,
-      }),
-      0
-    );
-    timeline.add(
-      gsap.to(".bottomLink", {
-        y: 100,
-        opacity: 0,
-        duration: 1,
-      }),
-      0
-    );
+
+    timeline.add(mainTitleHide(), 0);
+    timeline.add(subTitleHide(), 0);
+    timeline.add(bottomNavHide(), 0);
+    timeline.add(bottomLinkHide(), 0);
+
     images.forEach((image: any) => {
       if (Func.instance.sw() > 800) {
-        timeline.add(
-          gsap.to(image, {
-            x: -Func.instance.sw() * 0.2,
-            y: 150,
-            ease: "elastic",
-            duration: 1.5,
-          }),
-          0
-        );
+        timeline.add(imageTranLarge(image), 0);
       } else {
-        timeline.add(
-          gsap.to(image, {
-            y: 64,
-            ease: "elastic",
-            duration: 1.5,
-          }),
-          0
-        );
+        timeline.add(imageTranSmall(image), 0);
       }
     });
-    timeline.add(
-      gsap.to(Param.instance.main.progress, {
-        value: 2.2,
-        duration: 1.8,
-        ease: "linear",
-        onComplete: () => {
-          global.lenis!.start();
 
-          enableLink(true);
-        },
-      }),
-      ">"
-    );
+    timeline.add(progressUp(), ">");
   }, [timeline]);
 
   // intro
   // init global styles
   useIsomorphicLayoutEffect(() => {
+    const index = global.activeIndex;
     // listen for the scroll animation in useScroll hook
-    document.addEventListener("setupAnimation", setupIndexOutro);
+    listenTo("indexOutroReset", setupIndexOutro);
 
     // if not loaded don't play intro
     // the first time playing intro is controled by loading component
     if (!global.loaded) return;
+
     // limit user control
-    document.documentElement.style.pointerEvents = "none";
-    global.lenis?.stop();
+    enablePointer(false);
+    enableScroll(false);
 
-    document.documentElement.style.setProperty(
-      "--fontColor",
-      theme[global.activeIndex].color
-    );
+    setFontColor(theme[index].color);
 
-    // titles animation
-    const wraps = document.querySelectorAll(`.wrap`);
-    const main = wraps[global.activeIndex].querySelector(".mainTitle")!;
-    const sub = wraps[global.activeIndex].querySelector(".subtitle")!;
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        ".bottomNav",
-        {
-          y: 100,
-          opacity: 0,
-        },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1,
-        }
-      );
-      gsap.fromTo(
-        ".bottomLink",
-        {
-          y: 100,
-          opacity: 0,
-        },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1,
-        }
-      );
-      gsap.fromTo(
-        main,
-        { opacity: 0, x: -100 },
-        {
-          opacity: 1,
-          x: 0,
-          delay: 0.5,
-        }
-      );
-      gsap.fromTo(
-        sub,
-        { opacity: 0, x: -100 },
-        {
-          opacity: 1,
-          x: 0,
-          delay: 0.8,
-          onComplete: () => {
-            // resume user control
-            document.documentElement.style.pointerEvents = "auto";
-            global.lenis!.start();
+      bottomNavShow();
+      bottomLinkShow();
+      mainTitleShow(0);
 
-            // threejs images are hide during backward animation
-            // when come back from detail page show them all
-            global.images.forEach((image) => {
-              image.show();
-            });
-
-            // emit outro animation setup when intro is over
-            Util.instance.ev("setupAnimation", {});
-          },
-        }
-      );
+      subTitleShow(0.2, () => {
+        // resume user control
+        enablePointer(true);
+        enableScroll(true);
+        // threejs images are hide during backward animation
+        // when come back from detail page show them all
+        showAllImages();
+        // emit outro animation setup when intro is over
+        triggerFor("indexOutroReset");
+      });
     });
 
     return () => {
-      document.removeEventListener("setupAnimation", setupIndexOutro);
+      stopListenTo("indexOutroReset", setupIndexOutro);
       ctx.revert();
     };
   }, []);

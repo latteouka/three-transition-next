@@ -1,5 +1,17 @@
 import global from "./globalState";
 
+export function enablePointer(enable: boolean) {
+  document.documentElement.style.pointerEvents = enable ? "auto" : "none";
+}
+
+export function enableScroll(enable: boolean) {
+  if (enable) {
+    global.lenis!.start();
+  } else {
+    global.lenis!.stop();
+  }
+}
+
 export function enableLink(enable: boolean) {
   const links = document.querySelectorAll(
     ".image-link"
@@ -7,6 +19,12 @@ export function enableLink(enable: boolean) {
 
   links.forEach((link) => {
     link.style.pointerEvents = enable ? "auto" : "none";
+  });
+}
+
+export function showAllImages() {
+  global.images.forEach((image) => {
+    image.show();
   });
 }
 

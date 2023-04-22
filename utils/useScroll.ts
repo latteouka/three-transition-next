@@ -1,12 +1,12 @@
 import { useRef } from "react";
-import { useIsomorphicLayoutEffect } from "@/components/animations/Gransition";
+import { triggerFor, useIsomorphicLayoutEffect } from "@chundev/gtranz";
 import { gsap } from "gsap";
 import global from "./globalState";
-import { Util } from "@/gl/libs/util";
 import { Func } from "@/gl/core/func";
 import Lenis from "@studio-freight/lenis";
 import { theme } from "@/datas/theme";
 import { enableLink, setFontColor, setBackgroundColor } from "./controls";
+import { containerBgColor, mainTitleHide } from "./animations";
 
 const { imagesLength, distance } = global;
 
@@ -87,18 +87,15 @@ const useScroll = () => {
         )! as HTMLDivElement;
 
         // 換顏色
-        gsap.to(".container", {
-          backgroundColor: theme[global.activeIndex].background,
-          duration: 1,
-          onStart: () => {
-            setBackgroundColor(theme[global.activeIndex].background);
-          },
+        containerBgColor(theme[global.activeIndex].background, () => {
+          setBackgroundColor(theme[global.activeIndex].background);
         });
 
         // hide current titles
         gsap.set(titleNow, {
           opacity: 0,
         });
+        mainTitleHide();
         gsap.set(subtitleNow, {
           opacity: 0,
         });
@@ -148,7 +145,7 @@ const useScroll = () => {
             onComplete: () => {
               enableLink(true);
               // tell index to overwrite outro animations
-              Util.instance.ev("setupAnimation", {});
+              triggerFor("indexOutroReset");
             },
           }
         );

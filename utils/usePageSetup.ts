@@ -4,11 +4,10 @@ import { Func } from "@/gl/core/func";
 import { gsap } from "gsap";
 import { Param } from "@/gl/core/param";
 import { theme } from "@/datas/theme";
-import { useTimeline } from "@/components/animations/Gransition";
 import Lenis from "@studio-freight/lenis";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { hideAllOtherImages, setBackgroundColor } from "./controls";
-import useIsomorphicLayoutEffect from "./useIsomorphicLayoutEffect";
+import { useIsomorphicLayoutEffect, useTimeline } from "@chundev/gtranz";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -150,7 +149,7 @@ const usePageSetup = (index: number) => {
     });
 
     // when user directly enter page
-    Param.instance.main.progress.value = 3;
+    Param.instance.main.progress.value = 1.3;
 
     return () => {
       ctx.revert();

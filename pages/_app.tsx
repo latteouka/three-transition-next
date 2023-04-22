@@ -3,7 +3,8 @@ import { useEffect, useRef } from "react";
 import Head from "next/head";
 import type { AppProps } from "next/app";
 import { Noto_Sans_JP } from "next/font/google";
-import Gransition from "@/components/animations/Gransition";
+
+import { Gtranz } from "@chundev/gtranz";
 
 import { Contents } from "@/gl/parts/contents";
 import Loading from "@/components/Loading";
@@ -26,7 +27,7 @@ export default function App({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <Gransition>
+    <Gtranz>
       <main className={font.className}>
         <Head>
           <title>Next.js Transition</title>
@@ -35,6 +36,6 @@ export default function App({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
         <Loading />
       </main>
-    </Gransition>
+    </Gtranz>
   );
 }
