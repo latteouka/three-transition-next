@@ -55,8 +55,9 @@ export default function Home() {
     timeline.add(
       containerBgColor("white", () => {
         enableLink(false);
-        setBackgroundColor("white");
+        enablePointer(false);
         enableLenis(false);
+        setBackgroundColor("white");
         hideAllOtherImages();
       }),
       0

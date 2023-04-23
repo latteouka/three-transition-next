@@ -6,7 +6,13 @@ import { Param } from "@/gl/core/param";
 import { theme } from "@/datas/theme";
 import Lenis from "@studio-freight/lenis";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { enableBack, hideAllOtherImages, setBackgroundColor } from "./controls";
+import {
+  enableBack,
+  enablePointer,
+  enableScroll,
+  hideAllOtherImages,
+  setBackgroundColor,
+} from "./controls";
 import { useIsomorphicLayoutEffect, useTimeline } from "@chundev/gtranz";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -36,6 +42,9 @@ const usePageSetup = (index: number) => {
       gsap.to(".back", {
         opacity: 0,
         onStart: () => {
+          enablePointer(false);
+          enableBack(false);
+          enableScroll(false);
           window.scrollTo({
             top: 0,
           });
@@ -114,6 +123,8 @@ const usePageSetup = (index: number) => {
   useIsomorphicLayoutEffect(() => {
     global.activeIndex = index;
     enableBack(false);
+    enablePointer(false);
+    enableScroll(false);
 
     const ctx = gsap.context(() => {
       gsap.fromTo(
@@ -135,6 +146,8 @@ const usePageSetup = (index: number) => {
             hideAllOtherImages();
             setLoaded(true);
             enableBack(true);
+            enablePointer(true);
+            enableScroll(true);
           },
         }
       );
@@ -151,7 +164,7 @@ const usePageSetup = (index: number) => {
     });
 
     // when user directly enter page
-    Param.instance.main.progress.value = 1.3;
+    Param.instance.main.progress.value = 1.5;
 
     return () => {
       ctx.revert();

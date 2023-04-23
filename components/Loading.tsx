@@ -30,10 +30,7 @@ function playIntroOnce() {
     global.loaded = true;
     return;
   }
-  bottomNavShow(() => {
-    enablePointer(false);
-    enableScroll(false);
-  });
+  bottomNavShow();
   bottomLinkShow();
   mainTitleShow(0.1);
   subTitleShow(0.3, () => {
@@ -66,6 +63,8 @@ const Loading = () => {
   useIsomorphicLayoutEffect(() => {
     // listen to asset loading manager's status
     AssetManager.instance.addEventListener("cancelLoading", loadingComplete);
+    enableScroll(false);
+    enablePointer(false);
 
     // grid animation
     const ctx = gsap.context(() => {

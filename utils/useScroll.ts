@@ -5,7 +5,13 @@ import global from "./globalState";
 import { Func } from "@/gl/core/func";
 import Lenis from "@studio-freight/lenis";
 import { theme } from "@/datas/theme";
-import { enableLink, setFontColor, setBackgroundColor } from "./controls";
+import {
+  enableLink,
+  setFontColor,
+  setBackgroundColor,
+  enableScroll,
+  enablePointer,
+} from "./controls";
 import { containerBgColor, mainTitleHide } from "./animations";
 
 const { imagesLength, distance } = global;
@@ -71,6 +77,7 @@ const useScroll = () => {
 
         // prevent clicking other link
         enableLink(false);
+        enablePointer(false);
 
         const titleNow = wraps[pre].querySelector(
           ".mainTitle"
@@ -144,6 +151,7 @@ const useScroll = () => {
             delay: 0.8,
             onComplete: () => {
               enableLink(true);
+              enablePointer(true);
               // tell index to overwrite outro animations
               triggerFor("indexOutroReset");
             },
