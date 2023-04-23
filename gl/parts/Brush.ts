@@ -46,6 +46,7 @@ export class Brush extends MyObject3D {
 
   private _setNewWave(x: number, y: number, index: number) {
     const mesh = this.meshes[index];
+    if (!mesh) return;
     mesh.visible = true;
     mesh.position.x = x;
     mesh.position.y = y;
