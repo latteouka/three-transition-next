@@ -245,21 +245,6 @@ export class Util {
     }
   }
 
-  // クエリ抜き出し
-  // -----------------------------------
-  // @key : 抜き出すパラメータ名(String)
-  // -----------------------------------
-  getQuery(key: string): string {
-    key = key.replace(/[€[]/, "€€€[").replace(/[€]]/, "€€€]");
-    const regex = new RegExp("[€€?&]" + key + "=([^&//]*)");
-    const qs = regex.exec(window.location.href);
-    if (qs == null) {
-      return "";
-    } else {
-      return qs[1];
-    }
-  }
-
   // -----------------------------------
   // タッチデバイスかどうか
   // -----------------------------------
