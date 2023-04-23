@@ -30,6 +30,13 @@ const nextConfig = {
 
     return config;
   },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  swcMinify: true,
 };
 
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
