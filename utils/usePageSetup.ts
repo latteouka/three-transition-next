@@ -6,7 +6,7 @@ import { Param } from "@/gl/core/param";
 import { theme } from "@/datas/theme";
 import Lenis from "@studio-freight/lenis";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { hideAllOtherImages, setBackgroundColor } from "./controls";
+import { enableBack, hideAllOtherImages, setBackgroundColor } from "./controls";
 import { useIsomorphicLayoutEffect, useTimeline } from "@chundev/gtranz";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -113,6 +113,7 @@ const usePageSetup = (index: number) => {
   // intro
   useIsomorphicLayoutEffect(() => {
     global.activeIndex = index;
+    enableBack(false);
 
     const ctx = gsap.context(() => {
       gsap.fromTo(
@@ -133,6 +134,7 @@ const usePageSetup = (index: number) => {
             selectorToPage();
             hideAllOtherImages();
             setLoaded(true);
+            enableBack(true);
           },
         }
       );
@@ -161,6 +163,6 @@ const usePageSetup = (index: number) => {
     global.lenis.on("scroll", ({ scroll }: Lenis) => {
       global.images[index].scroll(scroll);
     });
-  }, []);
+  }, [index]);
 };
 export default usePageSetup;

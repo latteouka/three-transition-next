@@ -22,6 +22,11 @@ export function enableLink(enable: boolean) {
   });
 }
 
+export function enableBack(enable: boolean) {
+  const back = document.querySelector(".page-back") as HTMLAnchorElement;
+  back.style.pointerEvents = enable ? "auto" : "none";
+}
+
 export function showAllImages() {
   global.images.forEach((image) => {
     image.show();

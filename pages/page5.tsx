@@ -17,7 +17,9 @@ const Page = () => {
       <div className="page-content">
         <div className="back-wrap">
           <div className="back">
-            <Link href="/">Back</Link>
+            <Link href="/" className="page-back">
+              Back
+            </Link>
           </div>
         </div>
         <div className="page-title">
