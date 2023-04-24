@@ -1,6 +1,4 @@
-import { LoadingManager, EventDispatcher } from "three";
-import { TextureLoader } from "three/src/loaders/TextureLoader";
-import { Texture } from "three/src/textures/Texture";
+import { LoadingManager, EventDispatcher, TextureLoader, Texture } from "three";
 import { Util } from "../libs/util";
 import { IETexture } from "./ieTexture";
 

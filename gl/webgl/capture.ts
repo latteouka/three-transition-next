@@ -1,9 +1,11 @@
-import { Scene } from "three/src/scenes/Scene";
-import { WebGLRenderTarget } from "three/src/renderers/WebGLRenderTarget";
-import { WebGLRenderer } from "three/src/renderers/WebGLRenderer";
-import { Texture } from "three/src/textures/Texture";
-import { Camera } from "three/src/cameras/Camera";
-import { RGBAFormat } from "three/src/constants";
+import {
+  Scene,
+  WebGLRenderTarget,
+  WebGLRenderer,
+  Texture,
+  Camera,
+  RGBAFormat,
+} from "three";
 
 export class Capture extends Scene {
   public opt: any = {};

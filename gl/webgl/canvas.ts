@@ -1,12 +1,14 @@
 import { MyDisplay } from "../core/myDisplay";
-import { WebGLRenderer } from "three/src/renderers/WebGLRenderer";
-import { Scene } from "three/src/scenes/Scene";
+import {
+  WebGLRenderer,
+  Scene,
+  OrthographicCamera,
+  PerspectiveCamera,
+  Mesh,
+  Points,
+} from "three";
 import { Rect } from "../libs/rect";
-import { OrthographicCamera } from "three/src/cameras/OrthographicCamera";
-import { PerspectiveCamera } from "three/src/cameras/PerspectiveCamera";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { Mesh } from "three/src/objects/Mesh";
-import { Points } from "three/src/objects/Points";
 
 export class Canvas extends MyDisplay {
   public cameraPers: PerspectiveCamera;
