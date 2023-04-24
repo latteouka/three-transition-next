@@ -27,7 +27,7 @@ const useScroll = () => {
       ".wrap"
     )! as NodeListOf<HTMLDivElement>;
 
-    const triggerVelocity = Func.instance.sw() > 600 ? 80 : 80;
+    const triggerVelocity = Func.instance.sw() > 600 ? 80 : 40;
 
     // init lenis
     const lenis = new Lenis({

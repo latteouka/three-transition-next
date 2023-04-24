@@ -1,3 +1,4 @@
+@use "../global/mixin" as *;
 @use "../global/variables" as *;
 
 .bottomNav {
@@ -9,6 +10,7 @@
   bottom: 1rem;
   font-size: 1.3rem;
   color: $slate-700;
+  font-family: var(--font-roboto);
 
   &-before,
   &-after {
@@ -36,6 +38,7 @@
   left: 1rem;
   bottom: 1rem;
   font-size: 1.3rem;
+  font-family: var(--font-roboto);
 
   a {
     color: var(--fontColor);
@@ -47,5 +50,8 @@
     &:hover {
       filter: brightness(0.5);
     }
+  }
+  @include sp {
+    font-size: 1rem;
   }
 }

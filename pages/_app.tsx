@@ -8,6 +8,15 @@ import { Gtranz } from "@chundev/gtranz";
 import { Contents } from "@/gl/parts/contents";
 import Loading from "@/components/Loading";
 
+import { Roboto } from "next/font/google";
+
+const roboto = Roboto({
+  display: "swap",
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-roboto",
+});
+
 export default function App({ Component, pageProps }: AppProps) {
   let three = useRef<Contents>();
 
@@ -17,7 +26,7 @@ export default function App({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <main>
+    <main className={roboto.variable}>
       <Head>
         <title>Next.js Transition</title>
       </Head>
