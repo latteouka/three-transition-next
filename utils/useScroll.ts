@@ -27,7 +27,7 @@ const useScroll = () => {
       ".wrap"
     )! as NodeListOf<HTMLDivElement>;
 
-    const triggerVelocity = Func.instance.sw() > 600 ? 50 : 20;
+    const triggerVelocity = Func.instance.sw() > 600 ? 80 : 80;
 
     // init lenis
     const lenis = new Lenis({
@@ -60,8 +60,8 @@ const useScroll = () => {
       if (velocity < triggerVelocity && velocity > -triggerVelocity) {
         if (moving.current) return;
         gsap.to(images[global.activeIndex]!, {
-          x: velocity * 8,
-          y: -velocity * 8,
+          x: velocity * 5,
+          y: -velocity * 5,
         });
       } else {
         // high velocity
@@ -76,7 +76,6 @@ const useScroll = () => {
 
         // prevent clicking other link
         enableLink(false);
-        enablePointer(false);
 
         const titleNext = wraps[global.activeIndex]!.querySelector(
           ".mainTitle"
@@ -113,7 +112,6 @@ const useScroll = () => {
             ease: "back",
             onStart: () => {
               moving.current = true;
-              // setActive(isNext ? getNext() : getPre());
             },
             onComplete: () => {
               moving.current = false;
@@ -141,7 +139,6 @@ const useScroll = () => {
             delay: 0.5,
             onComplete: () => {
               enableLink(true);
-              enablePointer(true);
             },
           }
         );
