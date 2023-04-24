@@ -27,9 +27,7 @@ export class Visual extends Canvas {
 
     this._brush = new Brush();
 
-    EasyRaycaster.instance.addEventListener("click/image1", () => {
-      console.log("click");
-    });
+    // EasyRaycaster.instance.addEventListener("click/image1", () => {});
 
     document.addEventListener("pointerdown", () =>
       EasyRaycaster.instance.touchStart(this._cursor, this.cameraPers)
@@ -61,7 +59,7 @@ export class Visual extends Canvas {
     this.renderer.setRenderTarget(this._brush.brushTexture);
     this.renderer.render(this._brush.scene, this.cameraPers);
     global.images.forEach((image) => {
-      image.material.uniforms.u_brush.value = this._brush.brushTexture.texture;
+      image.material.uniforms.u_brush!.value = this._brush.brushTexture.texture;
     });
     this.renderer.setRenderTarget(null);
     this.renderer.clear();

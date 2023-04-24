@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { triggerFor, useIsomorphicLayoutEffect } from "@chundev/gtranz";
+import { useIsomorphicLayoutEffect } from "@chundev/gtranz";
 import { gsap } from "gsap";
 import global from "./globalState";
 import { Func } from "@/gl/core/func";
@@ -9,10 +9,9 @@ import {
   enableLink,
   setFontColor,
   setBackgroundColor,
-  enableScroll,
   enablePointer,
 } from "./controls";
-import { containerBgColor, mainTitleHide } from "./animations";
+import { containerBgColor, mainTitleHide, subTitleHide } from "./animations";
 
 const { imagesLength, distance } = global;
 
@@ -60,7 +59,7 @@ const useScroll = () => {
       // low velocity
       if (velocity < triggerVelocity && velocity > -triggerVelocity) {
         if (moving.current) return;
-        gsap.to(images[global.activeIndex], {
+        gsap.to(images[global.activeIndex]!, {
           x: velocity * 8,
           y: -velocity * 8,
         });
@@ -73,48 +72,37 @@ const useScroll = () => {
         const pre = global.activeIndex;
         global.activeIndex = isNext ? getNext() : getPre();
 
-        setFontColor(theme[global.activeIndex].color);
+        setFontColor(theme[global.activeIndex]!.color);
 
         // prevent clicking other link
         enableLink(false);
         enablePointer(false);
 
-        const titleNow = wraps[pre].querySelector(
-          ".mainTitle"
-        )! as HTMLDivElement;
-        const titleNext = wraps[global.activeIndex].querySelector(
+        const titleNext = wraps[global.activeIndex]!.querySelector(
           ".mainTitle"
         )! as HTMLDivElement;
 
-        const subtitleNow = wraps[pre].querySelector(
-          ".subtitle"
-        )! as HTMLDivElement;
-        const subtitleNext = wraps[global.activeIndex].querySelector(
+        const subtitleNext = wraps[global.activeIndex]!.querySelector(
           ".subtitle"
         )! as HTMLDivElement;
 
         // 換顏色
-        containerBgColor(theme[global.activeIndex].background, () => {
-          setBackgroundColor(theme[global.activeIndex].background);
+        containerBgColor(theme[global.activeIndex]!.background, () => {
+          setBackgroundColor(theme[global.activeIndex]!.background);
         });
 
         // hide current titles
-        gsap.set(titleNow, {
-          opacity: 0,
-        });
         mainTitleHide();
-        gsap.set(subtitleNow, {
-          opacity: 0,
-        });
+        subTitleHide();
 
         // move current image top-right
-        gsap.to(images[pre], {
+        gsap.to(images[pre]!, {
           x: isNext ? distance : -distance,
           y: isNext ? -distance : distance,
         });
         // move next image from bottom-left to 0,0
         gsap.fromTo(
-          images[global.activeIndex],
+          images[global.activeIndex]!,
           {
             x: isNext ? -distance : distance,
             y: isNext ? distance : -distance,
@@ -135,25 +123,25 @@ const useScroll = () => {
         // animate next titles
         gsap.fromTo(
           titleNext,
-          { opacity: 0, x: isNext ? -100 : 100 },
+          { opacity: 0, x: isNext ? -100 : 100, y: 0 },
           {
             opacity: 1,
             x: 0,
+            y: 0,
             delay: 0.5,
           }
         );
         gsap.fromTo(
           subtitleNext,
-          { opacity: 0, x: isNext ? -100 : 100 },
+          { opacity: 0, x: isNext ? 100 : -100, y: 0 },
           {
             opacity: 1,
             x: 0,
-            delay: 0.8,
+            y: 0,
+            delay: 0.5,
             onComplete: () => {
               enableLink(true);
               enablePointer(true);
-              // tell index to overwrite outro animations
-              triggerFor("indexOutroReset");
             },
           }
         );

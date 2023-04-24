@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import global from "@/utils/globalState";
 import { Func } from "@/gl/core/func";
 import { gsap } from "gsap";
@@ -30,9 +30,6 @@ function selectorToPage() {
 }
 
 const usePageSetup = (index: number) => {
-  // when intro is done, use this state to trigger outro setup
-  const [loaded, setLoaded] = useState(false);
-  // const { timeline } = useContext(TransitionContext);
   const timeline = useTimeline();
 
   // out
@@ -49,7 +46,7 @@ const usePageSetup = (index: number) => {
             top: 0,
           });
           global.lenis?.stop();
-          global.images[index].needUpdateTrue();
+          global.images[index]!.needUpdateTrue();
         },
       }),
       0
@@ -69,11 +66,11 @@ const usePageSetup = (index: number) => {
 
     timeline.add(
       gsap.to(".page-wrapper", {
-        backgroundColor: theme[index].background,
+        backgroundColor: theme[index]!.background,
         delay: 0.5,
         duration: 1,
         onStart: () => {
-          setBackgroundColor(theme[global.activeIndex].background);
+          setBackgroundColor(theme[global.activeIndex]!.background);
         },
       }),
       0
@@ -117,7 +114,7 @@ const usePageSetup = (index: number) => {
     return () => {
       timeline?.clear();
     };
-  }, [loaded]);
+  }, []);
 
   // intro
   useIsomorphicLayoutEffect(() => {
@@ -144,7 +141,7 @@ const usePageSetup = (index: number) => {
           onComplete: () => {
             selectorToPage();
             hideAllOtherImages();
-            setLoaded(true);
+
             enableBack(true);
             enablePointer(true);
             enableScroll(true);
@@ -164,7 +161,7 @@ const usePageSetup = (index: number) => {
     });
 
     // when user directly enter page
-    Param.instance.main.progress.value = 1.5;
+    Param.instance.main.progress.value = 1.7;
 
     return () => {
       ctx.revert();
@@ -172,9 +169,9 @@ const usePageSetup = (index: number) => {
   }, []);
 
   useEffect(() => {
-    if (!global.lenis) return;
+    if (!global.lenis || !global.images[0]) return;
     global.lenis.on("scroll", ({ scroll }: Lenis) => {
-      global.images[index].scroll(scroll);
+      global.images[index]!.scroll(scroll);
     });
   }, [index]);
 };

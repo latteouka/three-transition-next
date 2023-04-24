@@ -2,21 +2,11 @@ import "@/styles/style.scss";
 import { useEffect, useRef } from "react";
 import Head from "next/head";
 import type { AppProps } from "next/app";
-import { Noto_Sans_JP } from "next/font/google";
 
 import { Gtranz } from "@chundev/gtranz";
 
 import { Contents } from "@/gl/parts/contents";
 import Loading from "@/components/Loading";
-import { gsap } from "gsap";
-
-gsap.defaults({ overwrite: true });
-
-const font = Noto_Sans_JP({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-  variable: "--noto-font",
-});
 
 export default function App({ Component, pageProps }: AppProps) {
   let three = useRef<Contents>();
@@ -27,7 +17,7 @@ export default function App({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <main className={font.className}>
+    <main>
       <Head>
         <title>Next.js Transition</title>
       </Head>
