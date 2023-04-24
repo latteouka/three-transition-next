@@ -1,14 +1,7 @@
-import { useCallback } from "react";
 import useScroll from "@/utils/useScroll";
 import { gsap } from "gsap";
 import Link from "next/link";
-import {
-  useTimeline,
-  useIsomorphicLayoutEffect,
-  listenTo,
-  stopListenTo,
-  triggerFor,
-} from "@chundev/gtranz";
+import { useTimeline, useIsomorphicLayoutEffect } from "@chundev/gtranz";
 import { Func } from "@/gl/core/func";
 import global from "@/utils/globalState";
 import { theme } from "@/datas/theme";
@@ -48,7 +41,7 @@ export default function Home() {
   // setup outro animation
   // this function is for a custom event listener
   // because I need to overwrite gsap tween after another animation
-  const setupIndexOutro = useCallback(() => {
+  const setupIndexOutro = () => {
     const images = gsap.utils.toArray(".image");
 
     timeline.clear();
@@ -77,14 +70,19 @@ export default function Home() {
     });
 
     timeline.add(progressUp(), ">");
-  }, [timeline]);
+  };
+
+  // outro
+  useIsomorphicLayoutEffect(() => {
+    setupIndexOutro();
+  }, []);
 
   // intro
   // init global styles
   useIsomorphicLayoutEffect(() => {
     const index = global.activeIndex;
     // listen for the scroll animation in useScroll hook
-    listenTo("indexOutroReset", setupIndexOutro);
+    // listenTo("indexOutroReset", setupIndexOutro);
 
     // if not loaded don't play intro
     // the first time playing intro is controled by loading component
@@ -94,7 +92,7 @@ export default function Home() {
     enablePointer(false);
     enableScroll(false);
 
-    setFontColor(theme[index].color);
+    setFontColor(theme[index]!.color);
 
     const ctx = gsap.context(() => {
       bottomNavShow();
@@ -109,12 +107,12 @@ export default function Home() {
         // when come back from detail page show them all
         showAllImages();
         // emit outro animation setup when intro is over
-        triggerFor("indexOutroReset");
+        // triggerFor("indexOutroReset");
       });
     });
 
     return () => {
-      stopListenTo("indexOutroReset", setupIndexOutro);
+      // stopListenTo("indexOutroReset", setupIndexOutro);
       ctx.revert();
     };
   }, []);

@@ -9,7 +9,6 @@ import global from "@/utils/globalState";
 import { imageDatas } from "@/datas/imageDatas";
 import { AssetManager } from "../webgl/assetsManager";
 import { EasyRaycaster } from "../webgl/raycaster";
-import { MousePointer } from "../core/mousePointer";
 
 export class Images {
   constructor(container: THREE.Object3D) {
@@ -66,11 +65,12 @@ export class Item extends MyObject3D {
       transparent: true,
     });
 
+    // after textures are all loaded
     AssetManager.instance.addEventListener("updateTexture", () => {
-      this.material.uniforms.u_texture.value = AssetManager.instance.getTex(
+      this.material.uniforms.u_texture!.value = AssetManager.instance.getTex(
         `image${index + 1}`
       ).value;
-      this.material.uniforms.u_mask.value = AssetManager.instance.getTex(
+      this.material.uniforms.u_mask!.value = AssetManager.instance.getTex(
         `mask${index + 1}`
       ).value;
     });
@@ -102,7 +102,7 @@ export class Item extends MyObject3D {
       530,
       1280
     );
-    this.material.uniforms.u_resolution.value.set(width, height, a1, a2);
+    this.material.uniforms.u_resolution!.value.set(width, height, a1, a2);
   }
 
   protected _update(): void {
@@ -115,19 +115,19 @@ export class Item extends MyObject3D {
     this._updateResolution();
 
     // uniforms
-    this.material.uniforms.u_time.value = Update.instance.elapsed;
+    this.material.uniforms.u_time!.value = Update.instance.elapsed;
 
-    this.material.uniforms.u_progress.value =
+    this.material.uniforms.u_progress!.value =
       Param.instance.main.progress.value;
 
-    this.material.uniforms.u_colorFactor.value =
+    this.material.uniforms.u_colorFactor!.value =
       Param.instance.main.colorFactor.value;
   }
 
   protected _resize(): void {
     super._resize();
 
-    this.material.uniforms.u_screen.value.set(
+    this.material.uniforms.u_screen!.value.set(
       Func.instance.sw(),
       Func.instance.sh(),
       window.devicePixelRatio

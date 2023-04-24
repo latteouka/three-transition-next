@@ -1,6 +1,6 @@
 import { gsap } from "gsap";
 import { AssetManager } from "@/gl/webgl/assetsManager";
-import { triggerFor, useIsomorphicLayoutEffect } from "@chundev/gtranz";
+import { useIsomorphicLayoutEffect } from "@chundev/gtranz";
 import global from "@/utils/globalState";
 import { useMemo } from "react";
 import {
@@ -30,11 +30,12 @@ function playIntroOnce() {
     global.loaded = true;
     return;
   }
+  // show elements
   bottomNavShow();
   bottomLinkShow();
   mainTitleShow(0.1);
   subTitleShow(0.3, () => {
-    triggerFor("indexOutroReset");
+    // triggerFor("indexOutroReset");
     enableScroll(true);
     showAllImages();
     global.loaded = true;
@@ -61,7 +62,8 @@ const Loading = () => {
   }
 
   useIsomorphicLayoutEffect(() => {
-    // listen to asset loading manager's status
+    // preload textures
+    // listen to the status of asset loading manager
     AssetManager.instance.addEventListener("cancelLoading", loadingComplete);
     enableScroll(false);
     enablePointer(false);

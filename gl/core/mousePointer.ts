@@ -41,6 +41,11 @@ export class MousePointer {
     document.addEventListener("pointermove", (e: any = {}) => {
       this._eMove(e);
     });
+
+    // reset dist when the mouse left the document
+    document.addEventListener("pointerleave", (e: any = {}) => {
+      this.dist = 0;
+    });
   }
   public removeListeners() {
     window.removeEventListener("pointerdown", (e: any = {}) => {

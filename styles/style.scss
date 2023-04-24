@@ -52,13 +52,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  // flex-wrap: wrap-reverse;
-  // gap: 2rem;
-
-  // &:first-child .mainTitle,
-  // &:first-child .subtitle {
-  //   opacity: 1;
-  // }
 
   @include sp {
     flex-direction: column-reverse;
@@ -78,6 +71,7 @@ body {
 .mainTitle {
   opacity: 0;
   color: var(--fontColor);
+  transition: color 1s;
 
   &-wrap {
     position: relative;
@@ -100,6 +94,7 @@ body {
 .subtitle {
   opacity: 0;
   color: var(--fontColor);
+  transition: color 1s;
 
   &-wrap {
     margin-top: 2rem;

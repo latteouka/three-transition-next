@@ -3,8 +3,6 @@ import Stats from "three/examples/jsm/libs/stats.module";
 import { Conf } from "./conf";
 import { Update } from "../libs/update";
 import { FPS } from "../core/fps";
-import { Func } from "./func";
-import { argv0 } from "process";
 
 export class Param {
   private static _instance: Param;
@@ -18,7 +16,7 @@ export class Param {
 
   public main = {
     progress: {
-      value: Func.instance.sw() > 800 ? -0.58 : -0.58,
+      value: -0.58,
       min: -3,
       max: 3,
     },

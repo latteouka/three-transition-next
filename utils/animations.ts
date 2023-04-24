@@ -21,18 +21,19 @@ export function containerBgColor(color: string, onStart: () => void) {
 	Main Title
 -------------------------------*/
 export function mainTitleHide() {
-  const wraps = document.querySelectorAll(`.wrap`);
-  const main = wraps[global.activeIndex].querySelector(".mainTitle")!;
-  return gsap.to(main, {
-    y: -100,
-    opacity: 0,
-    duration: 1,
+  const wraps = gsap.utils.toArray(".wrap") as HTMLDivElement[];
+  return wraps.map((wrap) => {
+    const title = wrap.querySelector(".mainTitle");
+    return gsap.to(title, {
+      opacity: 0,
+      duration: 0.5,
+    });
   });
 }
 
 export function mainTitleShow(delay: number) {
   const wraps = document.querySelectorAll(`.wrap`);
-  const main = wraps[global.activeIndex].querySelector(".mainTitle")!;
+  const main = wraps[global.activeIndex]!.querySelector(".mainTitle");
   return gsap.fromTo(
     main,
     { opacity: 0, x: -100 },
@@ -48,18 +49,19 @@ export function mainTitleShow(delay: number) {
 	Sub Title
 -------------------------------*/
 export function subTitleHide() {
-  const wraps = document.querySelectorAll(`.wrap`);
-  const sub = wraps[global.activeIndex].querySelector(".subtitle")!;
-  return gsap.to(sub, {
-    y: -100,
-    opacity: 0,
-    duration: 1,
+  const wraps = gsap.utils.toArray(".wrap") as HTMLDivElement[];
+  return wraps.map((wrap) => {
+    const title = wrap.querySelector(".subtitle");
+    return gsap.to(title, {
+      opacity: 0,
+      duration: 0.5,
+    });
   });
 }
 
 export function subTitleShow(delay: number, onComplete: () => void) {
   const wraps = document.querySelectorAll(`.wrap`);
-  const sub = wraps[global.activeIndex].querySelector(".subtitle")!;
+  const sub = wraps[global.activeIndex]!.querySelector(".subtitle");
   return gsap.fromTo(
     sub,
     { opacity: 0, x: -100 },
@@ -94,6 +96,7 @@ export function bottomNavShow(onStart?: () => void) {
       y: 0,
       opacity: 1,
       duration: 1,
+      onStart,
     }
   );
 }
@@ -149,7 +152,7 @@ export function imageTranSmall(image: any) {
 -------------------------------*/
 export function progressUp() {
   return gsap.to(Param.instance.main.progress, {
-    value: 1.5,
+    value: 1.7,
     duration: 1.2,
     ease: "linear",
     onComplete: () => {
