@@ -1,8 +1,6 @@
 import * as THREE from "three";
-import { Cache } from "three";
 import { Func } from "../core/func";
 import { Canvas } from "../webgl/canvas";
-import { Object3D } from "three/src/core/Object3D";
 import { Update } from "../libs/update";
 import { Images } from "./Item";
 import { Brush } from "./Brush";
@@ -10,17 +8,17 @@ import global from "@/utils/globalState";
 import { EasyRaycaster } from "../webgl/raycaster";
 import { MousePointer } from "../core/mousePointer";
 
-Cache.enabled = true;
+THREE.Cache.enabled = true;
 
 export class Visual extends Canvas {
   private _brush: Brush;
-  private _con: Object3D;
+  private _con: THREE.Object3D;
   private _cursor = new THREE.Vector2(0, 0);
 
   constructor(opt: any) {
     super(opt);
 
-    this._con = new Object3D();
+    this._con = new THREE.Object3D();
     this.mainScene.add(this._con);
 
     new Images(this._con);

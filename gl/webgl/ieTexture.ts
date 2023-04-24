@@ -1,5 +1,4 @@
 import { Texture } from "three";
-// import { RGBAFormat,RGBAFOr } from 'three/src/constants';
 
 export class IETexture {
   constructor() {}
