@@ -10,7 +10,7 @@ import { Contents } from "@/gl/parts/contents";
 import Loading from "@/components/Loading";
 import { gsap } from "gsap";
 
-gsap.defaults({ overwrite: true });
+gsap.defaults({ overwrite: false });
 
 const font = Noto_Sans_JP({
   weight: ["400", "700"],
