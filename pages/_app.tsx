@@ -27,15 +27,15 @@ export default function App({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <Gtranz>
-      <main className={font.className}>
-        <Head>
-          <title>Next.js Transition</title>
-        </Head>
-        <canvas className="l-canvas"></canvas>
+    <main className={font.className}>
+      <Head>
+        <title>Next.js Transition</title>
+      </Head>
+      <canvas className="l-canvas"></canvas>
+      <Gtranz>
         <Component {...pageProps} />
-        <Loading />
-      </main>
-    </Gtranz>
+      </Gtranz>
+      <Loading />
+    </main>
   );
 }
