@@ -34,14 +34,11 @@ import {
 } from "@/utils/animations";
 
 export default function Home() {
-  // const { timeline } = useContext(TransitionContext);
   const timeline = useTimeline();
   useScroll();
 
-  // setup outro animation
-  // this function is for a custom event listener
-  // because I need to overwrite gsap tween after another animation
-  const setupIndexOutro = () => {
+  // outro
+  useIsomorphicLayoutEffect(() => {
     const images = gsap.utils.toArray(".image");
 
     timeline.clear();
@@ -70,19 +67,12 @@ export default function Home() {
     });
 
     timeline.add(progressUp(), ">");
-  };
-
-  // outro
-  useIsomorphicLayoutEffect(() => {
-    setupIndexOutro();
   }, []);
 
   // intro
   // init global styles
   useIsomorphicLayoutEffect(() => {
     const index = global.activeIndex;
-    // listen for the scroll animation in useScroll hook
-    // listenTo("indexOutroReset", setupIndexOutro);
 
     // if not loaded don't play intro
     // the first time playing intro is controled by loading component
